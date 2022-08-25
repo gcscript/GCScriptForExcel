@@ -310,6 +310,7 @@ namespace GCScript_for_Excel.Classes
 
             if (cl_Settings.ApplyRemove_Apply_AllSheets == false)
             {
+                RemoveFilter(ws);
                 if (cl_Settings.ApplyRemove_Remove_Formula == true) { RemoveFormula(rng); }
 
                 if (cl_Settings.ApplyRemove_Apply_Zoom == true) { PageZoom(ws, cl_Settings.ApplyRemove_Apply_ZoomValue); }
@@ -342,6 +343,8 @@ namespace GCScript_for_Excel.Classes
                 {
                     if (sheet.Visible == XlSheetVisibility.xlSheetHidden)
                         continue;
+
+                    RemoveFilter(sheet);
 
                     sheet.Select();
                     rng = sheet.Cells;
@@ -442,6 +445,12 @@ namespace GCScript_for_Excel.Classes
         {
             rng.Copy();
             rng.PasteSpecial(XlPasteType.xlPasteValues, XlPasteSpecialOperation.xlPasteSpecialOperationNone, false, false);
+        }
+
+        public static void RemoveFilter(Worksheet ws)
+        {
+            if (ws.AutoFilter != null)
+                ws.AutoFilterMode = false;
         }
 
         public static void RemoveConditionalFormatting(Range rng)
