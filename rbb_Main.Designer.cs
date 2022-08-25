@@ -37,6 +37,13 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(rbb_Main));
             this.rbt_Main = this.Factory.CreateRibbonTab();
             this.grp_Tools = this.Factory.CreateRibbonGroup();
+            this.grp_Styles = this.Factory.CreateRibbonGroup();
+            this.grp_Number = this.Factory.CreateRibbonGroup();
+            this.grp_Info = this.Factory.CreateRibbonGroup();
+            this.grp_Others = this.Factory.CreateRibbonGroup();
+            this.rbt_Testes = this.Factory.CreateRibbonTab();
+            this.grp_Tests = this.Factory.CreateRibbonGroup();
+            this.grp_Beta = this.Factory.CreateRibbonGroup();
             this.glr_ApplyRemove = this.Factory.CreateRibbonGallery();
             this.ApplyRemove_btn_Start = this.Factory.CreateRibbonButton();
             this.ApplyRemove_btn_Settings = this.Factory.CreateRibbonButton();
@@ -75,7 +82,6 @@
             this.More_btn_CheckSelection = this.Factory.CreateRibbonButton();
             this.More_btn_CheckActiveSheet = this.Factory.CreateRibbonButton();
             this.More_btn_CheckAllSheets = this.Factory.CreateRibbonButton();
-            this.grp_Styles = this.Factory.CreateRibbonGroup();
             this.Styles_btn_Primary = this.Factory.CreateRibbonButton();
             this.Styles_btn_Secondary = this.Factory.CreateRibbonButton();
             this.Styles_btn_Success = this.Factory.CreateRibbonButton();
@@ -99,28 +105,22 @@
             this.Styles_glr_Emphasis4 = this.Factory.CreateRibbonButton();
             this.Styles_glr_Emphasis5 = this.Factory.CreateRibbonButton();
             this.Styles_btn_Default = this.Factory.CreateRibbonButton();
-            this.grp_Number = this.Factory.CreateRibbonGroup();
             this.Number_btn_General = this.Factory.CreateRibbonButton();
             this.Number_btn_Text = this.Factory.CreateRibbonButton();
             this.Number_btn_Accounting = this.Factory.CreateRibbonButton();
-            this.grp_Info = this.Factory.CreateRibbonGroup();
             this.Info_btn_LinhasUsadas = this.Factory.CreateRibbonButton();
             this.Info_btn_ColunasUsadas = this.Factory.CreateRibbonButton();
             this.Info_btn_ObterTipoCell = this.Factory.CreateRibbonButton();
             this.Info_btn_SelecionarRange = this.Factory.CreateRibbonButton();
             this.Info_btn_SelecionarTudo = this.Factory.CreateRibbonButton();
-            this.grp_Others = this.Factory.CreateRibbonGroup();
             this.Tools_btn_SetTitle = this.Factory.CreateRibbonButton();
             this.btn_Settings = this.Factory.CreateRibbonButton();
-            this.rbt_Testes = this.Factory.CreateRibbonTab();
-            this.grp_Tests = this.Factory.CreateRibbonGroup();
             this.btn_T1 = this.Factory.CreateRibbonButton();
             this.btn_T2 = this.Factory.CreateRibbonButton();
             this.btn_T3 = this.Factory.CreateRibbonButton();
             this.btn_T4 = this.Factory.CreateRibbonButton();
             this.btn_T5 = this.Factory.CreateRibbonButton();
             this.btn_T6 = this.Factory.CreateRibbonButton();
-            this.grp_Beta = this.Factory.CreateRibbonGroup();
             this.btn_RemoverFC = this.Factory.CreateRibbonButton();
             this.rbt_Main.SuspendLayout();
             this.grp_Tools.SuspendLayout();
@@ -158,6 +158,73 @@
             this.grp_Tools.Label = "Tools";
             this.grp_Tools.Name = "grp_Tools";
             // 
+            // grp_Styles
+            // 
+            this.grp_Styles.Items.Add(this.Styles_btn_Primary);
+            this.grp_Styles.Items.Add(this.Styles_btn_Secondary);
+            this.grp_Styles.Items.Add(this.Styles_btn_Success);
+            this.grp_Styles.Items.Add(this.Styles_btn_Danger);
+            this.grp_Styles.Items.Add(this.Styles_btn_Warning);
+            this.grp_Styles.Items.Add(this.Styles_btn_Info);
+            this.grp_Styles.Items.Add(this.Styles_glr_Bootstrap);
+            this.grp_Styles.Items.Add(this.Styles_glr_Emphasis);
+            this.grp_Styles.Items.Add(this.Styles_btn_Default);
+            this.grp_Styles.KeyTip = "2";
+            this.grp_Styles.Label = "Styles";
+            this.grp_Styles.Name = "grp_Styles";
+            // 
+            // grp_Number
+            // 
+            this.grp_Number.Items.Add(this.Number_btn_General);
+            this.grp_Number.Items.Add(this.Number_btn_Text);
+            this.grp_Number.Items.Add(this.Number_btn_Accounting);
+            this.grp_Number.KeyTip = "3";
+            this.grp_Number.Label = "Number";
+            this.grp_Number.Name = "grp_Number";
+            // 
+            // grp_Info
+            // 
+            this.grp_Info.Items.Add(this.Info_btn_LinhasUsadas);
+            this.grp_Info.Items.Add(this.Info_btn_ColunasUsadas);
+            this.grp_Info.Items.Add(this.Info_btn_ObterTipoCell);
+            this.grp_Info.Items.Add(this.Info_btn_SelecionarRange);
+            this.grp_Info.Items.Add(this.Info_btn_SelecionarTudo);
+            this.grp_Info.KeyTip = "4";
+            this.grp_Info.Label = "Info";
+            this.grp_Info.Name = "grp_Info";
+            // 
+            // grp_Others
+            // 
+            this.grp_Others.Items.Add(this.Tools_btn_SetTitle);
+            this.grp_Others.Items.Add(this.btn_Settings);
+            this.grp_Others.KeyTip = "5";
+            this.grp_Others.Label = "Others";
+            this.grp_Others.Name = "grp_Others";
+            // 
+            // rbt_Testes
+            // 
+            this.rbt_Testes.Groups.Add(this.grp_Tests);
+            this.rbt_Testes.Groups.Add(this.grp_Beta);
+            this.rbt_Testes.Label = "GCScript (Testes)";
+            this.rbt_Testes.Name = "rbt_Testes";
+            // 
+            // grp_Tests
+            // 
+            this.grp_Tests.Items.Add(this.btn_T1);
+            this.grp_Tests.Items.Add(this.btn_T2);
+            this.grp_Tests.Items.Add(this.btn_T3);
+            this.grp_Tests.Items.Add(this.btn_T4);
+            this.grp_Tests.Items.Add(this.btn_T5);
+            this.grp_Tests.Items.Add(this.btn_T6);
+            this.grp_Tests.Label = "Testes";
+            this.grp_Tests.Name = "grp_Tests";
+            // 
+            // grp_Beta
+            // 
+            this.grp_Beta.Items.Add(this.btn_RemoverFC);
+            this.grp_Beta.Label = "Beta";
+            this.grp_Beta.Name = "grp_Beta";
+            // 
             // glr_ApplyRemove
             // 
             this.glr_ApplyRemove.Buttons.Add(this.ApplyRemove_btn_Start);
@@ -176,6 +243,7 @@
             this.ApplyRemove_btn_Start.Name = "ApplyRemove_btn_Start";
             this.ApplyRemove_btn_Start.ScreenTip = "Start";
             this.ApplyRemove_btn_Start.ShowImage = true;
+            this.ApplyRemove_btn_Start.SuperTip = "Start";
             this.ApplyRemove_btn_Start.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.ApplyRemove_btn_Start_Click);
             // 
             // ApplyRemove_btn_Settings
@@ -185,6 +253,7 @@
             this.ApplyRemove_btn_Settings.Name = "ApplyRemove_btn_Settings";
             this.ApplyRemove_btn_Settings.ScreenTip = "Settings";
             this.ApplyRemove_btn_Settings.ShowImage = true;
+            this.ApplyRemove_btn_Settings.SuperTip = "Settings";
             this.ApplyRemove_btn_Settings.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.ApplyRemove_btn_Settings_Click);
             // 
             // glr_Generate
@@ -199,6 +268,7 @@
             this.glr_Generate.KeyTip = "2";
             this.glr_Generate.Label = "Generate";
             this.glr_Generate.Name = "glr_Generate";
+            this.glr_Generate.ScreenTip = "Generate";
             this.glr_Generate.ShowImage = true;
             // 
             // Generate_btn_Apportionment
@@ -206,6 +276,7 @@
             this.Generate_btn_Apportionment.Image = global::GCScript_for_Excel.Properties.Resources.rateio;
             this.Generate_btn_Apportionment.Label = "Apportionment";
             this.Generate_btn_Apportionment.Name = "Generate_btn_Apportionment";
+            this.Generate_btn_Apportionment.ScreenTip = "Apportionment";
             this.Generate_btn_Apportionment.ShowImage = true;
             this.Generate_btn_Apportionment.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.Generate_btn_Apportionment_Click);
             // 
@@ -214,6 +285,7 @@
             this.Generate_btn_Purchase.Image = global::GCScript_for_Excel.Properties.Resources.shop;
             this.Generate_btn_Purchase.Label = "Purchase";
             this.Generate_btn_Purchase.Name = "Generate_btn_Purchase";
+            this.Generate_btn_Purchase.ScreenTip = "Purchase";
             this.Generate_btn_Purchase.ShowImage = true;
             this.Generate_btn_Purchase.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.Generate_btn_Purchase_Click);
             // 
@@ -222,6 +294,7 @@
             this.Generate_btn_FileToSend.Image = global::GCScript_for_Excel.Properties.Resources.file_to_send;
             this.Generate_btn_FileToSend.Label = "File To Send";
             this.Generate_btn_FileToSend.Name = "Generate_btn_FileToSend";
+            this.Generate_btn_FileToSend.ScreenTip = "File To Send";
             this.Generate_btn_FileToSend.ShowImage = true;
             this.Generate_btn_FileToSend.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.Generate_btn_FileToSend_Click);
             // 
@@ -236,6 +309,7 @@
             this.Generate_btn_RandomCPF.Image = global::GCScript_for_Excel.Properties.Resources.cpf;
             this.Generate_btn_RandomCPF.Label = "Random CPF";
             this.Generate_btn_RandomCPF.Name = "Generate_btn_RandomCPF";
+            this.Generate_btn_RandomCPF.ScreenTip = "Random CPF";
             this.Generate_btn_RandomCPF.ShowImage = true;
             this.Generate_btn_RandomCPF.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.Generate_btn_RandomCPF_Click);
             // 
@@ -515,21 +589,6 @@
             this.More_btn_CheckAllSheets.Tag = "";
             this.More_btn_CheckAllSheets.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.More_btn_CheckAllSheets_Click);
             // 
-            // grp_Styles
-            // 
-            this.grp_Styles.Items.Add(this.Styles_btn_Primary);
-            this.grp_Styles.Items.Add(this.Styles_btn_Secondary);
-            this.grp_Styles.Items.Add(this.Styles_btn_Success);
-            this.grp_Styles.Items.Add(this.Styles_btn_Danger);
-            this.grp_Styles.Items.Add(this.Styles_btn_Warning);
-            this.grp_Styles.Items.Add(this.Styles_btn_Info);
-            this.grp_Styles.Items.Add(this.Styles_glr_Bootstrap);
-            this.grp_Styles.Items.Add(this.Styles_glr_Emphasis);
-            this.grp_Styles.Items.Add(this.Styles_btn_Default);
-            this.grp_Styles.KeyTip = "2";
-            this.grp_Styles.Label = "Styles";
-            this.grp_Styles.Name = "grp_Styles";
-            // 
             // Styles_btn_Primary
             // 
             this.Styles_btn_Primary.Image = global::GCScript_for_Excel.Properties.Resources.styles_primary;
@@ -760,15 +819,6 @@
             this.Styles_btn_Default.ShowImage = true;
             this.Styles_btn_Default.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.Styles_btn_Default_Click);
             // 
-            // grp_Number
-            // 
-            this.grp_Number.Items.Add(this.Number_btn_General);
-            this.grp_Number.Items.Add(this.Number_btn_Text);
-            this.grp_Number.Items.Add(this.Number_btn_Accounting);
-            this.grp_Number.KeyTip = "3";
-            this.grp_Number.Label = "Number";
-            this.grp_Number.Name = "grp_Number";
-            // 
             // Number_btn_General
             // 
             this.Number_btn_General.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
@@ -796,17 +846,6 @@
             this.Number_btn_Accounting.Name = "Number_btn_Accounting";
             this.Number_btn_Accounting.ShowImage = true;
             this.Number_btn_Accounting.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.Number_btn_Accounting_Click);
-            // 
-            // grp_Info
-            // 
-            this.grp_Info.Items.Add(this.Info_btn_LinhasUsadas);
-            this.grp_Info.Items.Add(this.Info_btn_ColunasUsadas);
-            this.grp_Info.Items.Add(this.Info_btn_ObterTipoCell);
-            this.grp_Info.Items.Add(this.Info_btn_SelecionarRange);
-            this.grp_Info.Items.Add(this.Info_btn_SelecionarTudo);
-            this.grp_Info.KeyTip = "4";
-            this.grp_Info.Label = "Info";
-            this.grp_Info.Name = "grp_Info";
             // 
             // Info_btn_LinhasUsadas
             // 
@@ -848,14 +887,6 @@
             this.Info_btn_SelecionarTudo.ShowImage = true;
             this.Info_btn_SelecionarTudo.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.Info_btn_SelecionarTudo_Click);
             // 
-            // grp_Others
-            // 
-            this.grp_Others.Items.Add(this.Tools_btn_SetTitle);
-            this.grp_Others.Items.Add(this.btn_Settings);
-            this.grp_Others.KeyTip = "5";
-            this.grp_Others.Label = "Others";
-            this.grp_Others.Name = "grp_Others";
-            // 
             // Tools_btn_SetTitle
             // 
             this.Tools_btn_SetTitle.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
@@ -874,24 +905,6 @@
             this.btn_Settings.Name = "btn_Settings";
             this.btn_Settings.ShowImage = true;
             this.btn_Settings.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btn_Settings_Click);
-            // 
-            // rbt_Testes
-            // 
-            this.rbt_Testes.Groups.Add(this.grp_Tests);
-            this.rbt_Testes.Groups.Add(this.grp_Beta);
-            this.rbt_Testes.Label = "GCScript (Testes)";
-            this.rbt_Testes.Name = "rbt_Testes";
-            // 
-            // grp_Tests
-            // 
-            this.grp_Tests.Items.Add(this.btn_T1);
-            this.grp_Tests.Items.Add(this.btn_T2);
-            this.grp_Tests.Items.Add(this.btn_T3);
-            this.grp_Tests.Items.Add(this.btn_T4);
-            this.grp_Tests.Items.Add(this.btn_T5);
-            this.grp_Tests.Items.Add(this.btn_T6);
-            this.grp_Tests.Label = "Testes";
-            this.grp_Tests.Name = "grp_Tests";
             // 
             // btn_T1
             // 
@@ -946,12 +959,6 @@
             this.btn_T6.Name = "btn_T6";
             this.btn_T6.ShowImage = true;
             this.btn_T6.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btn_T6_Click);
-            // 
-            // grp_Beta
-            // 
-            this.grp_Beta.Items.Add(this.btn_RemoverFC);
-            this.grp_Beta.Label = "Beta";
-            this.grp_Beta.Name = "grp_Beta";
             // 
             // btn_RemoverFC
             // 

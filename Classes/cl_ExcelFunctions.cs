@@ -310,9 +310,10 @@ namespace GCScript_for_Excel.Classes
 
             if (cl_Settings.ApplyRemove_Apply_AllSheets == false)
             {
+                if (cl_Settings.ApplyRemove_Remove_Formula == true) { RemoveFormula(rng); }
+
                 if (cl_Settings.ApplyRemove_Apply_Zoom == true) { PageZoom(ws, cl_Settings.ApplyRemove_Apply_ZoomValue); }
 
-                if (cl_Settings.ApplyRemove_Remove_Formula == true) { RemoveFormula(rng); }
                 if (cl_Settings.ApplyRemove_Remove_ConditionalFormatting == true) { RemoveConditionalFormatting(rng); }
 
                 if (cl_Settings.ApplyRemove_Apply_FontName == true) { FontName(rng, cl_Settings.ApplyRemove_Apply_FontNameText); }
@@ -339,11 +340,15 @@ namespace GCScript_for_Excel.Classes
             {
                 foreach (Worksheet sheet in app.ActiveWorkbook.Worksheets)
                 {
+                    if (sheet.Visible == XlSheetVisibility.xlSheetHidden)
+                        continue;
+
                     sheet.Select();
                     rng = sheet.Cells;
+                    if (cl_Settings.ApplyRemove_Remove_Formula == true) { RemoveFormula(rng); }
+
                     if (cl_Settings.ApplyRemove_Apply_Zoom == true) { PageZoom(sheet, cl_Settings.ApplyRemove_Apply_ZoomValue); }
 
-                    if (cl_Settings.ApplyRemove_Remove_Formula == true) { RemoveFormula(rng); }
                     if (cl_Settings.ApplyRemove_Remove_ConditionalFormatting == true) { RemoveConditionalFormatting(rng); }
 
                     if (cl_Settings.ApplyRemove_Apply_FontName == true) { FontName(rng, cl_Settings.ApplyRemove_Apply_FontNameText); }
