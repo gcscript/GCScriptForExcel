@@ -160,6 +160,7 @@ namespace GCScript_for_Excel
             ApplyRemove_chk_Remove_MergeCells.Checked = cl_Settings.ApplyRemove_Remove_MergeCells;
             ApplyRemove_chk_Remove_Formula.Checked = cl_Settings.ApplyRemove_Remove_Formula;
             ApplyRemove_chk_Remove_ConditionalFormatting.Checked = cl_Settings.ApplyRemove_Remove_ConditionalFormatting;
+            ApplyRemove_chk_Remove_Filter.Checked = cl_Settings.ApplyRemove_Remove_Filter;
             #endregion
         }
 
@@ -391,7 +392,12 @@ namespace GCScript_for_Excel
 
         private void ApplyRemove_chk_Remove_ConditionalFormatting_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.ApplyRemove_Remove_ConditionalFormatting = ApplyRemove_chk_Remove_ConditionalFormatting.Checked;
+            cl_Settings.ApplyRemove_Remove_ConditionalFormatting = ApplyRemove_chk_Remove_ConditionalFormatting.Checked; 
+        }
+
+        private void ApplyRemove_chk_Remove_Filter_CheckedChanged(object sender, EventArgs e)
+        {
+            cl_Settings.ApplyRemove_Remove_Filter = ApplyRemove_chk_Remove_Filter.Checked; 
         }
 
         private void ApplyRemove_chk_Apply_RowHeight_CheckedChanged(object sender, EventArgs e)
@@ -488,5 +494,7 @@ namespace GCScript_for_Excel
         {
             cl_Settings.ApplyRemove_Apply_ZoomValue = ApplyRemove_nud_Apply_Zoom.Value;
         }
+
+        
     }
 }

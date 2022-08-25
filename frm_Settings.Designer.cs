@@ -96,6 +96,7 @@
             this.ApplyRemove_chk_Remove_FontItalic = new System.Windows.Forms.CheckBox();
             this.ApplyRemove_chk_Remove_Fill = new System.Windows.Forms.CheckBox();
             this.ApplyRemove_chk_Remove_Borders = new System.Windows.Forms.CheckBox();
+            this.ApplyRemove_chk_Remove_Filter = new System.Windows.Forms.CheckBox();
             this.Converter_grp_ConverterTexto.SuspendLayout();
             this.Converter_pnl_Texto_Alinhamento.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Converter_nud_Texto_Alinhamento_Comprimento)).BeginInit();
@@ -313,11 +314,11 @@
             this.Converter_rdo_Texto_Titulo.UseVisualStyleBackColor = true;
             this.Converter_rdo_Texto_Titulo.CheckedChanged += new System.EventHandler(this.Converter_rdo_Texto_Titulo_CheckedChanged);
             // 
-            // Converter_rdo_Texto_Original
+            // Converter_rdo_Text_Default
             // 
             this.Converter_rdo_Text_Default.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Converter_rdo_Text_Default.Location = new System.Drawing.Point(217, 113);
-            this.Converter_rdo_Text_Default.Name = "Converter_rdo_Texto_Original";
+            this.Converter_rdo_Text_Default.Name = "Converter_rdo_Text_Default";
             this.Converter_rdo_Text_Default.Size = new System.Drawing.Size(200, 24);
             this.Converter_rdo_Text_Default.TabIndex = 5;
             this.Converter_rdo_Text_Default.TabStop = true;
@@ -874,6 +875,7 @@
             // 
             // ApplyRemove_grp_Remove
             // 
+            this.ApplyRemove_grp_Remove.Controls.Add(this.ApplyRemove_chk_Remove_Filter);
             this.ApplyRemove_grp_Remove.Controls.Add(this.ApplyRemove_chk_Remove_MergeCells);
             this.ApplyRemove_grp_Remove.Controls.Add(this.ApplyRemove_chk_Remove_WrapText);
             this.ApplyRemove_grp_Remove.Controls.Add(this.ApplyRemove_chk_Remove_FontColor);
@@ -897,7 +899,7 @@
             this.ApplyRemove_chk_Remove_MergeCells.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ApplyRemove_chk_Remove_MergeCells.Location = new System.Drawing.Point(10, 240);
             this.ApplyRemove_chk_Remove_MergeCells.Name = "ApplyRemove_chk_Remove_MergeCells";
-            this.ApplyRemove_chk_Remove_MergeCells.Size = new System.Drawing.Size(200, 24);
+            this.ApplyRemove_chk_Remove_MergeCells.Size = new System.Drawing.Size(408, 24);
             this.ApplyRemove_chk_Remove_MergeCells.TabIndex = 12;
             this.ApplyRemove_chk_Remove_MergeCells.Text = "Merge Cells";
             this.ApplyRemove_chk_Remove_MergeCells.UseVisualStyleBackColor = true;
@@ -908,7 +910,7 @@
             this.ApplyRemove_chk_Remove_WrapText.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ApplyRemove_chk_Remove_WrapText.Location = new System.Drawing.Point(10, 210);
             this.ApplyRemove_chk_Remove_WrapText.Name = "ApplyRemove_chk_Remove_WrapText";
-            this.ApplyRemove_chk_Remove_WrapText.Size = new System.Drawing.Size(200, 24);
+            this.ApplyRemove_chk_Remove_WrapText.Size = new System.Drawing.Size(408, 24);
             this.ApplyRemove_chk_Remove_WrapText.TabIndex = 11;
             this.ApplyRemove_chk_Remove_WrapText.Text = "Wrap Text";
             this.ApplyRemove_chk_Remove_WrapText.UseVisualStyleBackColor = true;
@@ -919,7 +921,7 @@
             this.ApplyRemove_chk_Remove_FontColor.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ApplyRemove_chk_Remove_FontColor.Location = new System.Drawing.Point(10, 180);
             this.ApplyRemove_chk_Remove_FontColor.Name = "ApplyRemove_chk_Remove_FontColor";
-            this.ApplyRemove_chk_Remove_FontColor.Size = new System.Drawing.Size(200, 24);
+            this.ApplyRemove_chk_Remove_FontColor.Size = new System.Drawing.Size(408, 24);
             this.ApplyRemove_chk_Remove_FontColor.TabIndex = 10;
             this.ApplyRemove_chk_Remove_FontColor.Text = "Font Color";
             this.ApplyRemove_chk_Remove_FontColor.UseVisualStyleBackColor = true;
@@ -930,7 +932,7 @@
             this.ApplyRemove_chk_Remove_FontUnderline.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ApplyRemove_chk_Remove_FontUnderline.Location = new System.Drawing.Point(10, 90);
             this.ApplyRemove_chk_Remove_FontUnderline.Name = "ApplyRemove_chk_Remove_FontUnderline";
-            this.ApplyRemove_chk_Remove_FontUnderline.Size = new System.Drawing.Size(200, 24);
+            this.ApplyRemove_chk_Remove_FontUnderline.Size = new System.Drawing.Size(408, 24);
             this.ApplyRemove_chk_Remove_FontUnderline.TabIndex = 7;
             this.ApplyRemove_chk_Remove_FontUnderline.Text = "Font: Underline";
             this.ApplyRemove_chk_Remove_FontUnderline.UseVisualStyleBackColor = true;
@@ -941,7 +943,7 @@
             this.ApplyRemove_chk_Remove_FontBold.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ApplyRemove_chk_Remove_FontBold.Location = new System.Drawing.Point(10, 30);
             this.ApplyRemove_chk_Remove_FontBold.Name = "ApplyRemove_chk_Remove_FontBold";
-            this.ApplyRemove_chk_Remove_FontBold.Size = new System.Drawing.Size(200, 24);
+            this.ApplyRemove_chk_Remove_FontBold.Size = new System.Drawing.Size(408, 24);
             this.ApplyRemove_chk_Remove_FontBold.TabIndex = 5;
             this.ApplyRemove_chk_Remove_FontBold.Text = "Font: Bold";
             this.ApplyRemove_chk_Remove_FontBold.UseVisualStyleBackColor = true;
@@ -952,7 +954,7 @@
             this.ApplyRemove_chk_Remove_Formula.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ApplyRemove_chk_Remove_Formula.Location = new System.Drawing.Point(10, 270);
             this.ApplyRemove_chk_Remove_Formula.Name = "ApplyRemove_chk_Remove_Formula";
-            this.ApplyRemove_chk_Remove_Formula.Size = new System.Drawing.Size(200, 24);
+            this.ApplyRemove_chk_Remove_Formula.Size = new System.Drawing.Size(408, 24);
             this.ApplyRemove_chk_Remove_Formula.TabIndex = 3;
             this.ApplyRemove_chk_Remove_Formula.Text = "Formula";
             this.ApplyRemove_chk_Remove_Formula.UseVisualStyleBackColor = true;
@@ -963,7 +965,7 @@
             this.ApplyRemove_chk_Remove_ConditionalFormatting.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ApplyRemove_chk_Remove_ConditionalFormatting.Location = new System.Drawing.Point(10, 300);
             this.ApplyRemove_chk_Remove_ConditionalFormatting.Name = "ApplyRemove_chk_Remove_ConditionalFormatting";
-            this.ApplyRemove_chk_Remove_ConditionalFormatting.Size = new System.Drawing.Size(200, 24);
+            this.ApplyRemove_chk_Remove_ConditionalFormatting.Size = new System.Drawing.Size(408, 24);
             this.ApplyRemove_chk_Remove_ConditionalFormatting.TabIndex = 4;
             this.ApplyRemove_chk_Remove_ConditionalFormatting.Text = "Conditional Formatting";
             this.ApplyRemove_chk_Remove_ConditionalFormatting.UseVisualStyleBackColor = true;
@@ -974,7 +976,7 @@
             this.ApplyRemove_chk_Remove_FontItalic.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ApplyRemove_chk_Remove_FontItalic.Location = new System.Drawing.Point(10, 60);
             this.ApplyRemove_chk_Remove_FontItalic.Name = "ApplyRemove_chk_Remove_FontItalic";
-            this.ApplyRemove_chk_Remove_FontItalic.Size = new System.Drawing.Size(200, 24);
+            this.ApplyRemove_chk_Remove_FontItalic.Size = new System.Drawing.Size(408, 24);
             this.ApplyRemove_chk_Remove_FontItalic.TabIndex = 6;
             this.ApplyRemove_chk_Remove_FontItalic.Text = "Font: Italic";
             this.ApplyRemove_chk_Remove_FontItalic.UseVisualStyleBackColor = true;
@@ -985,7 +987,7 @@
             this.ApplyRemove_chk_Remove_Fill.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ApplyRemove_chk_Remove_Fill.Location = new System.Drawing.Point(10, 150);
             this.ApplyRemove_chk_Remove_Fill.Name = "ApplyRemove_chk_Remove_Fill";
-            this.ApplyRemove_chk_Remove_Fill.Size = new System.Drawing.Size(200, 24);
+            this.ApplyRemove_chk_Remove_Fill.Size = new System.Drawing.Size(408, 24);
             this.ApplyRemove_chk_Remove_Fill.TabIndex = 9;
             this.ApplyRemove_chk_Remove_Fill.Text = "Fill";
             this.ApplyRemove_chk_Remove_Fill.UseVisualStyleBackColor = true;
@@ -996,11 +998,22 @@
             this.ApplyRemove_chk_Remove_Borders.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ApplyRemove_chk_Remove_Borders.Location = new System.Drawing.Point(10, 120);
             this.ApplyRemove_chk_Remove_Borders.Name = "ApplyRemove_chk_Remove_Borders";
-            this.ApplyRemove_chk_Remove_Borders.Size = new System.Drawing.Size(200, 24);
+            this.ApplyRemove_chk_Remove_Borders.Size = new System.Drawing.Size(408, 24);
             this.ApplyRemove_chk_Remove_Borders.TabIndex = 8;
             this.ApplyRemove_chk_Remove_Borders.Text = "Borders";
             this.ApplyRemove_chk_Remove_Borders.UseVisualStyleBackColor = true;
             this.ApplyRemove_chk_Remove_Borders.CheckedChanged += new System.EventHandler(this.ApplyRemove_chk_Remove_Borders_CheckedChanged);
+            // 
+            // ApplyRemove_chk_Remove_Filter
+            // 
+            this.ApplyRemove_chk_Remove_Filter.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ApplyRemove_chk_Remove_Filter.Location = new System.Drawing.Point(10, 330);
+            this.ApplyRemove_chk_Remove_Filter.Name = "ApplyRemove_chk_Remove_Filter";
+            this.ApplyRemove_chk_Remove_Filter.Size = new System.Drawing.Size(408, 24);
+            this.ApplyRemove_chk_Remove_Filter.TabIndex = 13;
+            this.ApplyRemove_chk_Remove_Filter.Text = "Filter";
+            this.ApplyRemove_chk_Remove_Filter.UseVisualStyleBackColor = true;
+            this.ApplyRemove_chk_Remove_Filter.CheckedChanged += new System.EventHandler(this.ApplyRemove_chk_Remove_Filter_CheckedChanged);
             // 
             // frm_Settings
             // 
@@ -1116,5 +1129,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.NumericUpDown ApplyRemove_nud_Apply_Zoom;
         private System.Windows.Forms.CheckBox ApplyRemove_chk_Apply_Zoom;
+        private System.Windows.Forms.CheckBox ApplyRemove_chk_Remove_Filter;
     }
 }

@@ -84,6 +84,7 @@ namespace GCScript_for_Excel.Classes
         public static bool ApplyRemove_Remove_MergeCells = true;
         public static bool ApplyRemove_Remove_Formula = true;
         public static bool ApplyRemove_Remove_ConditionalFormatting = true;
+        public static bool ApplyRemove_Remove_Filter = true;
         #endregion
 
         public static void ConverterText(Worksheet ws, Range rng)
