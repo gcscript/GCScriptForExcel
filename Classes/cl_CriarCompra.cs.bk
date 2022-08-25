@@ -1,0 +1,704 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using GCScript_for_Excel;
+using Microsoft.Office.Interop.Excel;
+using Microsoft.Office.Tools.Ribbon;
+using Appl = Microsoft.Office.Interop.Excel.Application;
+
+namespace GCScript_for_Excel.Classes
+{
+    public static class cl_CriarCompra
+    {
+        //static bool colunaCDeptoExiste = false;
+        //static bool classificarDados = false;
+        static Appl app = Globals.ThisAddIn.Application;
+        static Worksheet ws;
+
+        public static void Start(Worksheet worksheet)
+        {
+            ws = worksheet;
+
+            if (ws.Name.ToLower().Trim() != "compra")
+            {
+                if (MessageBox.Show("Esse script deve ser executado em uma aba de [COMPRAS]\nDeseja continuar?", "ATENÇÃO!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return;
+                }
+            }
+
+            try
+            {
+                if (!VerificacoesAntesDeComecar()) { return; }
+
+                if (!MoverColunas()) { return; }
+
+                if (!RemoverLinhasDuplicadas()) { return; }
+
+                if (!ClassificarDados()) { return; }
+
+                if (!DeletarColunas()) { return; }
+
+                if (!RemoverPreenchimentoColunas()) { return; }
+
+                if (!CriarSubtotal()) { return; }
+
+                if (!SepararProblemas()) { return; }
+
+                if (!AjustarOcultarColunas()) { return; }
+
+                cl_ExcelFunctions.AdjustScroll();
+
+                MessageBox.Show("Compra criada com sucesso!", "SUCESSO!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception erro)
+            {
+                MessageBox.Show(erro.ToString(), "ERRO: 861680", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+        }
+
+        static bool VerificacoesAntesDeComecar()
+        {
+            app.ScreenUpdating = false;
+
+            int colunasUsadas = ws.UsedRange.Columns.Count;
+            Range rangeOrg1 = ws.Range[app.Cells[1, 1], app.Cells[1, colunasUsadas]].Find(What: "org1", LookAt: XlLookAt.xlWhole, MatchCase: false);
+            Range rangeUF = ws.Range[app.Cells[1, 1], app.Cells[1, colunasUsadas]].Find(What: "uf", LookAt: XlLookAt.xlWhole, MatchCase: false);
+            Range rangeEmpresa = ws.Range[app.Cells[1, 1], app.Cells[1, colunasUsadas]].Find(What: "empresa", LookAt: XlLookAt.xlWhole, MatchCase: false);
+            Range rangeCUnid = ws.Range[app.Cells[1, 1], app.Cells[1, colunasUsadas]].Find(What: "c.unid", LookAt: XlLookAt.xlWhole, MatchCase: false);
+            Range rangeNome = ws.Range[app.Cells[1, 1], app.Cells[1, colunasUsadas]].Find(What: "nome", LookAt: XlLookAt.xlWhole, MatchCase: false);
+            Range rangeOperadora = ws.Range[app.Cells[1, 1], app.Cells[1, colunasUsadas]].Find(What: "operadora", LookAt: XlLookAt.xlWhole, MatchCase: false);
+            Range rangeTotal = ws.Range[app.Cells[1, 1], app.Cells[1, colunasUsadas]].Find(What: "total", LookAt: XlLookAt.xlWhole, MatchCase: false);
+            Range rangeDesconto = ws.Range[app.Cells[1, 1], app.Cells[1, colunasUsadas]].Find(What: "desconto", LookAt: XlLookAt.xlWhole, MatchCase: false);
+            Range rangeCompraFinal = ws.Range[app.Cells[1, 1], app.Cells[1, colunasUsadas]].Find(What: "comprafinal", LookAt: XlLookAt.xlWhole, MatchCase: false);
+            Range rangeCnpjCpfOperadora = ws.Range[app.Cells[1, 1], app.Cells[1, colunasUsadas]].Find(What: "cnpj + cpf + operadora", LookAt: XlLookAt.xlWhole, MatchCase: false);
+            Range rangeOrdem = ws.Range[app.Cells[1, 1], app.Cells[1, colunasUsadas]].Find(What: "ordem", LookAt: XlLookAt.xlWhole, MatchCase: false);
+            Range rangeOBS = ws.Range[app.Cells[1, 1], app.Cells[1, colunasUsadas]].Find(What: "obs", LookAt: XlLookAt.xlWhole, MatchCase: false);
+
+
+            if (rangeOrg1 == null)
+            {
+                MessageBox.Show("A coluna [ORG1] não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                app.ScreenUpdating = true;
+                return false;
+            }
+
+            if (rangeUF == null)
+            {
+                MessageBox.Show("A coluna [UF] não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                app.ScreenUpdating = true;
+                return false;
+            }
+
+            if (rangeEmpresa == null)
+            {
+                MessageBox.Show("A coluna [EMPRESA] não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                app.ScreenUpdating = true;
+                return false;
+            }
+
+            if (rangeCUnid == null)
+            {
+                MessageBox.Show("A coluna [C.UNID] não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                app.ScreenUpdating = true;
+                return false;
+            }
+
+            if (rangeNome == null)
+            {
+                MessageBox.Show("A coluna [NOME] não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                app.ScreenUpdating = true;
+                return false;
+            }
+
+            if (rangeOperadora == null)
+            {
+                MessageBox.Show("A coluna [OPERADORA] não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                app.ScreenUpdating = true;
+                return false;
+            }
+
+            if (rangeTotal == null)
+            {
+                MessageBox.Show("A coluna [TOTAL] não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                app.ScreenUpdating = true;
+                return false;
+            }
+
+            if (rangeDesconto == null)
+            {
+                MessageBox.Show("A coluna [DESCONTO] não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                app.ScreenUpdating = true;
+                return false;
+            }
+
+            if (rangeCompraFinal == null)
+            {
+                MessageBox.Show("A coluna [COMPRA FINAL] não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                app.ScreenUpdating = true;
+                return false;
+            }
+
+            if (rangeCnpjCpfOperadora == null)
+            {
+                MessageBox.Show("A coluna [CNPJ + CPF + OPERADORA] não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                app.ScreenUpdating = true;
+                return false;
+            }
+
+            if (rangeOrdem == null)
+            {
+                MessageBox.Show("A coluna [ORDEM] não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                app.ScreenUpdating = true;
+                return false;
+            }
+
+            if (rangeOBS == null)
+            {
+                MessageBox.Show("A coluna [OBS] não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                app.ScreenUpdating = true;
+                return false;
+            }
+
+            app.ScreenUpdating = true;
+            return true;
+        }
+
+        static bool MoverColunas()
+        {
+            app.ScreenUpdating = false;
+
+            int colunasUsadas = ws.UsedRange.Columns.Count;
+
+            Range rangeUF = ws.Range[app.Cells[1, 1], app.Cells[1, colunasUsadas]].Find(What: "uf", LookAt: XlLookAt.xlWhole, MatchCase: false);
+            Range rangeOperadora = ws.Range[app.Cells[1, 1], app.Cells[1, colunasUsadas]].Find(What: "operadora", LookAt: XlLookAt.xlWhole, MatchCase: false);
+            Range rangeEmpresa = ws.Range[app.Cells[1, 1], app.Cells[1, colunasUsadas]].Find(What: "empresa", LookAt: XlLookAt.xlWhole, MatchCase: false);
+            Range rangeCUnid = ws.Range[app.Cells[1, 1], app.Cells[1, colunasUsadas]].Find(What: "c.unid", LookAt: XlLookAt.xlWhole, MatchCase: false);
+            Range rangeCDepto = ws.Range[app.Cells[1, 1], app.Cells[1, colunasUsadas]].Find(What: "c.depto", LookAt: XlLookAt.xlWhole, MatchCase: false);
+
+            if (rangeCDepto != null)
+            {
+                app.Columns[rangeCDepto.Cells.Column].Cut();
+                app.Columns[1].Insert(XlInsertShiftDirection.xlShiftToRight); // Shift:=xlToRight
+                //colunaCDeptoExiste = true;
+            }
+
+            app.Columns[rangeCUnid.Cells.Column].Cut();
+            app.Columns[1].Insert(XlInsertShiftDirection.xlShiftToRight); // Shift:=xlToRight
+
+            app.Columns[rangeEmpresa.Cells.Column].Cut();
+            app.Columns[1].Insert(XlInsertShiftDirection.xlShiftToRight); // Shift:=xlToRight
+
+            app.Columns[rangeOperadora.Cells.Column].Cut();
+            app.Columns[1].Insert(XlInsertShiftDirection.xlShiftToRight); // Shift:=xlToRight
+
+            app.Columns[rangeUF.Cells.Column].Cut();
+            app.Columns[1].Insert(XlInsertShiftDirection.xlShiftToRight); // Shift:=xlToRight
+
+            app.ScreenUpdating = true;
+            return true;
+        }
+
+        static bool RemoverLinhasDuplicadas()
+        {
+            app.ScreenUpdating = false;
+
+            int colunasUsadas = ws.UsedRange.Columns.Count;
+
+            Range rangeCnpjCpfOperadora = ws.Range[app.Cells[1, 1], app.Cells[1, colunasUsadas]].Find(What: "cnpj + cpf + operadora", LookAt: XlLookAt.xlWhole, MatchCase: false);
+
+            ws.Cells[1048576, rangeCnpjCpfOperadora.Cells.Column].End(XlDirection.xlUp).Offset[0, 0].Select();
+
+            while (true)
+            {
+                if (app.ActiveCell.Row > 1)
+                {
+                    if (app.ActiveCell.Value == app.ActiveCell.Offset[-1, 0].Value)
+                    {
+                        app.ActiveCell.EntireRow.Delete();
+                    }
+
+                }
+
+                if (app.ActiveCell.Row < 2)
+                {
+                    break;
+                }
+                else
+                {
+                    app.ActiveCell.Offset[-1, 0].Select();
+                }
+            }
+
+            app.ScreenUpdating = true;
+            return true;
+        }
+
+        static bool ClassificarDados()
+        {
+            app.ScreenUpdating = false;
+
+            int colunasUsadas = ws.UsedRange.Columns.Count;
+
+            Range rangeOrg1 = ws.Range[app.Cells[1, 1], app.Cells[1, colunasUsadas]].Find(What: "org1", LookAt: XlLookAt.xlWhole, MatchCase: false);
+            Range rangeOrdem = ws.Range[app.Cells[1, 1], app.Cells[1, colunasUsadas]].Find(What: "ordem", LookAt: XlLookAt.xlWhole, MatchCase: false);
+            Range rangeNome = ws.Range[app.Cells[1, 1], app.Cells[1, colunasUsadas]].Find(What: "nome", LookAt: XlLookAt.xlWhole, MatchCase: false);
+
+
+            ws.Sort.SortFields.Clear();
+            ws.Sort.SortFields.Add(Key: rangeOrg1, SortOn: XlSortOn.xlSortOnValues, Order: XlSortOrder.xlAscending, DataOption: XlSortDataOption.xlSortNormal);
+            ws.Sort.SortFields.Add(Key: rangeOrdem, SortOn: XlSortOn.xlSortOnValues, Order: XlSortOrder.xlAscending, DataOption: XlSortDataOption.xlSortNormal);
+            ws.Sort.SortFields.Add(Key: rangeNome, SortOn: XlSortOn.xlSortOnValues, Order: XlSortOrder.xlAscending, DataOption: XlSortDataOption.xlSortNormal);
+            ws.Sort.SetRange(ws.Cells);
+            ws.Sort.Header = XlYesNoGuess.xlYes;
+            ws.Sort.MatchCase = false;
+            ws.Sort.Orientation = (XlSortOrientation)Constants.xlTopToBottom;
+            ws.Sort.SortMethod = XlSortMethod.xlPinYin;
+            ws.Sort.Apply();
+
+
+            app.ScreenUpdating = true;
+            return true;
+        }
+
+        static bool DeletarColunas()
+        {
+            app.ScreenUpdating = false;
+
+            int colunasUsadas = ws.UsedRange.Columns.Count;
+            Range rangeDeletarColunas = ws.Range[app.Cells[1, 1], app.Cells[1, colunasUsadas]];
+
+            ProcurarDeletarColuna(rangeDeletarColunas, "org1");
+            ProcurarDeletarColuna(rangeDeletarColunas, "depto");
+            ProcurarDeletarColuna(rangeDeletarColunas, "vvtnovo");
+            ProcurarDeletarColuna(rangeDeletarColunas, "tvtnovo");
+            ProcurarDeletarColuna(rangeDeletarColunas, "recpend");
+            ProcurarDeletarColuna(rangeDeletarColunas, "saldo1");
+            ProcurarDeletarColuna(rangeDeletarColunas, "saldo");
+            ProcurarDeletarColuna(rangeDeletarColunas, "valordias");
+            ProcurarDeletarColuna(rangeDeletarColunas, "cnpj + cpf + operadora");
+            ProcurarDeletarColuna(rangeDeletarColunas, "buscador");
+            ProcurarDeletarColuna(rangeDeletarColunas, "ordem");
+            ProcurarDeletarColuna(rangeDeletarColunas, "cf -r$10");
+            ProcurarDeletarColuna(rangeDeletarColunas, "nr. do cartao");
+
+            int numeroDeLinhas = app.ActiveCell.Row;
+
+            app.ScreenUpdating = true;
+            return true;
+        }
+
+        static void ProcurarDeletarColuna(Range intervalo, string nomeColuna)
+        {
+            bool acabou = false;
+
+            while (acabou == false)
+            {
+                foreach (Range cell in intervalo)
+                {
+                    if (cell.Cells.Text.Trim().ToLower() == nomeColuna)
+                    {
+                        cell.EntireColumn.Delete();
+                        break;
+                    }
+                    else
+                    {
+                        acabou = true;
+                    }
+                }
+            }
+        }
+
+        static bool RemoverPreenchimentoColunas()
+        {
+            app.ScreenUpdating = false;
+
+            int colunasUsadas = ws.UsedRange.Columns.Count;
+
+            Range rangeTotal = ws.Range[app.Cells[1, 1], app.Cells[1, colunasUsadas]].Find(What: "total", LookAt: XlLookAt.xlWhole, MatchCase: false);
+            Range rangeDesconto = ws.Range[app.Cells[1, 1], app.Cells[1, colunasUsadas]].Find(What: "desconto", LookAt: XlLookAt.xlWhole, MatchCase: false);
+            Range rangeCompraFinal = ws.Range[app.Cells[1, 1], app.Cells[1, colunasUsadas]].Find(What: "comprafinal", LookAt: XlLookAt.xlWhole, MatchCase: false);
+            Range range1Compra = ws.Range[app.Cells[1, 1], app.Cells[1, colunasUsadas]].Find(What: "1ª compra", LookAt: XlLookAt.xlWhole, MatchCase: false);
+            Range range2Compra = ws.Range[app.Cells[1, 1], app.Cells[1, colunasUsadas]].Find(What: "2ª compra", LookAt: XlLookAt.xlWhole, MatchCase: false);
+
+            void RemoverPreenchimento(Range range)
+            {
+                app.Columns[range.Cells.Column].Select();
+                app.Selection.Interior.Pattern = Constants.xlNone;
+                app.Selection.Interior.TintAndShade = 0;
+                app.Selection.Interior.PatternTintAndShade = 0;
+            }
+
+            RemoverPreenchimento(rangeTotal);
+            RemoverPreenchimento(rangeDesconto);
+            RemoverPreenchimento(rangeCompraFinal);
+            if (range1Compra != null) { RemoverPreenchimento(range1Compra); }
+            if (range2Compra != null) { RemoverPreenchimento(range2Compra); }
+
+            app.ScreenUpdating = true;
+            return true;
+        }
+
+        static bool CriarSubtotal()
+        {
+            app.ScreenUpdating = false;
+
+            int colunasUsadas = ws.UsedRange.Columns.Count;
+
+            Range rangeCompraFinal = ws.Range[app.Cells[1, 1], app.Cells[1, colunasUsadas]].Find(What: "comprafinal", LookAt: XlLookAt.xlWhole, MatchCase: false);
+            Range range1Compra = ws.Range[app.Cells[1, 1], app.Cells[1, colunasUsadas]].Find(What: "1ª compra", LookAt: XlLookAt.xlWhole, MatchCase: false);
+            Range range2Compra = ws.Range[app.Cells[1, 1], app.Cells[1, colunasUsadas]].Find(What: "2ª compra", LookAt: XlLookAt.xlWhole, MatchCase: false);
+
+            int numeroColunaCompraFinal = rangeCompraFinal.Cells.Column;
+            List<int> array_ColunasSubtotal = new List<int>();
+
+            if (range1Compra != null && range2Compra != null)
+            {
+                int numeroColuna1Compra = range1Compra.Cells.Column;
+                int numeroColuna2Compra = range2Compra.Cells.Column;
+
+                array_ColunasSubtotal.Add(numeroColuna1Compra);
+                array_ColunasSubtotal.Add(numeroColuna2Compra);
+                array_ColunasSubtotal.Add(numeroColunaCompraFinal);
+            }
+            else
+            {
+                array_ColunasSubtotal.Add(numeroColunaCompraFinal);
+            }
+
+            Range rangeUF = ws.Range[ws.Cells[1, 1], ws.Cells[1048576, numeroColunaCompraFinal].End(XlDirection.xlUp).Offset[0, 0]];
+            rangeUF.Subtotal(GroupBy: 1, Function: XlConsolidationFunction.xlSum, TotalList: array_ColunasSubtotal.ToArray(), Replace: false, PageBreaks: false, XlSummaryRow.xlSummaryBelow);
+
+            Range rangeOperadora = ws.Range[ws.Cells[1, 1], ws.Cells[1048576, numeroColunaCompraFinal].End(XlDirection.xlUp).Offset[-1, 0]];
+            rangeOperadora.Subtotal(GroupBy: 2, Function: XlConsolidationFunction.xlSum, TotalList: array_ColunasSubtotal.ToArray(), Replace: false, PageBreaks: false, XlSummaryRow.xlSummaryBelow);
+
+            Range rangeEmpresa = ws.Range[ws.Cells[1, 1], ws.Cells[1048576, numeroColunaCompraFinal].End(XlDirection.xlUp).Offset[-3, 0]];
+            rangeEmpresa.Subtotal(GroupBy: 3, Function: XlConsolidationFunction.xlSum, TotalList: array_ColunasSubtotal.ToArray(), Replace: false, PageBreaks: false, XlSummaryRow.xlSummaryBelow);
+
+            Range rangeCUNID = ws.Range[ws.Cells[1, 1], ws.Cells[1048576, numeroColunaCompraFinal].End(XlDirection.xlUp).Offset[-5, 0]];
+            rangeCUNID.Subtotal(GroupBy: 4, Function: XlConsolidationFunction.xlSum, TotalList: array_ColunasSubtotal.ToArray(), Replace: false, PageBreaks: false, XlSummaryRow.xlSummaryBelow);
+
+
+            { // COPIAR E COLAR COMO VALOR | REMOVER SUBTOTAL
+                Range selecao = ws.Cells;
+                cl_Tools.CopiarColarValor(selecao);
+                app.Application.CutCopyMode = 0;
+                selecao.RemoveSubtotal();
+            }
+
+            { // DEFINIR ÁREA DE IMPRESSÃO | BORDAS | ZOOM
+                Range areaDeImpressao = ws.Range[ws.Cells[1, 1], ws.Cells[1048576, numeroColunaCompraFinal].End(XlDirection.xlUp).Offset[0, 0]];
+                cl_Tools.BordaZoomAreaDeImpressao(ws, areaDeImpressao);
+            }
+
+            OrganizarSubtotal(rangeCompraFinal);
+
+            app.ScreenUpdating = true;
+            return true;
+        }
+
+        static void OrganizarSubtotal(Range rangeCompraFinal)
+        {
+            int numeroColunaCompraFinal = rangeCompraFinal.Cells.Column;
+            ws.Cells[1048576, numeroColunaCompraFinal].End(XlDirection.xlUp).Offset[0, 0].Select();
+
+            while (true)
+            {
+                string valorColunaUF = ws.Cells[app.ActiveCell.Row, 1].Text.Trim().ToLower();
+                string valorColunaOperadora = ws.Cells[app.ActiveCell.Row, 2].Text.Trim().ToLower();
+                string valorColunaEmpresa = ws.Cells[app.ActiveCell.Row, 3].Text.Trim().ToLower();
+                string valorColunaCUNID = ws.Cells[app.ActiveCell.Row, 4].Text.Trim().ToLower();
+
+                if (valorColunaUF == "total geral")
+                {
+                    Range linha = ws.Range[ws.Cells[app.ActiveCell.Row, 1], ws.Cells[app.ActiveCell.Row, numeroColunaCompraFinal]];
+                    cl_Tools.Estilo_Destaque5(linha);
+                }
+                else if (valorColunaUF.Contains(" total"))
+                {
+                    Range linha = ws.Range[ws.Cells[app.ActiveCell.Row, 1], ws.Cells[app.ActiveCell.Row, numeroColunaCompraFinal]];
+                    cl_Tools.Estilo_Destaque4(linha);
+
+                }
+                else if (valorColunaOperadora == "total geral")
+                {
+                    app.ActiveCell.EntireRow.Delete();
+                }
+                else if (valorColunaOperadora.Contains(" total"))
+                {
+                    Range linha = ws.Range[ws.Cells[app.ActiveCell.Row, 1], ws.Cells[app.ActiveCell.Row, numeroColunaCompraFinal]];
+                    cl_Tools.Estilo_Destaque3(linha);
+                }
+                else if (valorColunaEmpresa == "total geral")
+                {
+                    app.ActiveCell.EntireRow.Delete();
+                }
+                else if (valorColunaEmpresa.Contains(" total"))
+                {
+                    Range linha = ws.Range[ws.Cells[app.ActiveCell.Row, 1], ws.Cells[app.ActiveCell.Row, numeroColunaCompraFinal]];
+                    cl_Tools.Estilo_Destaque2(linha);
+                }
+                else if (valorColunaCUNID == "total geral")
+                {
+                    app.ActiveCell.EntireRow.Delete();
+                }
+                else if (valorColunaCUNID.Contains(" total"))
+                {
+                    Range linha = ws.Range[ws.Cells[app.ActiveCell.Row, 1], ws.Cells[app.ActiveCell.Row, numeroColunaCompraFinal]];
+                    cl_Tools.Estilo_Destaque1(linha);
+                }
+
+                if (app.ActiveCell.Row < 3)
+                {
+                    break;
+
+                }
+                else
+                {
+                    app.ActiveCell.Offset[-1, 0].Select();
+                }
+            }
+        }
+
+        static bool SepararProblemas()
+        {
+            app.ScreenUpdating = false;
+
+            int colunasUsadas = ws.UsedRange.Columns.Count;
+
+            Range rangeNome = ws.Range[app.Cells[1, 1], app.Cells[1, colunasUsadas]].Find(What: "nome", LookAt: XlLookAt.xlWhole, MatchCase: false);
+            Range rangeCompraFinal = ws.Range[app.Cells[1, 1], app.Cells[1, colunasUsadas]].Find(What: "comprafinal", LookAt: XlLookAt.xlWhole, MatchCase: false);
+            Range rangeOBS = ws.Range[app.Cells[1, 1], app.Cells[1, colunasUsadas]].Find(What: "obs", LookAt: XlLookAt.xlWhole, MatchCase: false);
+
+            int numeroColunaNome = rangeNome.Cells.Column;
+            int numeroColunaCompraFinal = rangeCompraFinal.Cells.Column;
+            int numeroColunaOBS = rangeOBS.Cells.Column;
+
+            ws.Cells[1048576, numeroColunaCompraFinal].End(XlDirection.xlUp).Offset[0, 0].Select();
+
+            while (true)
+            {
+                //-------------------[COLUNA OBS]-------------------
+                string valorCelulaLinhaAtualColunaOBS = ws.Cells[app.ActiveCell.Row, numeroColunaOBS].Offset(0, 0).Text.Trim().ToLower();
+                string valorCelulaAbaixoLinhaAtualColunaOBS = ws.Cells[app.ActiveCell.Row, numeroColunaOBS].Offset(1, 0).Text.Trim().ToLower();
+                string valorCelulaAcimaLinhaAtualColunaOBS = ws.Cells[app.ActiveCell.Row, numeroColunaOBS].Offset(-1, 0).Text.Trim().ToLower();
+
+
+                //------------------[COLUNA NOME]-------------------
+                string valorCelulaLinhaAtualColunaNome = ws.Cells[app.ActiveCell.Row, numeroColunaNome].Offset(0, 0).Text.Trim().ToLower();
+                string valorCelulaAbaixoLinhaAtualColunaNome = ws.Cells[app.ActiveCell.Row, numeroColunaNome].Offset(1, 0).Text.Trim().ToLower();
+                string valorCelulaAcimaLinhaAtualColunaNome = ws.Cells[app.ActiveCell.Row, numeroColunaNome].Offset(-1, 0).Text.Trim().ToLower();
+
+                if (valorCelulaLinhaAtualColunaOBS == "inativo" || valorCelulaLinhaAtualColunaOBS == "sem cadastro" || valorCelulaLinhaAtualColunaOBS == "cpf ativo em outro comprador")
+                {
+                    if (valorCelulaAbaixoLinhaAtualColunaNome == "" && valorCelulaAcimaLinhaAtualColunaNome == "")
+                    {
+                        // COLUNA NOME NA LINHA [CIMA] DA ATUAL ESTÁ VAZIA
+                        // COLUNA NOME NA LINHA [BAIXO] DA ATUAL ESTÁ VAZIA
+                        cl_Tools.Estilo_Neutro(ws.Cells[app.ActiveCell.Row, numeroColunaCompraFinal]); // Aplicar estilo neutro na coluna Compra Final da mesma linha
+                    }
+                    else if (valorCelulaAbaixoLinhaAtualColunaNome == "" && valorCelulaAcimaLinhaAtualColunaNome != "")
+                    {
+                        // COLUNA NOME NA LINHA [CIMA] DA ATUAL ESTÁ OCUPADA
+                        // COLUNA NOME NA LINHA [BAIXO] DA ATUAL ESTÁ VAZIA
+                        VerificacaoEmLinhas(numeroColunaNome, numeroColunaOBS, false, true);
+                        cl_Tools.Estilo_Neutro(ws.Cells[app.ActiveCell.Row, numeroColunaCompraFinal]); // Aplicar estilo neutro na coluna Compra Final da mesma linha
+                    }
+                    else if (valorCelulaAbaixoLinhaAtualColunaNome != "" && valorCelulaAcimaLinhaAtualColunaNome == "")
+                    {
+                        // COLUNA NOME NA LINHA [CIMA] DA ATUAL ESTÁ VAZIA
+                        // COLUNA NOME NA LINHA [BAIXO] DA ATUAL ESTÁ OCUPADA
+                        VerificacaoEmLinhas(numeroColunaNome, numeroColunaOBS, true, true);
+                        cl_Tools.Estilo_Neutro(ws.Cells[app.ActiveCell.Row, numeroColunaCompraFinal]); // Aplicar estilo neutro na coluna Compra Final da mesma linha
+                    }
+                    else if (valorCelulaAbaixoLinhaAtualColunaNome != "" && valorCelulaAcimaLinhaAtualColunaNome != "")
+                    {
+                        // COLUNA NOME NA LINHA [CIMA] DA ATUAL ESTÁ OCUPADA
+                        // COLUNA NOME NA LINHA [BAIXO] DA ATUAL ESTÁ OCUPADA
+                        VerificacaoEmLinhas(numeroColunaNome, numeroColunaOBS, true, true);
+                        VerificacaoEmLinhas(numeroColunaNome, numeroColunaOBS, false, true);
+                        cl_Tools.Estilo_Neutro(ws.Cells[app.ActiveCell.Row, numeroColunaCompraFinal]); // Aplicar estilo neutro na coluna Compra Final da mesma linha
+                    }
+                    else
+                    {
+                        MessageBox.Show("Existe uma probabilidade não calculada!", "ERRO: 859143", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+
+                }
+                else if (valorCelulaLinhaAtualColunaOBS == "novo/sem cartao")
+                {
+                    if (valorCelulaAbaixoLinhaAtualColunaNome == "" && valorCelulaAcimaLinhaAtualColunaNome == "")
+                    {
+                        // COLUNA NOME NA LINHA [CIMA] DA ATUAL ESTÁ VAZIA
+                        // COLUNA NOME NA LINHA [BAIXO] DA ATUAL ESTÁ VAZIA
+                    }
+                    else if (valorCelulaAbaixoLinhaAtualColunaNome == "" && valorCelulaAcimaLinhaAtualColunaNome != "")
+                    {
+                        // COLUNA NOME NA LINHA [CIMA] DA ATUAL ESTÁ OCUPADA
+                        // COLUNA NOME NA LINHA [BAIXO] DA ATUAL ESTÁ VAZIA
+                        VerificacaoEmLinhas(numeroColunaNome, numeroColunaOBS, false, false);
+                    }
+                    else if (valorCelulaAbaixoLinhaAtualColunaNome != "" && valorCelulaAcimaLinhaAtualColunaNome == "")
+                    {
+                        // COLUNA NOME NA LINHA [CIMA] DA ATUAL ESTÁ VAZIA
+                        // COLUNA NOME NA LINHA [BAIXO] DA ATUAL ESTÁ OCUPADA
+                    }
+                    else if (valorCelulaAbaixoLinhaAtualColunaNome != "" && valorCelulaAcimaLinhaAtualColunaNome != "")
+                    {
+                        // COLUNA NOME NA LINHA [CIMA] DA ATUAL ESTÁ OCUPADA
+                        // COLUNA NOME NA LINHA [BAIXO] DA ATUAL ESTÁ OCUPADA
+                        VerificacaoEmLinhas(numeroColunaNome, numeroColunaOBS, false, false);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Existe uma probabilidade não calculada!", "ERRO: 550166", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+
+                }
+                else
+                {
+                    if (valorCelulaLinhaAtualColunaNome != "" && valorCelulaAcimaLinhaAtualColunaNome != "")
+                    {
+                        // COLUNA NOME NA LINHA ATUAL ESTÁ OCUPADA
+                        // COLUNA NOME NA LINHA [BAIXO] DA ATUAL ESTÁ OCUPADA]
+
+                        string activeCell = app.ActiveCell.Text.Replace("-", "0").Trim(); // ATUAL
+                        string activeCellOffset = app.ActiveCell.Offset[-1, 0].Text.Replace("-", "0").Trim(); // EM CIMA
+
+                        if (double.TryParse(activeCell, out double aC))
+                        {
+                            if (double.TryParse(activeCellOffset, out double aCOffset))
+                            {
+                                if (aC > 0 && aCOffset == 0)
+                                {
+                                    // COLUNA COMPRA FINAL NA LINHA ATUAL É MAIOR QUE ZERO
+                                    // COLUNA COMPRA FINAL NA LINHA [CIMA] DA ATUAL É ZERO
+                                    VerificacaoEmLinhas(numeroColunaNome, numeroColunaOBS, false, false);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (app.ActiveCell.Row < 3)
+                {
+                    break;
+                }
+                else
+                {
+                    app.ActiveCell.Offset[-1, 0].Select();
+                }
+
+            }
+
+            app.ScreenUpdating = true;
+            return true;
+        }
+
+        static void VerificacaoEmLinhas(int numeroColunaNome, int numeroColunaOBS, bool abaixo, bool problema)
+        {
+            //-------------------[COLUNA OBS]-------------------
+            // string valorCelulaLinhaAtualColunaOBS = ws.Cells[app.ActiveCell.Row, numeroColunaOBS].Offset[0, 0].Text.Trim().ToLower();
+            string valorCelulaAbaixoLinhaAtualColunaOBS = ws.Cells[app.ActiveCell.Row, numeroColunaOBS].Offset[1, 0].Text.Trim().ToLower();
+            string valorCelulaAcimaLinhaAtualColunaOBS = ws.Cells[app.ActiveCell.Row, numeroColunaOBS].Offset[-1, 0].Text.Trim().ToLower();
+
+
+            //------------------[COLUNA NOME]-------------------
+            // string valorCelulaLinhaAtualColunaNome = ws.Cells[app.ActiveCell.Row, numeroColunaNome].Offset[0, 0].Text.Trim().ToLower();
+            // string valorCelulaAbaixoLinhaAtualColunaNome = ws.Cells[app.ActiveCell.Row, numeroColunaNome].Offset[1, 0].Text.Trim().ToLower();
+            // string valorCelulaAcimaLinhaAtualColunaNome = ws.Cells[app.ActiveCell.Row, numeroColunaNome].Offset[-1, 0].Text.Trim().ToLower();
+
+            if (abaixo == true && problema == true)
+            {
+                if (valorCelulaAbaixoLinhaAtualColunaOBS != "inativo" && valorCelulaAbaixoLinhaAtualColunaOBS != "sem cadastro" && valorCelulaAbaixoLinhaAtualColunaOBS != "cpf ativo em outro comprador")
+                {
+                    ws.Rows[app.ActiveCell.Offset[1, 0].Row].Insert();
+                }
+
+            }
+            else if (abaixo == false && problema == true)
+            {
+                if (valorCelulaAcimaLinhaAtualColunaOBS != "inativo" && valorCelulaAcimaLinhaAtualColunaOBS != "sem cadastro" && valorCelulaAcimaLinhaAtualColunaOBS != "cpf ativo em outro comprador")
+                {
+                    ws.Rows[app.ActiveCell.Row].Insert();
+                    app.ActiveCell.Offset[1, 0].Select();
+                }
+
+            }
+            else if (abaixo == true && problema == false)
+            {
+                if (valorCelulaAbaixoLinhaAtualColunaOBS != "novo/sem cartao")
+                {
+                    ws.Rows[app.ActiveCell.Offset[1, 0].Row].Insert();
+                }
+            }
+            else if (abaixo == false && problema == false)
+            {
+                if (valorCelulaAcimaLinhaAtualColunaOBS != "novo/sem cartao")
+                {
+                    ws.Rows[app.ActiveCell.Row].Insert();
+                    app.ActiveCell.Offset[1, 0].Select();
+                }
+            }
+        }
+
+        static bool AjustarOcultarColunas()
+        {
+            app.ScreenUpdating = false;
+
+            int colunasUsadas = ws.UsedRange.Columns.Count;
+            Range rangeAjustarOcultarColunas = ws.Range[app.Cells[1, 1], app.Cells[1, colunasUsadas]];
+
+            ProcurarAjustarColuna(rangeAjustarOcultarColunas, "uf");
+            ProcurarAjustarColuna(rangeAjustarOcultarColunas, "operadora");
+            ProcurarAjustarColuna(rangeAjustarOcultarColunas, "empresa");
+            ProcurarAjustarColuna(rangeAjustarOcultarColunas, "c.unid");
+            ProcurarOcultarColuna(rangeAjustarOcultarColunas, "c.depto");
+            ProcurarOcultarColuna(rangeAjustarOcultarColunas, "cnpj");
+            ProcurarOcultarColuna(rangeAjustarOcultarColunas, "escala");
+            ProcurarOcultarColuna(rangeAjustarOcultarColunas, "rg");
+            ProcurarOcultarColuna(rangeAjustarOcultarColunas, "data nasc.");
+            ProcurarOcultarColuna(rangeAjustarOcultarColunas, "desc");
+            ProcurarOcultarColuna(rangeAjustarOcultarColunas, "qvt1");
+            ProcurarOcultarColuna(rangeAjustarOcultarColunas, "vvt1");
+            ProcurarOcultarColuna(rangeAjustarOcultarColunas, "tvt1");
+            ProcurarOcultarColuna(rangeAjustarOcultarColunas, "total");
+            ProcurarOcultarColuna(rangeAjustarOcultarColunas, "desconto");
+
+            app.ScreenUpdating = true;
+            return true;
+        }
+
+        static void ProcurarAjustarColuna(Range intervalo, string nomeColuna)
+        {
+            foreach (Range cell in intervalo.Columns)
+            {
+                if (cell.Text.ToLower().Trim() == nomeColuna)
+                {
+                    cell.ColumnWidth = 0.08;
+                    break;
+                }
+            }
+        }
+
+        static void ProcurarOcultarColuna(Range intervalo, string nomeColuna)
+        {
+            foreach (Range cell in intervalo.Columns)
+            {
+                if (cell.Text.ToLower().Trim() == nomeColuna)
+                {
+                    cell.EntireColumn.Hidden = true;
+                    break;
+                }
+            }
+        }
+
+    }
+}
