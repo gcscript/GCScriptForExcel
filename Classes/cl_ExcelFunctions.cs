@@ -344,6 +344,8 @@ namespace GCScript_for_Excel.Classes
                     if (sheet.Visible == XlSheetVisibility.xlSheetHidden)
                         continue;
 
+                    RemoveFilter(sheet);
+
                     sheet.Select();
                     rng = sheet.Cells;
                     if (cl_Settings.ApplyRemove_Remove_Filter == true) { RemoveFilter(ws); }
