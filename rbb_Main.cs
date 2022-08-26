@@ -523,6 +523,9 @@ namespace GCScript_for_Excel
 
                     foreach (Worksheet sheet in app.ActiveWorkbook.Worksheets)
                     {
+                        if (sheet.Visible == XlSheetVisibility.xlSheetHidden)
+                            continue;
+
                         rng = sheet.Cells;
                         cl_ExcelFunctions.RemoveFormula(rng);
                         app.Goto(sheet.Range["A1"], true);
