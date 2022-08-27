@@ -161,6 +161,10 @@ namespace GCScript_for_Excel
             ApplyRemove_chk_Remove_Formula.Checked = cl_Settings.ApplyRemove_Remove_Formula;
             ApplyRemove_chk_Remove_ConditionalFormatting.Checked = cl_Settings.ApplyRemove_Remove_ConditionalFormatting;
             ApplyRemove_chk_Remove_Filter.Checked = cl_Settings.ApplyRemove_Remove_Filter;
+            ApplyRemove_chk_Remove_Images.Checked = cl_Settings.ApplyRemove_Remove_Images;
+
+            ApplyRemove_chk_RemoveAllSheets_EmptySheets.Checked = cl_Settings.ApplyRemove_RemoveAllSheets_EmptySheets;
+            ApplyRemove_chk_RemoveAllSheets_HiddenSheets.Checked = cl_Settings.ApplyRemove_RemoveAllSheets_HiddenSheets;
             #endregion
         }
 
@@ -399,6 +403,10 @@ namespace GCScript_for_Excel
         {
             cl_Settings.ApplyRemove_Remove_Filter = ApplyRemove_chk_Remove_Filter.Checked; 
         }
+        private void ApplyRemove_chk_Remove_Images_CheckedChanged(object sender, EventArgs e)
+        {
+            cl_Settings.ApplyRemove_Remove_Images = ApplyRemove_chk_Remove_Images.Checked;
+        }
 
         private void ApplyRemove_chk_Apply_RowHeight_CheckedChanged(object sender, EventArgs e)
         {
@@ -495,6 +503,14 @@ namespace GCScript_for_Excel
             cl_Settings.ApplyRemove_Apply_ZoomValue = ApplyRemove_nud_Apply_Zoom.Value;
         }
 
-        
+        private void ApplyRemove_chk_RemoveAllSheets_EmptySheets_CheckedChanged(object sender, EventArgs e)
+        {
+            cl_Settings.ApplyRemove_RemoveAllSheets_EmptySheets = ApplyRemove_chk_RemoveAllSheets_EmptySheets.Checked;
+        }
+
+        private void ApplyRemove_chk_RemoveAllSheets_HiddenSheets_CheckedChanged(object sender, EventArgs e)
+        {
+            cl_Settings.ApplyRemove_RemoveAllSheets_HiddenSheets = ApplyRemove_chk_RemoveAllSheets_HiddenSheets.Checked;
+        }
     }
 }

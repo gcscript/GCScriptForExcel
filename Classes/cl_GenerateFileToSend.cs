@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using GCScript_for_Excel;
 using Microsoft.Office.Interop.Excel;
-using Microsoft.Office.Tools.Ribbon;
 using xlApp = Microsoft.Office.Interop.Excel.Application;
 
 namespace GCScript_for_Excel.Classes

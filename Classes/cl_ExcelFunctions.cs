@@ -10,14 +10,15 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using GCScript_for_Excel;
 using Microsoft.Office.Interop.Excel;
+//using Microsoft.Office.Tools.Excel;
 using Microsoft.Office.Tools.Ribbon;
-using Appl = Microsoft.Office.Interop.Excel.Application;
+using gcsApplication = Microsoft.Office.Interop.Excel.Application;
 
 namespace GCScript_for_Excel.Classes
 {
     public static class cl_ExcelFunctions
     {
-        static Appl app = Globals.ThisAddIn.Application;
+        static gcsApplication app = Globals.ThisAddIn.Application;
 
         public static void AdjustScroll(int linha = 1, int coluna = 1)
         {
@@ -285,6 +286,35 @@ namespace GCScript_for_Excel.Classes
             app.ActiveSheet.AutoFilterMode = false;
         }
 
+        public static Worksheet SearchWorksheet(gcsApplication gcsApp, string sheetName)
+        {
+            foreach (Worksheet sheet in gcsApp.Worksheets)
+            {
+                if (sheet.Name.ToLower().Trim() == sheetName.ToLower())
+                {
+                    return sheet;
+                }
+            }
+
+
+            return null;
+        }
+
+        public static bool CheckIfColumnsExist(Worksheet workSheet, List<string> columnsName)
+        {
+            foreach (var columnName in columnsName)
+            {
+                int usedColumns = workSheet.UsedRange.Columns.Count;
+                Range rng = workSheet.Range[app.Cells[1, 1], app.Cells[1, usedColumns]].Find(What: columnName.Trim().ToLower(), LookAt: XlLookAt.xlWhole, MatchCase: false);
+                if (rng == null)
+                {
+                    MessageBox.Show($"A coluna {columnName} não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+            }
+            return true;
+        }
+
         public static void RemoveCF(Worksheet ws)
         {
             if (cl_Settings.More_SelectionType == 1)
@@ -303,13 +333,26 @@ namespace GCScript_for_Excel.Classes
             }
         }
 
+        public static void ResetApp(gcsApplication xlapp)
+        {
+            Worksheet ws = xlapp.ActiveSheet;
+
+            xlapp.Goto(ws.Range["A1"], true);
+            xlapp.ScreenUpdating = true;
+            //ws.Cells[1, 1].Select();
+            //cl_ExcelFunctions.AdjustScroll();
+        }
+
         public static void ApplyRemove(Worksheet ws)
         {
 
             Range rng = ws.Cells;
+            var lstEmptySheets = new List<Worksheet>();
+            var lstHiddenSheets = new List<Worksheet>();
 
             if (cl_Settings.ApplyRemove_Apply_AllSheets == false)
             {
+                if (cl_Settings.ApplyRemove_Remove_Images == true) { RemoveImages(ws); }
                 if (cl_Settings.ApplyRemove_Remove_Filter == true) { RemoveFilter(ws); }
                 if (cl_Settings.ApplyRemove_Remove_Formula == true) { RemoveFormula(rng); }
 
@@ -341,41 +384,60 @@ namespace GCScript_for_Excel.Classes
             {
                 foreach (Worksheet sheet in app.ActiveWorkbook.Worksheets)
                 {
-                    if (sheet.Visible == XlSheetVisibility.xlSheetHidden)
-                        continue;
+                    if (sheet.Visible == XlSheetVisibility.xlSheetHidden) { lstHiddenSheets.Add(sheet); continue; } // VERIFY IF SHEET IS HIDE
+                    if (sheet.UsedRange.Count < 2) { lstEmptySheets.Add(sheet); continue; } // VERIFY IF SHEET IS EMPTY
 
                     sheet.Select();
                     rng = sheet.Cells;
-                    if (cl_Settings.ApplyRemove_Remove_Filter == true) { RemoveFilter(ws); }
 
-                    if (cl_Settings.ApplyRemove_Remove_Formula == true) { RemoveFormula(rng); }
+                    if (cl_Settings.ApplyRemove_Remove_Images) { RemoveImages(sheet); }
+                    if (cl_Settings.ApplyRemove_Remove_Filter) { RemoveFilter(sheet); }
 
-                    if (cl_Settings.ApplyRemove_Apply_Zoom == true) { PageZoom(sheet, cl_Settings.ApplyRemove_Apply_ZoomValue); }
+                    if (cl_Settings.ApplyRemove_Remove_Formula) { RemoveFormula(rng); }
 
-                    if (cl_Settings.ApplyRemove_Remove_ConditionalFormatting == true) { RemoveConditionalFormatting(rng); }
+                    if (cl_Settings.ApplyRemove_Apply_Zoom) { PageZoom(sheet, cl_Settings.ApplyRemove_Apply_ZoomValue); }
 
-                    if (cl_Settings.ApplyRemove_Apply_FontName == true) { FontName(rng, cl_Settings.ApplyRemove_Apply_FontNameText); }
-                    if (cl_Settings.ApplyRemove_Apply_FontSize == true) { FontSize(rng, int.Parse(cl_Settings.ApplyRemove_Apply_FontSizeText)); }
+                    if (cl_Settings.ApplyRemove_Remove_ConditionalFormatting) { RemoveConditionalFormatting(rng); }
 
-                    if (cl_Settings.ApplyRemove_Remove_FontBold == true) { FontBold(rng, false); }
-                    if (cl_Settings.ApplyRemove_Remove_FontItalic == true) { FontItalic(rng, false); }
-                    if (cl_Settings.ApplyRemove_Remove_FontUnderline == true) { FontUnderline(rng, false); }
-                    if (cl_Settings.ApplyRemove_Remove_Borders == true) { RemoveBorders(rng); }
-                    if (cl_Settings.ApplyRemove_Remove_Fill == true) { RemoveFill(rng); }
-                    if (cl_Settings.ApplyRemove_Remove_FontColor == true) { RemoveFontColor(rng); }
-                    if (cl_Settings.ApplyRemove_Remove_WrapText == true) { WrapText(rng, false); }
-                    if (cl_Settings.ApplyRemove_Remove_MergeCells == true) { MergeCells(rng, false); }
+                    if (cl_Settings.ApplyRemove_Apply_FontName) { FontName(rng, cl_Settings.ApplyRemove_Apply_FontNameText); }
+                    if (cl_Settings.ApplyRemove_Apply_FontSize) { FontSize(rng, int.Parse(cl_Settings.ApplyRemove_Apply_FontSizeText)); }
 
-                    if (cl_Settings.ApplyRemove_Apply_Align_Vertical == true) { VerticalAlignment(rng, cl_Settings.ApplyRemove_Apply_Align_VerticalValue); }
-                    if (cl_Settings.ApplyRemove_Apply_Align_Horizontal == true) { HorizontalAlignment(rng, cl_Settings.ApplyRemove_Apply_Align_HorizontalValue); }
+                    if (cl_Settings.ApplyRemove_Remove_FontBold) { FontBold(rng, false); }
+                    if (cl_Settings.ApplyRemove_Remove_FontItalic) { FontItalic(rng, false); }
+                    if (cl_Settings.ApplyRemove_Remove_FontUnderline) { FontUnderline(rng, false); }
+                    if (cl_Settings.ApplyRemove_Remove_Borders) { RemoveBorders(rng); }
+                    if (cl_Settings.ApplyRemove_Remove_Fill) { RemoveFill(rng); }
+                    if (cl_Settings.ApplyRemove_Remove_FontColor) { RemoveFontColor(rng); }
+                    if (cl_Settings.ApplyRemove_Remove_WrapText) { WrapText(rng, false); }
+                    if (cl_Settings.ApplyRemove_Remove_MergeCells) { MergeCells(rng, false); }
 
-                    if (cl_Settings.ApplyRemove_Apply_RowHeight == true) { RowHeight(rng, cl_Settings.ApplyRemove_Apply_RowHeightValue); }
-                    if (cl_Settings.ApplyRemove_Apply_ColumnWidth == true) { ColumnWidth(rng, cl_Settings.ApplyRemove_Apply_ColumnWidthValue); }
+                    if (cl_Settings.ApplyRemove_Apply_Align_Vertical) { VerticalAlignment(rng, cl_Settings.ApplyRemove_Apply_Align_VerticalValue); }
+                    if (cl_Settings.ApplyRemove_Apply_Align_Horizontal) { HorizontalAlignment(rng, cl_Settings.ApplyRemove_Apply_Align_HorizontalValue); }
+
+                    if (cl_Settings.ApplyRemove_Apply_RowHeight) { RowHeight(rng, cl_Settings.ApplyRemove_Apply_RowHeightValue); }
+                    if (cl_Settings.ApplyRemove_Apply_ColumnWidth) { ColumnWidth(rng, cl_Settings.ApplyRemove_Apply_ColumnWidthValue); }
 
 
                     app.Goto(sheet.Range["A1"], true);
                 }
-                ws.Select();
+            }
+
+            app.ActiveWorkbook.Sheets[1].Select();
+
+            if (cl_Settings.ApplyRemove_RemoveAllSheets_HiddenSheets)
+            {
+                foreach (var item in lstHiddenSheets)
+                {
+                    item.Delete();
+                }
+            }
+
+            if (cl_Settings.ApplyRemove_RemoveAllSheets_EmptySheets)
+            {
+                foreach (var item in lstEmptySheets)
+                {
+                    item.Delete();
+                }
             }
         }
 
@@ -451,6 +513,12 @@ namespace GCScript_for_Excel.Classes
         {
             if (ws.AutoFilter != null)
                 ws.AutoFilterMode = false;
+        }
+
+        public static void RemoveImages(Worksheet ws)
+        {
+            foreach (Shape sh in ws.Shapes)
+                sh.Delete();
         }
 
         public static void RemoveConditionalFormatting(Range rng)
@@ -715,7 +783,7 @@ namespace GCScript_for_Excel.Classes
             }
         }
 
-        public static void RemoveHiddenSheets()
+        public static int RemoveHiddenSheets()
         {
             int count = 0;
             foreach (Worksheet sheet in app.Worksheets)
@@ -726,11 +794,10 @@ namespace GCScript_for_Excel.Classes
                     count++;
                 }
             }
-
-            MessageBox.Show(string.Format("Planilhas ocultas removidas: {0}", count), "SUCESSO!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            return count;
         }
 
-        public static void ShowHiddenSheets()
+        public static int ShowHiddenSheets()
         {
             int count = 0;
             foreach (Worksheet sheet in app.Worksheets)
@@ -741,8 +808,7 @@ namespace GCScript_for_Excel.Classes
                     count++;
                 }
             }
-
-            MessageBox.Show(string.Format("Planilhas desocultas: {0}", count), "SUCESSO!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            return count;
         }
 
         public static void SetColumnWidthByName(Worksheet workSheet, string nameColumn, decimal width = 0)
@@ -770,7 +836,7 @@ namespace GCScript_for_Excel.Classes
 
         public static void CreateBackup()
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             Workbook wb = app.ActiveWorkbook;
 
             string FilePath = Path.GetDirectoryName(wb.FullName);
@@ -786,7 +852,7 @@ namespace GCScript_for_Excel.Classes
 
         public static void FileToSend()
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             Workbook wb = app.ActiveWorkbook;
 
             string FilePath = Path.GetDirectoryName(wb.FullName);

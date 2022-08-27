@@ -85,6 +85,10 @@ namespace GCScript_for_Excel.Classes
         public static bool ApplyRemove_Remove_Formula = true;
         public static bool ApplyRemove_Remove_ConditionalFormatting = true;
         public static bool ApplyRemove_Remove_Filter = true;
+        public static bool ApplyRemove_Remove_Images = true;
+
+        public static bool ApplyRemove_RemoveAllSheets_EmptySheets = true;
+        public static bool ApplyRemove_RemoveAllSheets_HiddenSheets = true;
         #endregion
 
         public static void ConverterText(Worksheet ws, Range rng)

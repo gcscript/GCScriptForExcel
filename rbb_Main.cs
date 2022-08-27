@@ -47,8 +47,10 @@ namespace GCScript_for_Excel
 
         private void btn_T1_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
-            MessageBox.Show(cl_ExcelFunctions.GetCellInfo(app.ActiveCell));
+            //Appl app = Globals.ThisAddIn.Application;
+            // cl_ExcelFunctions.CreateBackup();
+            var adjustBalanceDaysValueColumns = new cl_AdjustBalanceDaysValueColumns();
+            adjustBalanceDaysValueColumns.Start();
         }
 
         private void btn_T2_Click(object sender, RibbonControlEventArgs e)
@@ -107,7 +109,10 @@ namespace GCScript_for_Excel
 
         private void btn_T6_Click(object sender, RibbonControlEventArgs e)
         {
+            Appl app = Globals.ThisAddIn.Application;
+            Worksheet ws = app.ActiveSheet;
 
+            MessageBox.Show(ws.Application.Worksheets.Count.ToString());
         }
 
         private void rbb_Main_Load(object sender, RibbonUIEventArgs e)
@@ -660,6 +665,7 @@ namespace GCScript_for_Excel
             try
             {
                 app.ScreenUpdating = false;
+                app.DisplayAlerts = false;
                 if (cl_Settings.ApplyRemove_Apply_AllSheets == true)
                 {
                     if (MessageBox.Show("Essa função irá Aplicar/Remover configurações definidas em todas as planilhas!\nIsso pode demorar dependendo da quantidade de dados.\nDeseja continuar?", "ATENÇÃO!", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.No)
@@ -668,13 +674,17 @@ namespace GCScript_for_Excel
                     }
                 }
                 cl_ExcelFunctions.ApplyRemove(ws);
-                app.ScreenUpdating = true;
                 MessageBox.Show("Operação efetuada com sucesso!", "SUCESSO!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception erro)
             {
                 app.ScreenUpdating = true;
                 MessageBox.Show(erro.Message, "ERRO: 255869", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                app.ScreenUpdating = true;
+                app.DisplayAlerts = true;
             }
         }
 
@@ -895,7 +905,8 @@ namespace GCScript_for_Excel
             {
                 app.ScreenUpdating = false;
                 app.DisplayAlerts = false;
-                cl_ExcelFunctions.RemoveHiddenSheets();
+                int count = cl_ExcelFunctions.RemoveHiddenSheets();
+                MessageBox.Show(string.Format("Planilhas ocultas removidas: {0}", count), "SUCESSO!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception erro)
             {
@@ -916,7 +927,8 @@ namespace GCScript_for_Excel
             {
                 app.ScreenUpdating = false;
                 app.DisplayAlerts = false;
-                cl_ExcelFunctions.ShowHiddenSheets();
+                int count = cl_ExcelFunctions.ShowHiddenSheets();
+                MessageBox.Show(string.Format("Planilhas desocultas: {0}", count), "SUCESSO!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception erro)
             {
