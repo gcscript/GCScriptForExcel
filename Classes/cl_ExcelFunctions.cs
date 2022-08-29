@@ -36,6 +36,10 @@ namespace GCScript_for_Excel.Classes
         {
             int usedColumns = ws.UsedRange.Columns.Count;
             Range rng = ws.Range[app.Cells[1, 1], app.Cells[1, usedColumns]].Find(What: nameColumn.Trim(), LookAt: XlLookAt.xlWhole, MatchCase: false);
+            if (rng == null)
+            {
+                return -1;
+            }
             return rng.Cells.Column;
         }
 

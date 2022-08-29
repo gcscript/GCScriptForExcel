@@ -8,7 +8,7 @@ using GCScript_for_Excel.Classes;
 
 using Microsoft.Office.Interop.Excel;
 using Microsoft.Office.Tools.Ribbon;
-using Appl = Microsoft.Office.Interop.Excel.Application;
+using gcsApplication = Microsoft.Office.Interop.Excel.Application;
 
 namespace GCScript_for_Excel
 {
@@ -17,7 +17,7 @@ namespace GCScript_for_Excel
 
         private void btn_Tools_DefinirAreaMex_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             Worksheet ws = app.ActiveSheet;
             cl_ExcelFunctions.CreateBackup();
             cl_ExcelFunctions.SetBZPA(ws, app.Selection);
@@ -55,7 +55,7 @@ namespace GCScript_for_Excel
 
         private void btn_T2_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             Worksheet ws = app.ActiveSheet;
 
         }
@@ -66,7 +66,7 @@ namespace GCScript_for_Excel
 
         private void btn_T4_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             Worksheet ws = app.ActiveSheet;
 
             try
@@ -88,7 +88,7 @@ namespace GCScript_for_Excel
 
         private void btn_T5_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
 
             try
             {
@@ -109,7 +109,7 @@ namespace GCScript_for_Excel
 
         private void btn_T6_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             Worksheet ws = app.ActiveSheet;
 
             MessageBox.Show(ws.Application.Worksheets.Count.ToString());
@@ -141,34 +141,34 @@ namespace GCScript_for_Excel
 
         private void Info_btn_ObterTipoSelecao_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             cl_Tools.ObterTipoSelecao(app.Selection);
         }
 
         private void Generate_btn_Apportionment_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             cl_ExcelFunctions.CreateBackup();
             cl_GenerateApportionment.Start(app.ActiveSheet);
         }
 
         private void Generate_btn_Purchase_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             cl_ExcelFunctions.CreateBackup();
             cl_GeneratePurchase.Start(app.ActiveSheet);
         }
 
         private void Generate_btn_FileToSend_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             cl_ExcelFunctions.CreateBackup();
             cl_GenerateFileToSend.Start();
         }
 
         private void Converter_btn_Text_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             Worksheet ws = app.ActiveSheet;
             cl_ExcelFunctions.CreateBackup();
             app.ScreenUpdating = false;
@@ -203,7 +203,7 @@ namespace GCScript_for_Excel
 
         private void Converter_btn_CPF_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             Worksheet ws = app.ActiveSheet;
             cl_ExcelFunctions.CreateBackup();
             app.ScreenUpdating = false;
@@ -238,7 +238,7 @@ namespace GCScript_for_Excel
 
         private void Converter_btn_CNPJ_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             Worksheet ws = app.ActiveSheet;
             cl_ExcelFunctions.CreateBackup();
             app.ScreenUpdating = false;
@@ -273,7 +273,7 @@ namespace GCScript_for_Excel
 
         private void Converter_btn_WorkSchedule_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             Worksheet ws = app.ActiveSheet;
             cl_ExcelFunctions.CreateBackup();
             app.ScreenUpdating = false;
@@ -322,147 +322,147 @@ namespace GCScript_for_Excel
 
         private void Styles_btn_Primary_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             cl_ExcelFunctions.CreateBackup();
             cl_ExcelFunctions.Styles_Colors(app.Selection, 1);
         }
 
         private void Styles_btn_Secondary_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             cl_ExcelFunctions.CreateBackup();
             cl_ExcelFunctions.Styles_Colors(app.Selection, 2);
         }
 
         private void Styles_btn_Success_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             cl_ExcelFunctions.CreateBackup();
             cl_ExcelFunctions.Styles_Colors(app.Selection, 3);
         }
 
         private void Styles_btn_Danger_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             cl_ExcelFunctions.CreateBackup();
             cl_ExcelFunctions.Styles_Colors(app.Selection, 4);
         }
 
         private void Styles_btn_Warning_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             cl_ExcelFunctions.CreateBackup();
             cl_ExcelFunctions.Styles_Colors(app.Selection, 5);
         }
 
         private void Styles_btn_Info_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             cl_ExcelFunctions.CreateBackup();
             cl_ExcelFunctions.Styles_Colors(app.Selection, 6);
         }
 
         private void Styles_glr_Bootstrap_Primary_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             cl_ExcelFunctions.CreateBackup();
             cl_ExcelFunctions.Styles_Bootstrap(app.Selection, 1);
         }
 
         private void Styles_glr_Bootstrap_Secondary_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             cl_ExcelFunctions.CreateBackup();
             cl_ExcelFunctions.Styles_Bootstrap(app.Selection, 2);
         }
 
         private void Styles_glr_Bootstrap_Success_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             cl_ExcelFunctions.CreateBackup();
             cl_ExcelFunctions.Styles_Bootstrap(app.Selection, 3);
         }
 
         private void Styles_glr_Bootstrap_Danger_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             cl_ExcelFunctions.CreateBackup();
             cl_ExcelFunctions.Styles_Bootstrap(app.Selection, 4);
         }
 
         private void Styles_glr_Bootstrap_Warning_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             cl_ExcelFunctions.CreateBackup();
             cl_ExcelFunctions.Styles_Bootstrap(app.Selection, 5);
         }
 
         private void Styles_glr_Bootstrap_Info_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             cl_ExcelFunctions.CreateBackup();
             cl_ExcelFunctions.Styles_Bootstrap(app.Selection, 6);
         }
 
         private void Styles_glr_Bootstrap_Light_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             cl_ExcelFunctions.CreateBackup();
             cl_ExcelFunctions.Styles_Bootstrap(app.Selection, 7);
         }
 
         private void Styles_glr_Bootstrap_Dark_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             cl_ExcelFunctions.CreateBackup();
             cl_ExcelFunctions.Styles_Bootstrap(app.Selection, 8);
         }
 
         private void Styles_glr_Bootstrap_White_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             cl_ExcelFunctions.CreateBackup();
             cl_ExcelFunctions.Styles_Bootstrap(app.Selection, 9);
         }
 
         private void Styles_glr_Emphasis1_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             cl_ExcelFunctions.CreateBackup();
             cl_ExcelFunctions.Styles_Emphasis(app.Selection, 1);
         }
 
         private void Styles_glr_Emphasis2_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             cl_ExcelFunctions.CreateBackup();
             cl_ExcelFunctions.Styles_Emphasis(app.Selection, 2);
         }
 
         private void Styles_glr_Emphasis3_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             cl_ExcelFunctions.CreateBackup();
             cl_ExcelFunctions.Styles_Emphasis(app.Selection, 3);
         }
 
         private void Styles_glr_Emphasis4_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             cl_ExcelFunctions.CreateBackup();
             cl_ExcelFunctions.Styles_Emphasis(app.Selection, 4);
         }
 
         private void Styles_glr_Emphasis5_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             cl_ExcelFunctions.CreateBackup();
             cl_ExcelFunctions.Styles_Emphasis(app.Selection, 5);
         }
 
         private void Styles_btn_Default_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             cl_ExcelFunctions.CreateBackup();
             cl_ExcelFunctions.Styles_Colors(app.Selection, 0);
         }
@@ -501,7 +501,7 @@ namespace GCScript_for_Excel
 
         private void More_btn_OnlyValues_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             Worksheet ws = app.ActiveSheet;
             cl_ExcelFunctions.CreateBackup();
             try
@@ -560,7 +560,7 @@ namespace GCScript_for_Excel
 
         private void More_btn_RemoveConditionalFormatting_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             Worksheet ws = app.ActiveSheet;
             cl_ExcelFunctions.CreateBackup();
             try
@@ -659,7 +659,7 @@ namespace GCScript_for_Excel
 
         private void ApplyRemove_btn_Start_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             Worksheet ws = app.ActiveSheet;
             cl_ExcelFunctions.CreateBackup();
             try
@@ -697,28 +697,28 @@ namespace GCScript_for_Excel
 
         private void Number_btn_General_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             Range rng = app.Selection;
             rng.NumberFormat = "General";
         }
 
         private void Number_btn_Text_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             Range rng = app.Selection;
             rng.NumberFormat = "@";
         }
 
         private void Number_btn_Accounting_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             Range rng = app.Selection;
             rng.NumberFormat = @"_(* #,##0.00_);_(* (#,##0.00);_(* ""-""??_);_(@_)";
         }
 
         private void Sort_btn_Preset01_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             Worksheet workSheet = app.ActiveSheet;
             cl_ExcelFunctions.CreateBackup();
             List<string> lst_SortDataColumns = new List<string>() { "UF", "Operadora", "Nome" };
@@ -727,7 +727,7 @@ namespace GCScript_for_Excel
 
         private void Sort_btn_Preset02_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             Worksheet workSheet = app.ActiveSheet;
             cl_ExcelFunctions.CreateBackup();
             List<string> lst_SortDataColumns = new List<string>() { "UF", "Operadora", "Empresa", "C.Unid", "Nome" };
@@ -736,7 +736,7 @@ namespace GCScript_for_Excel
 
         private void Sort_btn_Preset03_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             Worksheet workSheet = app.ActiveSheet;
             cl_ExcelFunctions.CreateBackup();
             List<string> lst_SortDataColumns = new List<string>() { "UF", "Operadora", "Empresa", "C.Unid", "C.Depto", "Depto", "Nome" };
@@ -745,7 +745,7 @@ namespace GCScript_for_Excel
 
         private void Sort_btn_Preset04_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             Worksheet workSheet = app.ActiveSheet;
             cl_ExcelFunctions.CreateBackup();
             List<string> lst_SortDataColumns = new List<string>() { "UF", "Operadora", "Empresa", "C.Unid", "C.Depto", "Depto", "Nome" };
@@ -754,7 +754,7 @@ namespace GCScript_for_Excel
 
         private void Sheets_btn_SortSheetsASC_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
 
             try
             {
@@ -774,7 +774,7 @@ namespace GCScript_for_Excel
 
         private void Sheets_btn_SortSheetsDESC_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
 
             try
             {
@@ -794,7 +794,7 @@ namespace GCScript_for_Excel
 
         private void Converter_btn_Round_0DecimalPlaces_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             Worksheet ws = app.ActiveSheet;
             cl_ExcelFunctions.CreateBackup();
             app.ScreenUpdating = false;
@@ -829,7 +829,7 @@ namespace GCScript_for_Excel
 
         private void Converter_btn_Round_1DecimalPlaces_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             Worksheet ws = app.ActiveSheet;
             cl_ExcelFunctions.CreateBackup();
             app.ScreenUpdating = false;
@@ -864,7 +864,7 @@ namespace GCScript_for_Excel
 
         private void Converter_btn_Round_2DecimalPlaces_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             Worksheet ws = app.ActiveSheet;
             cl_ExcelFunctions.CreateBackup();
             app.ScreenUpdating = false;
@@ -899,7 +899,7 @@ namespace GCScript_for_Excel
 
         private void Sheets_btn_RemoveHiddenSheets_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
 
             try
             {
@@ -921,7 +921,7 @@ namespace GCScript_for_Excel
 
         private void Sheets_btn_ShowHiddenSheets_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
 
             try
             {
@@ -943,7 +943,7 @@ namespace GCScript_for_Excel
 
         private void Generate_btn_RandomCPF_Click(object sender, RibbonControlEventArgs e)
         {
-            Appl app = Globals.ThisAddIn.Application;
+            gcsApplication app = Globals.ThisAddIn.Application;
             Worksheet ws = app.ActiveSheet;
             cl_ExcelFunctions.CreateBackup();
             app.ScreenUpdating = false;
@@ -975,7 +975,45 @@ namespace GCScript_for_Excel
                 app.ScreenUpdating = true;
             }
         }
+        private void glr_Get_Content_Click(object sender, RibbonControlEventArgs e)
+        {
 
+            gcsApplication app = Globals.ThisAddIn.Application;
+            Range activeCell = app.ActiveCell;
+            decimal Value2 = 0;
+            _ = decimal.TryParse(activeCell.Value2.ToString(), out Value2);
+
+            MessageBox.Show($"Value: [{activeCell.Value.ToString()}]\n" +
+                $"Value2: [{activeCell.Value2.ToString()}]\n" +
+                $"Value2 Round: [{Math.Round(Value2, 2)}]\n" +
+                $"Text: [{activeCell.Text.ToString()}]\n" +
+                $"Formula: [{activeCell.Formula.ToString()}]\n" +
+                //$"FormulaArray: [{activeCell.FormulaArray.ToString()}]\n" +
+                $"FormulaLocal: [{activeCell.FormulaLocal.ToString()}]\n" +
+                $"FormulaR1C1: [{activeCell.FormulaR1C1.ToString()}]\n" +
+                $"FormulaR1C1Local: [{activeCell.FormulaR1C1Local.ToString()}]\n");
+        }
+
+        private void glr_Get_Value_Click(object sender, RibbonControlEventArgs e)
+        {
+            gcsApplication app = Globals.ThisAddIn.Application;
+            var activeCell = app.ActiveCell.Value;
+            MessageBox.Show(activeCell.ToString());
+        }
+
+        private void glr_Get_Value2_Click(object sender, RibbonControlEventArgs e)
+        {
+            gcsApplication app = Globals.ThisAddIn.Application;
+            var activeCell = app.ActiveCell.Value2;
+            MessageBox.Show(activeCell.ToString());
+        }
+
+        private void glr_Get_Text_Click(object sender, RibbonControlEventArgs e)
+        {
+            gcsApplication app = Globals.ThisAddIn.Application;
+            Range activeCell = app.ActiveCell;
+            MessageBox.Show(activeCell.Text.ToString());
+        }
 
     }
 }

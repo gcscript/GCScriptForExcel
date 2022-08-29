@@ -109,6 +109,11 @@
             this.Info_btn_ObterTipoCell = this.Factory.CreateRibbonButton();
             this.Info_btn_SelecionarRange = this.Factory.CreateRibbonButton();
             this.Info_btn_SelecionarTudo = this.Factory.CreateRibbonButton();
+            this.glr_Get = this.Factory.CreateRibbonGallery();
+            this.glr_Get_Content = this.Factory.CreateRibbonButton();
+            this.glr_Get_Value = this.Factory.CreateRibbonButton();
+            this.glr_Get_Value2 = this.Factory.CreateRibbonButton();
+            this.glr_Get_Text = this.Factory.CreateRibbonButton();
             this.grp_Others = this.Factory.CreateRibbonGroup();
             this.Tools_btn_SetTitle = this.Factory.CreateRibbonButton();
             this.btn_Settings = this.Factory.CreateRibbonButton();
@@ -811,6 +816,7 @@
             this.grp_Info.Items.Add(this.Info_btn_ObterTipoCell);
             this.grp_Info.Items.Add(this.Info_btn_SelecionarRange);
             this.grp_Info.Items.Add(this.Info_btn_SelecionarTudo);
+            this.grp_Info.Items.Add(this.glr_Get);
             this.grp_Info.KeyTip = "4";
             this.grp_Info.Label = "Info";
             this.grp_Info.Name = "grp_Info";
@@ -854,6 +860,56 @@
             this.Info_btn_SelecionarTudo.Name = "Info_btn_SelecionarTudo";
             this.Info_btn_SelecionarTudo.ShowImage = true;
             this.Info_btn_SelecionarTudo.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.Info_btn_SelecionarTudo_Click);
+            // 
+            // glr_Get
+            // 
+            this.glr_Get.Buttons.Add(this.glr_Get_Content);
+            this.glr_Get.Buttons.Add(this.glr_Get_Value);
+            this.glr_Get.Buttons.Add(this.glr_Get_Value2);
+            this.glr_Get.Buttons.Add(this.glr_Get_Text);
+            this.glr_Get.Image = global::GCScript_for_Excel.Properties.Resources.undefined;
+            this.glr_Get.KeyTip = "7";
+            this.glr_Get.Label = "Get";
+            this.glr_Get.Name = "glr_Get";
+            this.glr_Get.ScreenTip = "Get";
+            this.glr_Get.ShowImage = true;
+            this.glr_Get.ShowItemImage = false;
+            // 
+            // glr_Get_Content
+            // 
+            this.glr_Get_Content.Image = global::GCScript_for_Excel.Properties.Resources.undefined;
+            this.glr_Get_Content.Label = "Content";
+            this.glr_Get_Content.Name = "glr_Get_Content";
+            this.glr_Get_Content.ScreenTip = "Content";
+            this.glr_Get_Content.ShowImage = true;
+            this.glr_Get_Content.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.glr_Get_Content_Click);
+            // 
+            // glr_Get_Value
+            // 
+            this.glr_Get_Value.Image = global::GCScript_for_Excel.Properties.Resources.undefined;
+            this.glr_Get_Value.Label = "Value";
+            this.glr_Get_Value.Name = "glr_Get_Value";
+            this.glr_Get_Value.ScreenTip = "Get Value";
+            this.glr_Get_Value.ShowImage = true;
+            this.glr_Get_Value.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.glr_Get_Value_Click);
+            // 
+            // glr_Get_Value2
+            // 
+            this.glr_Get_Value2.Image = global::GCScript_for_Excel.Properties.Resources.undefined;
+            this.glr_Get_Value2.Label = "Value2";
+            this.glr_Get_Value2.Name = "glr_Get_Value2";
+            this.glr_Get_Value2.ScreenTip = "Get Value2";
+            this.glr_Get_Value2.ShowImage = true;
+            this.glr_Get_Value2.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.glr_Get_Value2_Click);
+            // 
+            // glr_Get_Text
+            // 
+            this.glr_Get_Text.Image = global::GCScript_for_Excel.Properties.Resources.undefined;
+            this.glr_Get_Text.Label = "Text";
+            this.glr_Get_Text.Name = "glr_Get_Text";
+            this.glr_Get_Text.ScreenTip = "Get Text";
+            this.glr_Get_Text.ShowImage = true;
+            this.glr_Get_Text.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.glr_Get_Text_Click);
             // 
             // grp_Others
             // 
@@ -1086,6 +1142,11 @@
         private Microsoft.Office.Tools.Ribbon.RibbonButton Generate_btn_Separator1;
         private Microsoft.Office.Tools.Ribbon.RibbonButton Generate_btn_RandomCPF;
         private Microsoft.Office.Tools.Ribbon.RibbonButton Sort_btn_Preset01;
+        internal Microsoft.Office.Tools.Ribbon.RibbonGallery glr_Get;
+        private Microsoft.Office.Tools.Ribbon.RibbonButton glr_Get_Value;
+        private Microsoft.Office.Tools.Ribbon.RibbonButton glr_Get_Value2;
+        private Microsoft.Office.Tools.Ribbon.RibbonButton glr_Get_Text;
+        private Microsoft.Office.Tools.Ribbon.RibbonButton glr_Get_Content;
     }
 
     partial class ThisRibbonCollection
