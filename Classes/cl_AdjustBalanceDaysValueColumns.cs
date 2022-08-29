@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using GCScript_for_Excel;
@@ -78,10 +79,19 @@ namespace GCScript_for_Excel.Classes
 
                     if (activeCellBySaldo.Row < 2) { break; }
 
+
+                    string activeCellByTotalText = Regex.Replace(activeCellByTotal.Text.ToString(), @"\s", "");
+                    string activeCellBySaldoText = Regex.Replace(activeCellBySaldo.Text.ToString(), @"\s", "");
+                    string activeCellByValorDiasText = Regex.Replace(activeCellByValorDias.Text.ToString(), @"\s", "");
+                    string activeCellByDescontoText = Regex.Replace(activeCellByDesconto.Text.ToString(), @"\s", "");
+                    string activeCellByCompraFinalText = Regex.Replace(activeCellByCompraFinal.Text.ToString(), @"\s", "");
+
+
+
                     if (activeCellBySaldo.Value2 == 0 || activeCellBySaldo.Value2 == -2146826246
-                        || activeCellBySaldo.Text == "#N/D" || activeCellBySaldo.Text == "0,00"
+                        || activeCellBySaldoText == "#N/D" || activeCellBySaldoText == "0,00" || activeCellBySaldoText == "-0,00"
                         || activeCellByValorDias.Value2 == 0 || activeCellByValorDias.Value2 == -2146826246
-                        || activeCellByValorDias.Text == "#N/D" || activeCellByValorDias.Text == "0,00")
+                        || activeCellByValorDiasText == "#N/D" || activeCellByValorDiasText == "0,00" || activeCellByValorDiasText == "-0,00")
                     {
                         activeCellBySaldo.Value2 = 0;
                         activeCellByValorDias.Value2 = 0;
@@ -92,7 +102,7 @@ namespace GCScript_for_Excel.Classes
 
 
 
-                    if (activeCellByDesconto.Text == "0,00") { activeCellByDesconto.Value2 = 0; }
+                    if (activeCellByDescontoText == "0,00" || activeCellByDescontoText == "-0,00") { activeCellByDesconto.Value2 = 0; }
 
                     if (activeCellByDesconto.Value2 > 0 && activeCellByDesconto.Value2 < 10) // SE [DESCONTO] FOR MAIOR QUE [0] E MENOR QUE [10]
                     {
@@ -107,7 +117,7 @@ namespace GCScript_for_Excel.Classes
                         }
                     }
 
-                    if (activeCellByCompraFinal.Text == "0,00") { activeCellByCompraFinal.Value2 = 0; }
+                    if (activeCellByCompraFinalText == "0,00" || activeCellByCompraFinalText == "-0,00") { activeCellByCompraFinal.Value2 = 0; }
 
                     if (activeCellByCompraFinal.Value2 > 0 && activeCellByCompraFinal.Value2 < 10) // SE [COMPRA FINAL] FOR MAIOR QUE [0] E MENOR QUE [10]
                     {
