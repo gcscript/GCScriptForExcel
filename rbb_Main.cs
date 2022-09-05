@@ -19,7 +19,7 @@ namespace GCScript_for_Excel
         {
             gcsApplication app = Globals.ThisAddIn.Application;
             Worksheet ws = app.ActiveSheet;
-            ExcelFunctions.CreateBackup();
+            ExcelFunctions.CreateBackup("BZPA");
             ExcelFunctions.SetBZPA(ws, app.Selection);
         }
 
@@ -49,7 +49,7 @@ namespace GCScript_for_Excel
         {
             //Appl app = Globals.ThisAddIn.Application;
             // cl_ExcelFunctions.CreateBackup();
-            var adjustBalanceDaysValueColumns = new cl_AdjustBalanceDaysValueColumns();
+            var adjustBalanceDaysValueColumns = new AdjustDescontoAndCompraFinal();
             adjustBalanceDaysValueColumns.Start();
         }
 
@@ -159,24 +159,32 @@ namespace GCScript_for_Excel
             cl_Tools.ObterTipoSelecao(app.Selection);
         }
 
+        private void Generate_btn_AdjustDescontoAndCompraFinal_Click(object sender, RibbonControlEventArgs e)
+        {
+            //Appl app = Globals.ThisAddIn.Application;
+            ExcelFunctions.CreateBackup("AdjustDescontoAndCompraFinal");
+            var adjustBalanceDaysValueColumns = new AdjustDescontoAndCompraFinal();
+            adjustBalanceDaysValueColumns.Start();
+        }
+
         private void Generate_btn_Apportionment_Click(object sender, RibbonControlEventArgs e)
         {
             gcsApplication app = Globals.ThisAddIn.Application;
-            ExcelFunctions.CreateBackup();
+            ExcelFunctions.CreateBackup("Apportionment");
             cl_GenerateApportionment.Start(app.ActiveSheet);
         }
 
         private void Generate_btn_Purchase_Click(object sender, RibbonControlEventArgs e)
         {
             gcsApplication app = Globals.ThisAddIn.Application;
-            ExcelFunctions.CreateBackup();
+            ExcelFunctions.CreateBackup("Purchase");
             cl_GeneratePurchase.Start(app.ActiveSheet);
         }
 
         private void Generate_btn_FileToSend_Click(object sender, RibbonControlEventArgs e)
         {
             gcsApplication app = Globals.ThisAddIn.Application;
-            ExcelFunctions.CreateBackup();
+            ExcelFunctions.CreateBackup("FileToSend");
             cl_GenerateFileToSend.Start();
         }
 
@@ -184,7 +192,7 @@ namespace GCScript_for_Excel
         {
             gcsApplication app = Globals.ThisAddIn.Application;
             Worksheet ws = app.ActiveSheet;
-            ExcelFunctions.CreateBackup();
+            ExcelFunctions.CreateBackup("ConverterText");
             app.ScreenUpdating = false;
             try
             {
@@ -219,7 +227,7 @@ namespace GCScript_for_Excel
         {
             gcsApplication app = Globals.ThisAddIn.Application;
             Worksheet ws = app.ActiveSheet;
-            ExcelFunctions.CreateBackup();
+            ExcelFunctions.CreateBackup("ConverterCPF");
             app.ScreenUpdating = false;
             try
             {
@@ -254,7 +262,7 @@ namespace GCScript_for_Excel
         {
             gcsApplication app = Globals.ThisAddIn.Application;
             Worksheet ws = app.ActiveSheet;
-            ExcelFunctions.CreateBackup();
+            ExcelFunctions.CreateBackup("ConverterCNPJ");
             app.ScreenUpdating = false;
             try
             {
@@ -289,7 +297,7 @@ namespace GCScript_for_Excel
         {
             gcsApplication app = Globals.ThisAddIn.Application;
             Worksheet ws = app.ActiveSheet;
-            ExcelFunctions.CreateBackup();
+            ExcelFunctions.CreateBackup("ConverterWorkSchedule");
             app.ScreenUpdating = false;
             try
             {
@@ -337,147 +345,147 @@ namespace GCScript_for_Excel
         private void Styles_btn_Primary_Click(object sender, RibbonControlEventArgs e)
         {
             gcsApplication app = Globals.ThisAddIn.Application;
-            ExcelFunctions.CreateBackup();
+            ExcelFunctions.CreateBackup("StylesPrimary");
             ExcelFunctions.Styles_Colors(app.Selection, 1);
         }
 
         private void Styles_btn_Secondary_Click(object sender, RibbonControlEventArgs e)
         {
             gcsApplication app = Globals.ThisAddIn.Application;
-            ExcelFunctions.CreateBackup();
+            ExcelFunctions.CreateBackup("StylesSecondary");
             ExcelFunctions.Styles_Colors(app.Selection, 2);
         }
 
         private void Styles_btn_Success_Click(object sender, RibbonControlEventArgs e)
         {
             gcsApplication app = Globals.ThisAddIn.Application;
-            ExcelFunctions.CreateBackup();
+            ExcelFunctions.CreateBackup("StylesSuccess");
             ExcelFunctions.Styles_Colors(app.Selection, 3);
         }
 
         private void Styles_btn_Danger_Click(object sender, RibbonControlEventArgs e)
         {
             gcsApplication app = Globals.ThisAddIn.Application;
-            ExcelFunctions.CreateBackup();
+            ExcelFunctions.CreateBackup("StylesDanger");
             ExcelFunctions.Styles_Colors(app.Selection, 4);
         }
 
         private void Styles_btn_Warning_Click(object sender, RibbonControlEventArgs e)
         {
             gcsApplication app = Globals.ThisAddIn.Application;
-            ExcelFunctions.CreateBackup();
+            ExcelFunctions.CreateBackup("StylesWarning");
             ExcelFunctions.Styles_Colors(app.Selection, 5);
         }
 
         private void Styles_btn_Info_Click(object sender, RibbonControlEventArgs e)
         {
             gcsApplication app = Globals.ThisAddIn.Application;
-            ExcelFunctions.CreateBackup();
+            ExcelFunctions.CreateBackup("StylesInfo");
             ExcelFunctions.Styles_Colors(app.Selection, 6);
         }
 
         private void Styles_glr_Bootstrap_Primary_Click(object sender, RibbonControlEventArgs e)
         {
             gcsApplication app = Globals.ThisAddIn.Application;
-            ExcelFunctions.CreateBackup();
+            ExcelFunctions.CreateBackup("StylesBootstrapPrimary");
             ExcelFunctions.Styles_Bootstrap(app.Selection, 1);
         }
 
         private void Styles_glr_Bootstrap_Secondary_Click(object sender, RibbonControlEventArgs e)
         {
             gcsApplication app = Globals.ThisAddIn.Application;
-            ExcelFunctions.CreateBackup();
+            ExcelFunctions.CreateBackup("StylesBootstrapSecondary");
             ExcelFunctions.Styles_Bootstrap(app.Selection, 2);
         }
 
         private void Styles_glr_Bootstrap_Success_Click(object sender, RibbonControlEventArgs e)
         {
             gcsApplication app = Globals.ThisAddIn.Application;
-            ExcelFunctions.CreateBackup();
+            ExcelFunctions.CreateBackup("StylesBootstrapSuccess");
             ExcelFunctions.Styles_Bootstrap(app.Selection, 3);
         }
 
         private void Styles_glr_Bootstrap_Danger_Click(object sender, RibbonControlEventArgs e)
         {
             gcsApplication app = Globals.ThisAddIn.Application;
-            ExcelFunctions.CreateBackup();
+            ExcelFunctions.CreateBackup("StylesBootstrapDanger");
             ExcelFunctions.Styles_Bootstrap(app.Selection, 4);
         }
 
         private void Styles_glr_Bootstrap_Warning_Click(object sender, RibbonControlEventArgs e)
         {
             gcsApplication app = Globals.ThisAddIn.Application;
-            ExcelFunctions.CreateBackup();
+            ExcelFunctions.CreateBackup("StylesBootstrapWarning");
             ExcelFunctions.Styles_Bootstrap(app.Selection, 5);
         }
 
         private void Styles_glr_Bootstrap_Info_Click(object sender, RibbonControlEventArgs e)
         {
             gcsApplication app = Globals.ThisAddIn.Application;
-            ExcelFunctions.CreateBackup();
+            ExcelFunctions.CreateBackup("StylesBootstrapInfo");
             ExcelFunctions.Styles_Bootstrap(app.Selection, 6);
         }
 
         private void Styles_glr_Bootstrap_Light_Click(object sender, RibbonControlEventArgs e)
         {
             gcsApplication app = Globals.ThisAddIn.Application;
-            ExcelFunctions.CreateBackup();
+            ExcelFunctions.CreateBackup("StylesBootstrapLight");
             ExcelFunctions.Styles_Bootstrap(app.Selection, 7);
         }
 
         private void Styles_glr_Bootstrap_Dark_Click(object sender, RibbonControlEventArgs e)
         {
             gcsApplication app = Globals.ThisAddIn.Application;
-            ExcelFunctions.CreateBackup();
+            ExcelFunctions.CreateBackup("StylesBootstrapDark");
             ExcelFunctions.Styles_Bootstrap(app.Selection, 8);
         }
 
         private void Styles_glr_Bootstrap_White_Click(object sender, RibbonControlEventArgs e)
         {
             gcsApplication app = Globals.ThisAddIn.Application;
-            ExcelFunctions.CreateBackup();
+            ExcelFunctions.CreateBackup("StylesBootstrapWhite");
             ExcelFunctions.Styles_Bootstrap(app.Selection, 9);
         }
 
         private void Styles_glr_Emphasis1_Click(object sender, RibbonControlEventArgs e)
         {
             gcsApplication app = Globals.ThisAddIn.Application;
-            ExcelFunctions.CreateBackup();
+            ExcelFunctions.CreateBackup("StylesEmphasis1");
             ExcelFunctions.Styles_Emphasis(app.Selection, 1);
         }
 
         private void Styles_glr_Emphasis2_Click(object sender, RibbonControlEventArgs e)
         {
             gcsApplication app = Globals.ThisAddIn.Application;
-            ExcelFunctions.CreateBackup();
+            ExcelFunctions.CreateBackup("StylesEmphasis2");
             ExcelFunctions.Styles_Emphasis(app.Selection, 2);
         }
 
         private void Styles_glr_Emphasis3_Click(object sender, RibbonControlEventArgs e)
         {
             gcsApplication app = Globals.ThisAddIn.Application;
-            ExcelFunctions.CreateBackup();
+            ExcelFunctions.CreateBackup("StylesEmphasis3");
             ExcelFunctions.Styles_Emphasis(app.Selection, 3);
         }
 
         private void Styles_glr_Emphasis4_Click(object sender, RibbonControlEventArgs e)
         {
             gcsApplication app = Globals.ThisAddIn.Application;
-            ExcelFunctions.CreateBackup();
+            ExcelFunctions.CreateBackup("StylesEmphasis4");
             ExcelFunctions.Styles_Emphasis(app.Selection, 4);
         }
 
         private void Styles_glr_Emphasis5_Click(object sender, RibbonControlEventArgs e)
         {
             gcsApplication app = Globals.ThisAddIn.Application;
-            ExcelFunctions.CreateBackup();
+            ExcelFunctions.CreateBackup("StylesEmphasis5");
             ExcelFunctions.Styles_Emphasis(app.Selection, 5);
         }
 
         private void Styles_btn_Default_Click(object sender, RibbonControlEventArgs e)
         {
             gcsApplication app = Globals.ThisAddIn.Application;
-            ExcelFunctions.CreateBackup();
+            ExcelFunctions.CreateBackup("StylesDefault");
             ExcelFunctions.Styles_Colors(app.Selection, 0);
         }
 
@@ -517,7 +525,7 @@ namespace GCScript_for_Excel
         {
             gcsApplication app = Globals.ThisAddIn.Application;
             Worksheet ws = app.ActiveSheet;
-            ExcelFunctions.CreateBackup();
+            ExcelFunctions.CreateBackup("OnlyValues");
             try
             {
                 app.ScreenUpdating = false;
@@ -576,7 +584,7 @@ namespace GCScript_for_Excel
         {
             gcsApplication app = Globals.ThisAddIn.Application;
             Worksheet ws = app.ActiveSheet;
-            ExcelFunctions.CreateBackup();
+            ExcelFunctions.CreateBackup("RemoveConditionalFormatting");
             try
             {
                 app.ScreenUpdating = false;
@@ -675,7 +683,7 @@ namespace GCScript_for_Excel
         {
             gcsApplication app = Globals.ThisAddIn.Application;
             Worksheet ws = app.ActiveSheet;
-            ExcelFunctions.CreateBackup();
+            ExcelFunctions.CreateBackup("ApplyRemove");
             try
             {
                 app.ScreenUpdating = false;
@@ -734,7 +742,7 @@ namespace GCScript_for_Excel
         {
             gcsApplication app = Globals.ThisAddIn.Application;
             Worksheet workSheet = app.ActiveSheet;
-            ExcelFunctions.CreateBackup();
+            ExcelFunctions.CreateBackup("SortPreset1");
             List<string> lst_SortDataColumns = new List<string>() { ColumnsName.UF, ColumnsName.Operadora, ColumnsName.Nome };
             ExcelFunctions.SortDataByColumn(workSheet, lst_SortDataColumns);
         }
@@ -743,7 +751,7 @@ namespace GCScript_for_Excel
         {
             gcsApplication app = Globals.ThisAddIn.Application;
             Worksheet workSheet = app.ActiveSheet;
-            ExcelFunctions.CreateBackup();
+            ExcelFunctions.CreateBackup("SortPreset2");
             List<string> lst_SortDataColumns = new List<string>() { ColumnsName.UF, ColumnsName.Operadora, ColumnsName.Empresa, ColumnsName.CUnid, ColumnsName.Nome };
             ExcelFunctions.SortDataByColumn(workSheet, lst_SortDataColumns);
         }
@@ -752,7 +760,7 @@ namespace GCScript_for_Excel
         {
             gcsApplication app = Globals.ThisAddIn.Application;
             Worksheet workSheet = app.ActiveSheet;
-            ExcelFunctions.CreateBackup();
+            ExcelFunctions.CreateBackup("SortPreset3");
             List<string> lst_SortDataColumns = new List<string>() { ColumnsName.UF, ColumnsName.Operadora, ColumnsName.Empresa, ColumnsName.CUnid, ColumnsName.CDepto, "Depto", ColumnsName.Nome };
             ExcelFunctions.SortDataByColumn(workSheet, lst_SortDataColumns);
         }
@@ -761,7 +769,7 @@ namespace GCScript_for_Excel
         {
             gcsApplication app = Globals.ThisAddIn.Application;
             Worksheet workSheet = app.ActiveSheet;
-            ExcelFunctions.CreateBackup();
+            ExcelFunctions.CreateBackup("SortPreset4");
             List<string> lst_SortDataColumns = new List<string>() { ColumnsName.UF, ColumnsName.Operadora, ColumnsName.Empresa, ColumnsName.CUnid, ColumnsName.CDepto, "Depto", ColumnsName.Nome };
             ExcelFunctions.SortDataByColumn(workSheet, lst_SortDataColumns);
         }
@@ -773,7 +781,7 @@ namespace GCScript_for_Excel
             try
             {
                 app.ScreenUpdating = false;
-                ExcelFunctions.CreateBackup();
+                ExcelFunctions.CreateBackup("SortSheetsASC");
                 ExcelFunctions.SheetsOrderBy();
             }
             catch (Exception erro)
@@ -793,7 +801,7 @@ namespace GCScript_for_Excel
             try
             {
                 app.ScreenUpdating = false;
-                ExcelFunctions.CreateBackup();
+                ExcelFunctions.CreateBackup("SortSheetsAESC");
                 ExcelFunctions.SheetsOrderBy(true);
             }
             catch (Exception erro)
@@ -810,7 +818,7 @@ namespace GCScript_for_Excel
         {
             gcsApplication app = Globals.ThisAddIn.Application;
             Worksheet ws = app.ActiveSheet;
-            ExcelFunctions.CreateBackup();
+            ExcelFunctions.CreateBackup("Round0DecimalPlaces");
             app.ScreenUpdating = false;
             try
             {
@@ -844,7 +852,7 @@ namespace GCScript_for_Excel
         {
             gcsApplication app = Globals.ThisAddIn.Application;
             Worksheet ws = app.ActiveSheet;
-            ExcelFunctions.CreateBackup();
+            ExcelFunctions.CreateBackup("Round2DecimalPlaces");
             app.ScreenUpdating = false;
             try
             {
@@ -923,7 +931,7 @@ namespace GCScript_for_Excel
         {
             gcsApplication app = Globals.ThisAddIn.Application;
             Worksheet ws = app.ActiveSheet;
-            ExcelFunctions.CreateBackup();
+            ExcelFunctions.CreateBackup("RandomCPF");
             app.ScreenUpdating = false;
             try
             {
@@ -999,5 +1007,7 @@ namespace GCScript_for_Excel
             (bool isNumeric, bool isNull, decimal value) teste = ExcelFunctions.IsNumeric(app.ActiveCell);
             MessageBox.Show($"Is Null? {teste.isNull}\nIs Numeric? {teste.isNumeric}\nValue: {teste.value}", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
         }
+
+        
     }
 }

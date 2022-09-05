@@ -14,8 +14,6 @@ namespace GCScript_for_Excel.Classes
 
         public static void Start()
         {
-            ExcelFunctions.CreateBackup();
-
             try
             {
                 app.ScreenUpdating = false;

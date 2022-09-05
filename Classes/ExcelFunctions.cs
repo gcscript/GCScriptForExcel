@@ -40,11 +40,6 @@ namespace GCScript_for_Excel.Classes
             return ws.Cells[row, column].Offset[offSetRow, offSetColumn].Text.Trim();
         }
 
-        public static string GetCellInfo(Range rng)
-        {
-            return rng.Text;
-        }
-
         public static Range GetRangeCell(Worksheet ws, int row, int column, int offSetRow = 0, int offSetColumn = 0)
         {
             return ws.Cells[row, column].Offset[offSetRow, offSetColumn];
@@ -839,7 +834,7 @@ namespace GCScript_for_Excel.Classes
             }
         }
 
-        public static void CreateBackup()
+        public static void CreateBackup(string functionName)
         {
             gcsApplication app = Globals.ThisAddIn.Application;
             Workbook wb = app.ActiveWorkbook;
@@ -852,7 +847,8 @@ namespace GCScript_for_Excel.Classes
                 Directory.CreateDirectory(Path.Combine(FilePath, "_BACKUPS"));
             }
 
-            wb.SaveCopyAs(Path.Combine(FilePath, "_BACKUPS", cl_Tools.GetDateTime()) + FileExt);
+            wb.SaveCopyAs(Path.Combine(FilePath, "_BACKUPS", $"{cl_Tools.GetDateTime()}_{functionName}") + FileExt);
+            //wb.SaveCopyAs(Path.Combine(FilePath, "_BACKUPS", cl_Tools.GetDateTime()) + FileExt);
         }
 
         public static void FileToSend()

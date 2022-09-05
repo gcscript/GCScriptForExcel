@@ -184,8 +184,8 @@ namespace GCScript_for_Excel.Classes
         static void RemoveColumns()
         {
             string[] nameColumns = { ColumnsName.Org, ColumnsName.Depto, ColumnsName.VvtNovo, ColumnsName.TvtNovo, ColumnsName.RecPendSet,
-                                     ColumnsName.SaldoSet, ColumnsName.Saldo, ColumnsName.ValorDias, ColumnsName.CnpjCpfOperadora, ColumnsName.Buscador,
-                                     ColumnsName.Ordem, ColumnsName.Cf10, ColumnsName.NrDoCartao };
+                                     ColumnsName.SaldoSet, ColumnsName.Saldo, ColumnsName.ValorDiasSet, ColumnsName.ValorDias, ColumnsName.CnpjCpfOperadora, 
+                                     ColumnsName.Buscador, ColumnsName.Ordem, ColumnsName.Cf10, ColumnsName.NrDoCartao };
 
             foreach (string nameColumn in nameColumns)
             {

@@ -156,7 +156,7 @@
     can be found.
   -->
   <ItemGroup>
-    <Compile Include="Classes\cl_AdjustBalanceDaysValueColumns.cs" />
+    <Compile Include="Classes\AdjustDescontoAndCompraFinal.cs" />
     <Compile Include="Classes\cl_ExcelFunctions_new.cs" />
     <Compile Include="Classes\cl_GenerateFileToSend.cs" />
     <Compile Include="Classes\cl_GeneratePurchase_new.cs" />
@@ -351,6 +351,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="icons\purchase.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icons\less_than_10.png" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

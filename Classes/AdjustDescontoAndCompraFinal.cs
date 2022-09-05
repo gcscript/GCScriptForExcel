@@ -13,7 +13,7 @@ using gcsApplication = Microsoft.Office.Interop.Excel.Application;
 
 namespace GCScript_for_Excel.Classes
 {
-    public class cl_AdjustBalanceDaysValueColumns
+    public class AdjustDescontoAndCompraFinal
     {
         gcsApplication gcsApp = Globals.ThisAddIn.Application;
 
@@ -59,7 +59,6 @@ namespace GCScript_for_Excel.Classes
                 int lastUsedRowBySaldo = ws.Cells[1048576, saldoColumnNumber].End(XlDirection.xlUp).Row;
 
                 var offSetRow = 0;
-                //lastUsedRowBySaldo.Select();
 
                 while (true)
                 {
@@ -70,12 +69,6 @@ namespace GCScript_for_Excel.Classes
 
                     Range activeCellByDesconto = ws.Cells[lastUsedRowBySaldo, descontoColumnNumber].Offset[offSetRow, 0];
                     Range activeCellByCompraFinal = ws.Cells[lastUsedRowBySaldo, compraFinalColumnNumber].Offset[offSetRow, 0];
-
-                    //MessageBox.Show($"lastUsedRowBySaldo: {lastUsedRowBySaldo.ToString()}\n" +
-                    //                     $"activeCellBySaldo: {activeCellBySaldo.Row.ToString()}\n" +
-                    //                     $"offSetRow: {offSetRow.ToString()}");
-
-                    //return;
 
                     if (activeCellBySaldo.Row < 2) { break; }
 
@@ -93,7 +86,6 @@ namespace GCScript_for_Excel.Classes
                         continue;
                     }
 
-
                     var saldoIsNumeric = ExcelFunctions.IsNumeric(activeCellBySaldo);
 
                     if (saldoIsNumeric.isNull)
@@ -105,64 +97,64 @@ namespace GCScript_for_Excel.Classes
                     }
                     else
                     {
-                        if (saldoIsNumeric.isNumeric)
+                        if (!saldoIsNumeric.isNumeric)
                         {
-                            if (Math.Round(saldoIsNumeric.value) < 0)
-                            {
-                                activeCellBySaldo.Value2 = 0;
-                                activeCellByValorDias.Value2 = 0;
-                                offSetRow--;
-                                continue;
-                            }
-                            else
-                            {
-                                activeCellBySaldo.Value2 = Math.Round(saldoIsNumeric.value);
-                            }
-
-                        }
-                        else
-                        {
-                            MessageBox.Show($"Saldo com erro na linha {activeCellBySaldo.Row}", "ERROR: 104927", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                            MessageBox.Show($"Saldo com erro na linha {activeCellBySaldo.Row}",
+                                           "ERROR: 104927",
+                                           MessageBoxButtons.OK,
+                                           MessageBoxIcon.Error,
+                                           MessageBoxDefaultButton.Button1);
                             return;
-
                         }
-
                     }
 
+                    var valorDiasIsNumeric = ExcelFunctions.IsNumeric(activeCellByValorDias);
 
-
-
-
-
-
-
-
-
+                    if (valorDiasIsNumeric.isNull)
+                    {
+                        activeCellBySaldo.Value2 = 0;
+                        activeCellByValorDias.Value2 = 0;
+                        offSetRow--;
+                        continue;
+                    }
+                    else
+                    {
+                        if (!valorDiasIsNumeric.isNumeric)
+                        {
+                            MessageBox.Show($"ValorDias com erro na linha {activeCellByValorDias.Row}",
+                                           "ERROR: 974244",
+                                           MessageBoxButtons.OK,
+                                           MessageBoxIcon.Error,
+                                           MessageBoxDefaultButton.Button1);
+                            return;
+                        }
+                    }
 
                     string activeCellByTotalText = Regex.Replace(activeCellByTotal.Text.ToString(), @"\s", "");
                     string activeCellByDescontoText = Regex.Replace(activeCellByDesconto.Text.ToString(), @"\s", "");
                     string activeCellByCompraFinalText = Regex.Replace(activeCellByCompraFinal.Text.ToString(), @"\s", "");
 
-                    //string valoranterior = activeCellByCompraFinal.Value2.ToString();
 
-
-
-                    if (activeCellByDescontoText == "0,00" || activeCellByDescontoText == "-0,00") { activeCellByDesconto.Value2 = 0; }
+                    if (activeCellByDescontoText == "0,00" || activeCellByDescontoText == "-0,00")
+                    {
+                        MessageBox.Show($"Desconto: {activeCellByDescontoText}", $"ROW: {activeCellByDesconto.Row}", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+                        activeCellByDesconto.Value2 = 0;
+                    }
 
                     if (activeCellByDesconto.Value2 > 0 && activeCellByDesconto.Value2 < 10) // SE [DESCONTO] FOR MAIOR QUE [0] E MENOR QUE [10]
                     {
                         if (activeCellByDesconto.Value2 != activeCellByTotal.Value2) // SE [DESCONTO] FOR DIFERENTE DE [TOTAL]
                         {
                             activeCellBySaldo.Value2 = activeCellByValorDias.Value2; // [SALDO] VAI SER IGUAL A [VALOR DIAS]
-                            //if (activeCellByCompraFinal.Value2 < 10)
-                            //{
-                            //    MessageBox.Show($"Linha: {activeCellByCompraFinal.Row.ToString()} Valor Anterior: {valoranterior} Valor: {activeCellByCompraFinal.Value2.ToString()}");
-
-                            //}
                         }
                     }
 
                     if (activeCellByCompraFinalText == "0,00" || activeCellByCompraFinalText == "-0,00") { activeCellByCompraFinal.Value2 = 0; }
+                    if (activeCellByCompraFinalText == "0,00" || activeCellByCompraFinalText == "-0,00")
+                    {
+                        MessageBox.Show($"CompraFinal: {activeCellByCompraFinalText}", $"ROW: {activeCellByCompraFinal.Row}", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+                        activeCellByCompraFinal.Value2 = 0;
+                    }
 
                     if (activeCellByCompraFinal.Value2 > 0 && activeCellByCompraFinal.Value2 < 10) // SE [COMPRA FINAL] FOR MAIOR QUE [0] E MENOR QUE [10]
                     {
@@ -173,17 +165,10 @@ namespace GCScript_for_Excel.Classes
 
                     }
 
-
-
-
-
                     offSetRow--;
-
-
                 }
 
                 MessageBox.Show("Terminou");
-
             }
             catch (Exception erro)
             {
