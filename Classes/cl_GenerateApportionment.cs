@@ -63,7 +63,7 @@ namespace GCScript_for_Excel.Classes
                 {
                     app.ScreenUpdating = true;
                     ws.Cells[1, 1].Select();
-                    cl_ExcelFunctions.AdjustScroll();
+                    ExcelFunctions.AdjustScroll();
                 }
 
                 MessageBox.Show("Rateio criado com sucesso!", "SUCESSO!", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -81,7 +81,7 @@ namespace GCScript_for_Excel.Classes
         {
             int usedColumns = ws.UsedRange.Columns.Count;
 
-            string[] columnsName = { "UF", "Empresa", "C.Unid", "Operadora", "Total", "Desconto", "CompraFinal" };
+            string[] columnsName = { ColumnsName.UF, ColumnsName.Empresa, ColumnsName.CUnid, ColumnsName.Operadora, ColumnsName.Total, ColumnsName.Desconto, ColumnsName.CompraFinal };
 
             foreach (string columnName in columnsName)
             {
@@ -105,23 +105,23 @@ namespace GCScript_for_Excel.Classes
 
         static void MoveColumns()
         {
-            int ColumnUF_Number = cl_ExcelFunctions.GetNumberColumnByName(ws, "UF");
-            cl_ExcelFunctions.GetRangeColumn(ws, ColumnUF_Number).Cut();
-            cl_ExcelFunctions.GetRangeColumn(ws, 1).Insert(XlInsertShiftDirection.xlShiftToRight);
+            int ColumnUF_Number = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.UF);
+            ExcelFunctions.GetRangeColumn(ws, ColumnUF_Number).Cut();
+            ExcelFunctions.GetRangeColumn(ws, 1).Insert(XlInsertShiftDirection.xlShiftToRight);
 
-            int ColumnOperadora_Number = cl_ExcelFunctions.GetNumberColumnByName(ws, "Operadora");
-            cl_ExcelFunctions.GetRangeColumn(ws, ColumnOperadora_Number).Cut();
-            cl_ExcelFunctions.GetRangeColumn(ws, 2).Insert(XlInsertShiftDirection.xlShiftToRight);
+            int ColumnOperadora_Number = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Operadora);
+            ExcelFunctions.GetRangeColumn(ws, ColumnOperadora_Number).Cut();
+            ExcelFunctions.GetRangeColumn(ws, 2).Insert(XlInsertShiftDirection.xlShiftToRight);
 
-            int ColumnEmpresa_Number = cl_ExcelFunctions.GetNumberColumnByName(ws, "Empresa");
-            cl_ExcelFunctions.GetRangeColumn(ws, ColumnEmpresa_Number).Cut();
-            cl_ExcelFunctions.GetRangeColumn(ws, 3).Insert(XlInsertShiftDirection.xlShiftToRight);
+            int ColumnEmpresa_Number = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Empresa);
+            ExcelFunctions.GetRangeColumn(ws, ColumnEmpresa_Number).Cut();
+            ExcelFunctions.GetRangeColumn(ws, 3).Insert(XlInsertShiftDirection.xlShiftToRight);
 
-            int ColumnCUnid_Number = cl_ExcelFunctions.GetNumberColumnByName(ws, "C.UNID");
-            cl_ExcelFunctions.GetRangeColumn(ws, ColumnCUnid_Number).Cut();
-            cl_ExcelFunctions.GetRangeColumn(ws, 4).Insert(XlInsertShiftDirection.xlShiftToRight);
+            int ColumnCUnid_Number = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.CUnid);
+            ExcelFunctions.GetRangeColumn(ws, ColumnCUnid_Number).Cut();
+            ExcelFunctions.GetRangeColumn(ws, 4).Insert(XlInsertShiftDirection.xlShiftToRight);
 
-            Range ColumnCDepto_Range = cl_ExcelFunctions.GetRangeColumnByName(ws, "C.DEPTO");
+            Range ColumnCDepto_Range = ExcelFunctions.GetRangeColumnByName(ws, ColumnsName.CDepto);
 
             if (ColumnCDepto_Range != null)
             {
@@ -133,7 +133,7 @@ namespace GCScript_for_Excel.Classes
 
         static void RemoveDuplicateRows()
         {
-            int ColumnCnpjCpfOperadora_Number = cl_ExcelFunctions.GetNumberColumnByName(ws, "CNPJ + CPF + Operadora");
+            int ColumnCnpjCpfOperadora_Number = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.CnpjCpfOperadora);
 
             Range rngInicial = ws.Cells[1048576, ColumnCnpjCpfOperadora_Number].End(XlDirection.xlUp).Offset[0, 0];
 
@@ -165,10 +165,10 @@ namespace GCScript_for_Excel.Classes
 
         static void SortData()
         {
-            Range ColumnUF_Range = cl_ExcelFunctions.GetRangeColumnByName(ws, "UF");
-            Range ColumnOperadora_Range = cl_ExcelFunctions.GetRangeColumnByName(ws, "Operadora");
-            Range ColumnEmpresa_Range = cl_ExcelFunctions.GetRangeColumnByName(ws, "Empresa");
-            Range ColumnCUnid_Range = cl_ExcelFunctions.GetRangeColumnByName(ws, "C.Unid");
+            Range ColumnUF_Range = ExcelFunctions.GetRangeColumnByName(ws, ColumnsName.UF);
+            Range ColumnOperadora_Range = ExcelFunctions.GetRangeColumnByName(ws, ColumnsName.Operadora);
+            Range ColumnEmpresa_Range = ExcelFunctions.GetRangeColumnByName(ws, ColumnsName.Empresa);
+            Range ColumnCUnid_Range = ExcelFunctions.GetRangeColumnByName(ws, ColumnsName.CUnid);
 
             ws.Sort.SortFields.Clear();
             ws.Sort.SortFields.Add(Key: ColumnUF_Range, SortOn: XlSortOn.xlSortOnValues, Order: XlSortOrder.xlAscending, DataOption: XlSortDataOption.xlSortNormal);
@@ -185,15 +185,18 @@ namespace GCScript_for_Excel.Classes
 
         static void RemoveColumns()
         {
-            string[] nameColumns = { "ORG1", "CNPJ", "Depto", "Escala", "ID", "Mat", "Mat Site", "Nome", "CPF", "RG", "Data Nasc.", "Desc", 
-                                     "Qvt1", "Vvt1", "Tvt1", "VvtNovo", "TvtNovo", "RecPend", "Saldo1", "Saldo", "ValorDias", "1ª Compra", "2ª Compra", 
-                                     "Tipo1", "CNPJ + CPF + Operadora", "Buscador", "ORDEM", "CF -R$10", "Nr. do Cartao", "OBS"};
+            string[] nameColumns = { ColumnsName.Org, ColumnsName.Cnpj, ColumnsName.Depto, ColumnsName.Escala, ColumnsName.Id, 
+                                     ColumnsName.Mat, ColumnsName.MatSite, ColumnsName.Nome, ColumnsName.Cpf, ColumnsName.Rg,
+                                     ColumnsName.DataNascimento, ColumnsName.Desc, ColumnsName.Qvt, ColumnsName.Vvt, ColumnsName.Tvt, 
+                                     ColumnsName.VvtNovo, ColumnsName.TvtNovo, ColumnsName.RecPendSet, ColumnsName.SaldoSet, ColumnsName.Saldo, 
+                                     ColumnsName.ValorDias, ColumnsName.Compra1, ColumnsName.Compra2, ColumnsName.Tipo, ColumnsName.CnpjCpfOperadora, 
+                                     ColumnsName.Buscador, ColumnsName.Ordem, ColumnsName.Cf10, ColumnsName.NrDoCartao, ColumnsName.Obs};
 
             foreach (string nameColumn in nameColumns)
             {
                 while (true)
                 {
-                    Range rng = cl_ExcelFunctions.GetRangeColumnByName(ws, nameColumn);
+                    Range rng = ExcelFunctions.GetRangeColumnByName(ws, nameColumn);
 
                     if (rng != null)
                     {
@@ -210,11 +213,11 @@ namespace GCScript_for_Excel.Classes
 
         static void RemoveFillColumns()
         {
-            Range ColumnTotal_Range = cl_ExcelFunctions.GetRangeColumnByName(ws, "Total");
-            Range ColumnDesconto_Range = cl_ExcelFunctions.GetRangeColumnByName(ws, "Desconto");
-            Range ColumnCompraFinal_Range = cl_ExcelFunctions.GetRangeColumnByName(ws, "CompraFinal");
-            Range Column1Compra_Range = cl_ExcelFunctions.GetRangeColumnByName(ws, "1ª Compra");
-            Range Column2Compra_Range = cl_ExcelFunctions.GetRangeColumnByName(ws, "2ª Compra");
+            Range ColumnTotal_Range = ExcelFunctions.GetRangeColumnByName(ws, ColumnsName.Total);
+            Range ColumnDesconto_Range = ExcelFunctions.GetRangeColumnByName(ws, ColumnsName.Desconto);
+            Range ColumnCompraFinal_Range = ExcelFunctions.GetRangeColumnByName(ws, ColumnsName.CompraFinal);
+            Range Column1Compra_Range = ExcelFunctions.GetRangeColumnByName(ws, ColumnsName.Compra1);
+            Range Column2Compra_Range = ExcelFunctions.GetRangeColumnByName(ws, ColumnsName.Compra2);
 
             RemoveFill(ColumnTotal_Range);
             RemoveFill(ColumnDesconto_Range);
@@ -233,9 +236,9 @@ namespace GCScript_for_Excel.Classes
 
         static bool GenerateSubtotal()
         {
-            int ColumnTotal_Number = cl_ExcelFunctions.GetNumberColumnByName(ws, "Total");
-            int ColumnDesconto_Number = cl_ExcelFunctions.GetNumberColumnByName(ws, "Desconto");
-            int ColumnCompraFinal_Number = cl_ExcelFunctions.GetNumberColumnByName(ws, "CompraFinal");
+            int ColumnTotal_Number = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Total);
+            int ColumnDesconto_Number = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Desconto);
+            int ColumnCompraFinal_Number = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.CompraFinal);
 
             List<int> array_ColumnsSubtotal = new List<int>();
 
@@ -265,7 +268,7 @@ namespace GCScript_for_Excel.Classes
 
             { // DEFINIR ÁREA DE IMPRESSÃO | BORDAS | ZOOM
                 Range areaDeImpressao = ws.Range[ws.Cells[1, 1], ws.Cells[1048576, ColumnCompraFinal_Number].End(XlDirection.xlUp).Offset[0, 0]];
-                cl_ExcelFunctions.SetBZPA(ws, areaDeImpressao);
+                ExcelFunctions.SetBZPA(ws, areaDeImpressao);
             }
 
             return true;
@@ -273,16 +276,16 @@ namespace GCScript_for_Excel.Classes
 
         static void OrganizeSubtotal()
         {
-            int ColumnUF_Number = cl_ExcelFunctions.GetNumberColumnByName(ws, "UF");
-            int ColumnOperadora_Number = cl_ExcelFunctions.GetNumberColumnByName(ws, "Operadora");
-            int ColumnEmpresa_Number = cl_ExcelFunctions.GetNumberColumnByName(ws, "Empresa");
-            int ColumnCUnid_Number = cl_ExcelFunctions.GetNumberColumnByName(ws, "C.Unid");
-            int ColumnCompraFinal_Number = cl_ExcelFunctions.GetNumberColumnByName(ws, "CompraFinal");
+            int ColumnUF_Number = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.UF);
+            int ColumnOperadora_Number = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Operadora);
+            int ColumnEmpresa_Number = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Empresa);
+            int ColumnCUnid_Number = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.CUnid);
+            int ColumnCompraFinal_Number = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.CompraFinal);
 
-            cl_ExcelFunctions.DeleteRowsThatContainSpecificTextInColumn(ws, "Operadora", "Total Geral", "<>");
-            cl_ExcelFunctions.DeleteRowsThatContainSpecificTextInColumn(ws, "Empresa", "Total Geral", "<>");
-            //cl_ExcelFunctions.DeleteRowsThatContainSpecificTextInColumn(ws, "C.Unid", "Total", "<>");
-            cl_ExcelFunctions.DeleteRowsThatContainSpecificTextInColumn(ws, "C.Unid", "<>*total", "<>");
+            ExcelFunctions.DeleteRowsThatContainSpecificTextInColumn(ws, ColumnsName.Operadora, "Total Geral", "<>");
+            ExcelFunctions.DeleteRowsThatContainSpecificTextInColumn(ws, ColumnsName.Empresa, "Total Geral", "<>");
+            //cl_ExcelFunctions.DeleteRowsThatContainSpecificTextInColumn(ws, ColumnsName.CUnid, ColumnsName.Total, "<>");
+            ExcelFunctions.DeleteRowsThatContainSpecificTextInColumn(ws, ColumnsName.CUnid, "<>*total", "<>");
 
             Range rngInicial = ws.Cells[1048576, ColumnCompraFinal_Number].End(XlDirection.xlUp).Offset[0, 0];
 
@@ -304,28 +307,28 @@ namespace GCScript_for_Excel.Classes
                 if (valorColunaUF == "total geral")
                 {
                     Range rng_linha = ws.Range[ws.Cells[linha, ColumnUF_Number].Offset[offSetRow, 0], ws.Cells[linha, ColumnCompraFinal_Number].Offset[offSetRow, 0]];
-                    cl_ExcelFunctions.Styles_Emphasis(rng_linha, 5);
+                    ExcelFunctions.Styles_Emphasis(rng_linha, 5);
                 }
                 else if (valorColunaUF.Contains(" total"))
                 {
                     Range rng_linha = ws.Range[ws.Cells[linha, ColumnUF_Number].Offset[offSetRow, 0], ws.Cells[linha, ColumnCompraFinal_Number].Offset[offSetRow, 0]];
-                    cl_ExcelFunctions.Styles_Emphasis(rng_linha, 4);
+                    ExcelFunctions.Styles_Emphasis(rng_linha, 4);
 
                 }
                 else if (valorColunaOperadora.Contains(" total"))
                 {
                     Range rng_linha = ws.Range[ws.Cells[linha, ColumnUF_Number].Offset[offSetRow, 0], ws.Cells[linha, ColumnCompraFinal_Number].Offset[offSetRow, 0]];
-                    cl_ExcelFunctions.Styles_Emphasis(rng_linha, 3);
+                    ExcelFunctions.Styles_Emphasis(rng_linha, 3);
                 }
                 else if (valorColunaEmpresa.Contains(" total"))
                 {
                     Range rng_linha = ws.Range[ws.Cells[linha, ColumnUF_Number].Offset[offSetRow, 0], ws.Cells[linha, ColumnCompraFinal_Number].Offset[offSetRow, 0]];
-                    cl_ExcelFunctions.Styles_Emphasis(rng_linha, 2);
+                    ExcelFunctions.Styles_Emphasis(rng_linha, 2);
                 }
                 else if (valorColunaCUNID.EndsWith(" total"))
                 {
                     Range rng_linha = ws.Range[ws.Cells[linha, ColumnUF_Number].Offset[offSetRow, 0], ws.Cells[linha, ColumnCompraFinal_Number].Offset[offSetRow, 0]];
-                    cl_ExcelFunctions.FontBold(rng_linha, false);
+                    ExcelFunctions.FontBold(rng_linha, false);
                 }
 
                 if (ws.Cells[linha, ColumnCompraFinal_Number].Offset[offSetRow, 0].Row < 2)
@@ -339,11 +342,11 @@ namespace GCScript_for_Excel.Classes
 
         static void OrganizeSubtotal_BK()
         {
-            int ColumnUF_Number = cl_ExcelFunctions.GetNumberColumnByName(ws, "UF");
-            int ColumnOperadora_Number = cl_ExcelFunctions.GetNumberColumnByName(ws, "Operadora");
-            int ColumnEmpresa_Number = cl_ExcelFunctions.GetNumberColumnByName(ws, "Empresa");
-            int ColumnCUnid_Number = cl_ExcelFunctions.GetNumberColumnByName(ws, "C.Unid");
-            int ColumnCompraFinal_Number = cl_ExcelFunctions.GetNumberColumnByName(ws, "CompraFinal");
+            int ColumnUF_Number = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.UF);
+            int ColumnOperadora_Number = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Operadora);
+            int ColumnEmpresa_Number = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Empresa);
+            int ColumnCUnid_Number = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.CUnid);
+            int ColumnCompraFinal_Number = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.CompraFinal);
 
             Range rngInicial = ws.Cells[1048576, ColumnCompraFinal_Number].End(XlDirection.xlUp).Offset[0, 0];
 
@@ -365,12 +368,12 @@ namespace GCScript_for_Excel.Classes
                 if (valorColunaUF == "total geral")
                 {
                     Range rng_linha = ws.Range[ws.Cells[linha, ColumnUF_Number].Offset[offSetRow, 0], ws.Cells[linha, ColumnCompraFinal_Number].Offset[offSetRow, 0]];
-                    cl_ExcelFunctions.Styles_Emphasis(rng_linha, 5);
+                    ExcelFunctions.Styles_Emphasis(rng_linha, 5);
                 }
                 else if (valorColunaUF.Contains(" total"))
                 {
                     Range rng_linha = ws.Range[ws.Cells[linha, ColumnUF_Number].Offset[offSetRow, 0], ws.Cells[linha, ColumnCompraFinal_Number].Offset[offSetRow, 0]];
-                    cl_ExcelFunctions.Styles_Emphasis(rng_linha, 4);
+                    ExcelFunctions.Styles_Emphasis(rng_linha, 4);
 
                 }
                 else if (valorColunaOperadora == "total geral")
@@ -383,7 +386,7 @@ namespace GCScript_for_Excel.Classes
                 else if (valorColunaOperadora.Contains(" total"))
                 {
                     Range rng_linha = ws.Range[ws.Cells[linha, ColumnUF_Number].Offset[offSetRow, 0], ws.Cells[linha, ColumnCompraFinal_Number].Offset[offSetRow, 0]];
-                    cl_ExcelFunctions.Styles_Emphasis(rng_linha, 3);
+                    ExcelFunctions.Styles_Emphasis(rng_linha, 3);
                 }
                 else if (valorColunaEmpresa == "total geral")
                 {
@@ -395,7 +398,7 @@ namespace GCScript_for_Excel.Classes
                 else if (valorColunaEmpresa.Contains(" total"))
                 {
                     Range rng_linha = ws.Range[ws.Cells[linha, ColumnUF_Number].Offset[offSetRow, 0], ws.Cells[linha, ColumnCompraFinal_Number].Offset[offSetRow, 0]];
-                    cl_ExcelFunctions.Styles_Emphasis(rng_linha, 2);
+                    ExcelFunctions.Styles_Emphasis(rng_linha, 2);
                 }
                 else if (valorColunaCUNID == "total geral")
                 {
@@ -407,7 +410,7 @@ namespace GCScript_for_Excel.Classes
                 else if (valorColunaCUNID.EndsWith(" total"))
                 {
                     Range rng_linha = ws.Range[ws.Cells[linha, ColumnUF_Number].Offset[offSetRow, 0], ws.Cells[linha, ColumnCompraFinal_Number].Offset[offSetRow, 0]];
-                    cl_ExcelFunctions.FontBold(rng_linha, false);
+                    ExcelFunctions.FontBold(rng_linha, false);
                 }
                 else if (valorColunaCUNID != "" && valorColunaCUNID != "total geral" && !valorColunaCUNID.EndsWith(" total"))
                 {
@@ -428,21 +431,21 @@ namespace GCScript_for_Excel.Classes
 
         static void AdjustColumnsWidth()
         {
-            string[] nameAdjustColumns = { "UF", "Operadora", "Empresa", "C.Unid", "Total", "Desconto", "CompraFinal" };
+            string[] nameAdjustColumns = { ColumnsName.UF, ColumnsName.Operadora, ColumnsName.Empresa, ColumnsName.CUnid, ColumnsName.Total, ColumnsName.Desconto, ColumnsName.CompraFinal };
 
             foreach (string nameAdjustColumn in nameAdjustColumns)
             {
-                Range rng = cl_ExcelFunctions.GetRangeColumnByName(ws, nameAdjustColumn);
+                Range rng = ExcelFunctions.GetRangeColumnByName(ws, nameAdjustColumn);
 
                 if (rng != null)
                 {
 
-                    if (nameAdjustColumn == "C.Unid")
+                    if (nameAdjustColumn == ColumnsName.CUnid)
                     {
                         rng.EntireColumn.AutoFit();
                         if (rng.ColumnWidth < 30) { rng.ColumnWidth = 30; }
                     }
-                    else if (nameAdjustColumn == "Total" || nameAdjustColumn == "Desconto" || nameAdjustColumn == "CompraFinal")
+                    else if (nameAdjustColumn == ColumnsName.Total || nameAdjustColumn == ColumnsName.Desconto || nameAdjustColumn == ColumnsName.CompraFinal)
                     {
                         rng.EntireColumn.AutoFit();
                         if (rng.ColumnWidth < 12) { rng.ColumnWidth = 12; }
@@ -458,14 +461,14 @@ namespace GCScript_for_Excel.Classes
 
         static void RemoveTotalInCUnid()
         {
-            int ColumnCUnid_Number = cl_ExcelFunctions.GetNumberColumnByName(ws, "C.Unid");
+            int ColumnCUnid_Number = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.CUnid);
 
             Range ColumnCUnid_Range = ws.Range[ws.Cells[2, ColumnCUnid_Number], ws.Cells[1048576, ColumnCUnid_Number].End(XlDirection.xlUp)];
 
             foreach (Range row in ColumnCUnid_Range.Cells)
             {
                 string text = row.Text;
-                if (text.ToLower().EndsWith("total"))
+                if (text.ToLower().EndsWith(ColumnsName.Total))
                 {
                     row.Value = text.Substring(0, text.Length - 6);
                 }

@@ -161,10 +161,9 @@
     <Compile Include="Classes\cl_GenerateFileToSend.cs" />
     <Compile Include="Classes\cl_GeneratePurchase_new.cs" />
     <Compile Include="Classes\cl_Settings.cs" />
-    <Compile Include="Classes\cl_ExcelFunctions.cs" />
+    <Compile Include="Classes\ExcelFunctions.cs" />
     <Compile Include="Classes\cl_GenerateApportionment.cs" />
     <Compile Include="Classes\cl_Tools.cs" />
-    <None Include="Classes\cl_CriarCompra.cs.bk" />
     <Compile Include="Classes\cl_GeneratePurchase.cs" />
     <Compile Include="Classes\ColumnsName.cs" />
     <Compile Include="frm_Settings.cs">
@@ -246,9 +245,6 @@
     <None Include="icons\create.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="icons\rateio.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="icons\rows.png" />
   </ItemGroup>
   <ItemGroup>
@@ -259,9 +255,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="icons\settings.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="icons\shop.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="icons\text.png" />
@@ -343,6 +336,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="icons\show.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icons\is_numeric.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icons\0_decimal_place.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icons\2_decimal_places.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icons\apportionment.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icons\purchase.png" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

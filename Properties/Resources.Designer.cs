@@ -63,9 +63,39 @@ namespace GCScript_for_Excel.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _0_decimal_place {
+            get {
+                object obj = ResourceManager.GetObject("0_decimal_place", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _2_decimal_places {
+            get {
+                object obj = ResourceManager.GetObject("2_decimal_places", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap apply_remove {
             get {
                 object obj = ResourceManager.GetObject("apply-remove", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap apportionment {
+            get {
+                object obj = ResourceManager.GetObject("apportionment", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -183,6 +213,16 @@ namespace GCScript_for_Excel.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap is_numeric {
+            get {
+                object obj = ResourceManager.GetObject("is_numeric", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap more {
             get {
                 object obj = ResourceManager.GetObject("more", resourceCulture);
@@ -203,9 +243,9 @@ namespace GCScript_for_Excel.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap rateio {
+        internal static System.Drawing.Bitmap purchase {
             get {
-                object obj = ResourceManager.GetObject("rateio", resourceCulture);
+                object obj = ResourceManager.GetObject("purchase", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -266,16 +306,6 @@ namespace GCScript_for_Excel.Properties {
         internal static System.Drawing.Bitmap sheet {
             get {
                 object obj = ResourceManager.GetObject("sheet", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap shop {
-            get {
-                object obj = ResourceManager.GetObject("shop", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -53,7 +53,6 @@
             this.Converter_btn_WorkSchedule = this.Factory.CreateRibbonButton();
             this.Converter_btn_Separator1 = this.Factory.CreateRibbonButton();
             this.Converter_btn_Round_0DecimalPlaces = this.Factory.CreateRibbonButton();
-            this.Converter_btn_Round_1DecimalPlaces = this.Factory.CreateRibbonButton();
             this.Converter_btn_Round_2DecimalPlaces = this.Factory.CreateRibbonButton();
             this.Converter_btn_Separator2 = this.Factory.CreateRibbonButton();
             this.Converter_btn_Settings = this.Factory.CreateRibbonButton();
@@ -106,9 +105,10 @@
             this.grp_Info = this.Factory.CreateRibbonGroup();
             this.Info_btn_LinhasUsadas = this.Factory.CreateRibbonButton();
             this.Info_btn_ColunasUsadas = this.Factory.CreateRibbonButton();
-            this.Info_btn_ObterTipoCell = this.Factory.CreateRibbonButton();
+            this.btn_IsNumeric = this.Factory.CreateRibbonButton();
             this.Info_btn_SelecionarRange = this.Factory.CreateRibbonButton();
             this.Info_btn_SelecionarTudo = this.Factory.CreateRibbonButton();
+            this.Info_btn_ObterTipoCell = this.Factory.CreateRibbonButton();
             this.glr_Get = this.Factory.CreateRibbonGallery();
             this.glr_Get_Content = this.Factory.CreateRibbonButton();
             this.glr_Get_Value = this.Factory.CreateRibbonButton();
@@ -211,7 +211,7 @@
             // 
             // Generate_btn_Apportionment
             // 
-            this.Generate_btn_Apportionment.Image = global::GCScript_for_Excel.Properties.Resources.rateio;
+            this.Generate_btn_Apportionment.Image = global::GCScript_for_Excel.Properties.Resources.apportionment;
             this.Generate_btn_Apportionment.Label = "Apportionment";
             this.Generate_btn_Apportionment.Name = "Generate_btn_Apportionment";
             this.Generate_btn_Apportionment.ScreenTip = "Apportionment";
@@ -220,7 +220,7 @@
             // 
             // Generate_btn_Purchase
             // 
-            this.Generate_btn_Purchase.Image = global::GCScript_for_Excel.Properties.Resources.shop;
+            this.Generate_btn_Purchase.Image = global::GCScript_for_Excel.Properties.Resources.purchase;
             this.Generate_btn_Purchase.Label = "Purchase";
             this.Generate_btn_Purchase.Name = "Generate_btn_Purchase";
             this.Generate_btn_Purchase.ScreenTip = "Purchase";
@@ -259,7 +259,6 @@
             this.glr_Converter.Buttons.Add(this.Converter_btn_WorkSchedule);
             this.glr_Converter.Buttons.Add(this.Converter_btn_Separator1);
             this.glr_Converter.Buttons.Add(this.Converter_btn_Round_0DecimalPlaces);
-            this.glr_Converter.Buttons.Add(this.Converter_btn_Round_1DecimalPlaces);
             this.glr_Converter.Buttons.Add(this.Converter_btn_Round_2DecimalPlaces);
             this.glr_Converter.Buttons.Add(this.Converter_btn_Separator2);
             this.glr_Converter.Buttons.Add(this.Converter_btn_Settings);
@@ -312,25 +311,16 @@
             // 
             // Converter_btn_Round_0DecimalPlaces
             // 
-            this.Converter_btn_Round_0DecimalPlaces.Image = global::GCScript_for_Excel.Properties.Resources.decimal_place;
+            this.Converter_btn_Round_0DecimalPlaces.Image = global::GCScript_for_Excel.Properties.Resources._0_decimal_place;
             this.Converter_btn_Round_0DecimalPlaces.Label = "0 Decimal Places";
             this.Converter_btn_Round_0DecimalPlaces.Name = "Converter_btn_Round_0DecimalPlaces";
             this.Converter_btn_Round_0DecimalPlaces.ScreenTip = "0 Decimal Place";
             this.Converter_btn_Round_0DecimalPlaces.ShowImage = true;
             this.Converter_btn_Round_0DecimalPlaces.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.Converter_btn_Round_0DecimalPlaces_Click);
             // 
-            // Converter_btn_Round_1DecimalPlaces
-            // 
-            this.Converter_btn_Round_1DecimalPlaces.Image = global::GCScript_for_Excel.Properties.Resources.decimal_place;
-            this.Converter_btn_Round_1DecimalPlaces.Label = "1 Decimal Places";
-            this.Converter_btn_Round_1DecimalPlaces.Name = "Converter_btn_Round_1DecimalPlaces";
-            this.Converter_btn_Round_1DecimalPlaces.ScreenTip = "1 Decimal Place";
-            this.Converter_btn_Round_1DecimalPlaces.ShowImage = true;
-            this.Converter_btn_Round_1DecimalPlaces.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.Converter_btn_Round_1DecimalPlaces_Click);
-            // 
             // Converter_btn_Round_2DecimalPlaces
             // 
-            this.Converter_btn_Round_2DecimalPlaces.Image = global::GCScript_for_Excel.Properties.Resources.decimal_place;
+            this.Converter_btn_Round_2DecimalPlaces.Image = global::GCScript_for_Excel.Properties.Resources._2_decimal_places;
             this.Converter_btn_Round_2DecimalPlaces.Label = "2 Decimal Places";
             this.Converter_btn_Round_2DecimalPlaces.Name = "Converter_btn_Round_2DecimalPlaces";
             this.Converter_btn_Round_2DecimalPlaces.ScreenTip = "2 Decimal Places";
@@ -784,7 +774,7 @@
             // Number_btn_General
             // 
             this.Number_btn_General.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.Number_btn_General.Image = ((System.Drawing.Image)(resources.GetObject("Number_btn_General.Image")));
+            this.Number_btn_General.Image = global::GCScript_for_Excel.Properties.Resources.undefined;
             this.Number_btn_General.Label = "General";
             this.Number_btn_General.Name = "Number_btn_General";
             this.Number_btn_General.ShowImage = true;
@@ -794,7 +784,7 @@
             // Number_btn_Text
             // 
             this.Number_btn_Text.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.Number_btn_Text.Image = ((System.Drawing.Image)(resources.GetObject("Number_btn_Text.Image")));
+            this.Number_btn_Text.Image = global::GCScript_for_Excel.Properties.Resources.undefined;
             this.Number_btn_Text.Label = "Text";
             this.Number_btn_Text.Name = "Number_btn_Text";
             this.Number_btn_Text.ShowImage = true;
@@ -803,7 +793,7 @@
             // Number_btn_Accounting
             // 
             this.Number_btn_Accounting.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
-            this.Number_btn_Accounting.Image = ((System.Drawing.Image)(resources.GetObject("Number_btn_Accounting.Image")));
+            this.Number_btn_Accounting.Image = global::GCScript_for_Excel.Properties.Resources.undefined;
             this.Number_btn_Accounting.Label = "Accounting";
             this.Number_btn_Accounting.Name = "Number_btn_Accounting";
             this.Number_btn_Accounting.ShowImage = true;
@@ -813,9 +803,10 @@
             // 
             this.grp_Info.Items.Add(this.Info_btn_LinhasUsadas);
             this.grp_Info.Items.Add(this.Info_btn_ColunasUsadas);
-            this.grp_Info.Items.Add(this.Info_btn_ObterTipoCell);
+            this.grp_Info.Items.Add(this.btn_IsNumeric);
             this.grp_Info.Items.Add(this.Info_btn_SelecionarRange);
             this.grp_Info.Items.Add(this.Info_btn_SelecionarTudo);
+            this.grp_Info.Items.Add(this.Info_btn_ObterTipoCell);
             this.grp_Info.Items.Add(this.glr_Get);
             this.grp_Info.KeyTip = "4";
             this.grp_Info.Label = "Info";
@@ -837,13 +828,13 @@
             this.Info_btn_ColunasUsadas.ShowImage = true;
             this.Info_btn_ColunasUsadas.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.Info_btn_ColunasUsadas_Click);
             // 
-            // Info_btn_ObterTipoCell
+            // btn_IsNumeric
             // 
-            this.Info_btn_ObterTipoCell.Image = ((System.Drawing.Image)(resources.GetObject("Info_btn_ObterTipoCell.Image")));
-            this.Info_btn_ObterTipoCell.Label = "Tipo da Célula";
-            this.Info_btn_ObterTipoCell.Name = "Info_btn_ObterTipoCell";
-            this.Info_btn_ObterTipoCell.ShowImage = true;
-            this.Info_btn_ObterTipoCell.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.Info_btn_ObterTipoSelecao_Click);
+            this.btn_IsNumeric.Image = global::GCScript_for_Excel.Properties.Resources.is_numeric;
+            this.btn_IsNumeric.Label = "Is Numeric?";
+            this.btn_IsNumeric.Name = "btn_IsNumeric";
+            this.btn_IsNumeric.ShowImage = true;
+            this.btn_IsNumeric.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.btn_IsNumeric_Click);
             // 
             // Info_btn_SelecionarRange
             // 
@@ -860,6 +851,14 @@
             this.Info_btn_SelecionarTudo.Name = "Info_btn_SelecionarTudo";
             this.Info_btn_SelecionarTudo.ShowImage = true;
             this.Info_btn_SelecionarTudo.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.Info_btn_SelecionarTudo_Click);
+            // 
+            // Info_btn_ObterTipoCell
+            // 
+            this.Info_btn_ObterTipoCell.Image = global::GCScript_for_Excel.Properties.Resources.undefined;
+            this.Info_btn_ObterTipoCell.Label = "Tipo da Célula";
+            this.Info_btn_ObterTipoCell.Name = "Info_btn_ObterTipoCell";
+            this.Info_btn_ObterTipoCell.ShowImage = true;
+            this.Info_btn_ObterTipoCell.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.Info_btn_ObterTipoSelecao_Click);
             // 
             // glr_Get
             // 
@@ -1136,7 +1135,6 @@
         private Microsoft.Office.Tools.Ribbon.RibbonButton Converter_btn_Round_2DecimalPlaces;
         private Microsoft.Office.Tools.Ribbon.RibbonButton Converter_btn_Separator2;
         private Microsoft.Office.Tools.Ribbon.RibbonButton Converter_btn_Round_0DecimalPlaces;
-        private Microsoft.Office.Tools.Ribbon.RibbonButton Converter_btn_Round_1DecimalPlaces;
         private Microsoft.Office.Tools.Ribbon.RibbonButton Sheets_btn_RemoveHiddenSheets;
         private Microsoft.Office.Tools.Ribbon.RibbonButton Sheets_btn_ShowHiddenSheets;
         private Microsoft.Office.Tools.Ribbon.RibbonButton Generate_btn_Separator1;
@@ -1147,6 +1145,7 @@
         private Microsoft.Office.Tools.Ribbon.RibbonButton glr_Get_Value2;
         private Microsoft.Office.Tools.Ribbon.RibbonButton glr_Get_Text;
         private Microsoft.Office.Tools.Ribbon.RibbonButton glr_Get_Content;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton btn_IsNumeric;
     }
 
     partial class ThisRibbonCollection

@@ -23,36 +23,36 @@ namespace GCScript_for_Excel.Classes
             {
                 gcsApp.ScreenUpdating = false;
 
-                var ws = cl_ExcelFunctions.SearchWorksheet(gcsApp, "Dados");
+                var ws = ExcelFunctions.SearchWorksheet(gcsApp, "Dados");
 
                 if (ws == null)
                 {
                     MessageBox.Show($"A aba Dados não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    cl_ExcelFunctions.ResetApp(gcsApp);
+                    ExcelFunctions.ResetApp(gcsApp);
                     return;
                 }
 
                 ws.Select();
 
-                if (!cl_ExcelFunctions.CheckIfColumnsExist(ws, new List<string> { ColumnsName.ValorDias, ColumnsName.Saldo }))
+                if (!ExcelFunctions.CheckIfColumnsExist(ws, new List<string> { ColumnsName.ValorDias, ColumnsName.Saldo }))
                 {
-                    cl_ExcelFunctions.ResetApp(gcsApp);
+                    ExcelFunctions.ResetApp(gcsApp);
                     return;
                 }
 
-                var totalColumnNumber = cl_ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Total);
+                var totalColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Total);
                 if (totalColumnNumber == -1) { MessageBox.Show($"A coluna {ColumnsName.Total} não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
-                var saldoColumnNumber = cl_ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Saldo);
+                var saldoColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Saldo);
                 if (saldoColumnNumber == -1) { MessageBox.Show($"A coluna {ColumnsName.Saldo} não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
-                var valorDiasColumnNumber = cl_ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.ValorDias);
+                var valorDiasColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.ValorDias);
                 if (valorDiasColumnNumber == -1) { MessageBox.Show($"A coluna {ColumnsName.ValorDias} não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
-                var descontoColumnNumber = cl_ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Desconto);
+                var descontoColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Desconto);
                 if (descontoColumnNumber == -1) { MessageBox.Show($"A coluna {ColumnsName.Desconto} não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
-                var compraFinalColumnNumber = cl_ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.CompraFinal);
+                var compraFinalColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.CompraFinal);
                 if (compraFinalColumnNumber == -1) { MessageBox.Show($"A coluna {ColumnsName.CompraFinal} não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
 
@@ -79,14 +79,8 @@ namespace GCScript_for_Excel.Classes
 
                     if (activeCellBySaldo.Row < 2) { break; }
 
-
-                    string activeCellByTotalText = Regex.Replace(activeCellByTotal.Text.ToString(), @"\s", "");
                     string activeCellBySaldoText = Regex.Replace(activeCellBySaldo.Text.ToString(), @"\s", "");
                     string activeCellByValorDiasText = Regex.Replace(activeCellByValorDias.Text.ToString(), @"\s", "");
-                    string activeCellByDescontoText = Regex.Replace(activeCellByDesconto.Text.ToString(), @"\s", "");
-                    string activeCellByCompraFinalText = Regex.Replace(activeCellByCompraFinal.Text.ToString(), @"\s", "");
-
-
 
                     if (activeCellBySaldo.Value2 == 0 || activeCellBySaldo.Value2 == -2146826246
                         || activeCellBySaldoText == "#N/D" || activeCellBySaldoText == "0,00" || activeCellBySaldoText == "-0,00"
@@ -98,6 +92,57 @@ namespace GCScript_for_Excel.Classes
                         offSetRow--;
                         continue;
                     }
+
+
+                    var saldoIsNumeric = ExcelFunctions.IsNumeric(activeCellBySaldo);
+
+                    if (saldoIsNumeric.isNull)
+                    {
+                        activeCellBySaldo.Value2 = 0;
+                        activeCellByValorDias.Value2 = 0;
+                        offSetRow--;
+                        continue;
+                    }
+                    else
+                    {
+                        if (saldoIsNumeric.isNumeric)
+                        {
+                            if (Math.Round(saldoIsNumeric.value) < 0)
+                            {
+                                activeCellBySaldo.Value2 = 0;
+                                activeCellByValorDias.Value2 = 0;
+                                offSetRow--;
+                                continue;
+                            }
+                            else
+                            {
+                                activeCellBySaldo.Value2 = Math.Round(saldoIsNumeric.value);
+                            }
+
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Saldo com erro na linha {activeCellBySaldo.Row}", "ERROR: 104927", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                            return;
+
+                        }
+
+                    }
+
+
+
+
+
+
+
+
+
+
+
+                    string activeCellByTotalText = Regex.Replace(activeCellByTotal.Text.ToString(), @"\s", "");
+                    string activeCellByDescontoText = Regex.Replace(activeCellByDesconto.Text.ToString(), @"\s", "");
+                    string activeCellByCompraFinalText = Regex.Replace(activeCellByCompraFinal.Text.ToString(), @"\s", "");
+
                     //string valoranterior = activeCellByCompraFinal.Value2.ToString();
 
 

@@ -14,7 +14,7 @@ namespace GCScript_for_Excel.Classes
 
         public static void Start()
         {
-            cl_ExcelFunctions.CreateBackup();
+            ExcelFunctions.CreateBackup();
 
             try
             {
@@ -27,39 +27,39 @@ namespace GCScript_for_Excel.Classes
                 foreach (Worksheet workSheet in app.Worksheets)
                 {
                     Range rng = workSheet.Cells;
-                    cl_ExcelFunctions.RemoveFormula(rng);
+                    ExcelFunctions.RemoveFormula(rng);
 
                     if (workSheet.Name.ToLower().Trim() == "dados")
                     {
                         workSheet.Select();
                         if (!ChecksIfColumnsExist(workSheet)) { return; }
 
-                        List<string> lst_MoveColumnsName = new List<string>() { "CNPJ", "UF" , "Operadora", "Empresa", "C.Unid", "C.Depto", "Depto" };
-                        cl_ExcelFunctions.MoveColumns(workSheet, lst_MoveColumnsName);
+                        List<string> lst_MoveColumnsName = new List<string>() { ColumnsName.Cnpj, ColumnsName.UF , ColumnsName.Operadora, ColumnsName.Empresa, ColumnsName.CUnid, ColumnsName.CDepto, ColumnsName.Depto };
+                        ExcelFunctions.MoveColumns(workSheet, lst_MoveColumnsName);
 
-                        List<string> lst_SortDataColumns = new List<string>() { "UF", "Operadora", "Empresa", "C.Unid", "C.Depto", "Depto", "Nome" };
-                        cl_ExcelFunctions.SortDataByColumn(workSheet, lst_SortDataColumns);
+                        List<string> lst_SortDataColumns = new List<string>() { ColumnsName.UF, ColumnsName.Operadora, ColumnsName.Empresa, ColumnsName.CUnid, ColumnsName.CDepto, ColumnsName.Depto, ColumnsName.Nome };
+                        ExcelFunctions.SortDataByColumn(workSheet, lst_SortDataColumns);
 
-                        List<string> lst_RemoveColumns = new List<string>() { "ORG1", "VvtNovo", "TvtNovo", "RecPend", "Saldo1", "CNPJ + CPF + Operadora", "Buscador", "ORDEM", "CF -R$10", "Tipo1" };
-                        cl_ExcelFunctions.RemoveColumns(workSheet, lst_RemoveColumns);
+                        List<string> lst_RemoveColumns = new List<string>() { ColumnsName.Org, ColumnsName.VvtNovo, ColumnsName.TvtNovo, ColumnsName.RecPendSet, ColumnsName.SaldoSet, ColumnsName.CnpjCpfOperadora, ColumnsName.Buscador, ColumnsName.Ordem, ColumnsName.Cf10, ColumnsName.Tipo };
+                        ExcelFunctions.RemoveColumns(workSheet, lst_RemoveColumns);
 
-                        Range PrintArea = workSheet.Range[workSheet.Cells[1, 1], workSheet.Cells[1048576, cl_ExcelFunctions.GetNumberColumnByName(workSheet, "CompraFinal")].End(XlDirection.xlUp).Offset[0, 0]];
-                        cl_ExcelFunctions.SetBZPA(workSheet, PrintArea);
+                        Range PrintArea = workSheet.Range[workSheet.Cells[1, 1], workSheet.Cells[1048576, ExcelFunctions.GetNumberColumnByName(workSheet, ColumnsName.CompraFinal)].End(XlDirection.xlUp).Offset[0, 0]];
+                        ExcelFunctions.SetBZPA(workSheet, PrintArea);
                     }
                     workSheet.Application.CutCopyMode = (XlCutCopyMode)0;
 
                     workSheet.Application.Goto(workSheet.Range["A1"], true);
                 }
 
-                cl_ExcelFunctions.MoveSheetOrder("Compra", 1);
-                cl_ExcelFunctions.MoveSheetOrder("Rateio", 1);
-                cl_ExcelFunctions.MoveSheetOrder("Dados", 1);
+                ExcelFunctions.MoveSheetOrder("Compra", 1);
+                ExcelFunctions.MoveSheetOrder("Rateio", 1);
+                ExcelFunctions.MoveSheetOrder("Dados", 1);
 
-                cl_ExcelFunctions.DeleteSheetContainsName("Escala");
+                ExcelFunctions.DeleteSheetContainsName(ColumnsName.Escala);
 
                 app.Worksheets["Dados"].Select();
 
-                cl_ExcelFunctions.FileToSend();
+                ExcelFunctions.FileToSend();
 
                 MessageBox.Show("Arquivo para Envio criado com sucesso!", "SUCESSO!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -100,7 +100,7 @@ namespace GCScript_for_Excel.Classes
         {
             int usedColumns = workSheet.UsedRange.Columns.Count;
 
-            string[] columnsName = { "UF", "Operadora", "Empresa", "C.Unid", "Mat", "Mat Site", "Nome", "Desc", "Qvt1", "Vvt1", "Tvt1", "Total", "Saldo", "ValorDias", "Desconto", "CompraFinal" };
+            string[] columnsName = { ColumnsName.UF, ColumnsName.Operadora, ColumnsName.Empresa, ColumnsName.CUnid, "Mat", "Mat Site", ColumnsName.Nome, ColumnsName.Desc, ColumnsName.Qvt, ColumnsName.Vvt, ColumnsName.Tvt, ColumnsName.Total, "Saldo", "ValorDias", ColumnsName.Desconto, ColumnsName.CompraFinal };
 
             foreach (string columnName in columnsName)
             {

@@ -1,22 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using GCScript_for_Excel;
 using Microsoft.Office.Interop.Excel;
-//using Microsoft.Office.Tools.Excel;
-using Microsoft.Office.Tools.Ribbon;
 using gcsApplication = Microsoft.Office.Interop.Excel.Application;
 
 namespace GCScript_for_Excel.Classes
 {
-    public static class cl_ExcelFunctions
+    public static class ExcelFunctions
     {
         static gcsApplication app = Globals.ThisAddIn.Application;
 
@@ -605,7 +597,7 @@ namespace GCScript_for_Excel.Classes
 
             void Move(string name)
             {
-                Range Column_Range = cl_ExcelFunctions.GetRangeColumnByName(workSheet, name);
+                Range Column_Range = ExcelFunctions.GetRangeColumnByName(workSheet, name);
 
                 if (Column_Range != null)
                 {
@@ -625,7 +617,7 @@ namespace GCScript_for_Excel.Classes
 
             foreach (string column in nameColumnsInOrder)
             {
-                list_ColumnsRange.Add(cl_ExcelFunctions.GetRangeColumnByName(workSheet, column));
+                list_ColumnsRange.Add(ExcelFunctions.GetRangeColumnByName(workSheet, column));
             }
 
             workSheet.Sort.SortFields.Clear();
@@ -652,7 +644,7 @@ namespace GCScript_for_Excel.Classes
             {
                 while (true)
                 {
-                    Range rng = cl_ExcelFunctions.GetRangeColumnByName(workSheet, nameColumn);
+                    Range rng = ExcelFunctions.GetRangeColumnByName(workSheet, nameColumn);
 
                     if (rng != null)
                     {
@@ -831,11 +823,20 @@ namespace GCScript_for_Excel.Classes
                 }
             }
         }
-
-        public static void RoundDecimal(Range rng, int decimals = 2)
+        public static (bool isNumeric, bool isNull, decimal value) IsNumeric(Range rng)
         {
+            if (rng.Value2 == null) { return (false, true, 0); }
 
+            bool IsNumeric = decimal.TryParse(rng.Value2.ToString(), out decimal value);
 
+            if (IsNumeric)
+            {
+                return (true, false, value);
+            }
+            else
+            {
+                return (false, false, value);
+            }
         }
 
         public static void CreateBackup()
