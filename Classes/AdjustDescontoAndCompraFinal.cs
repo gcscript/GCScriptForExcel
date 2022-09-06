@@ -1,14 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using GCScript_for_Excel;
 using Microsoft.Office.Interop.Excel;
-using Microsoft.Office.Tools.Excel;
-using Microsoft.Office.Tools.Ribbon;
 using gcsApplication = Microsoft.Office.Interop.Excel.Application;
 
 namespace GCScript_for_Excel.Classes
@@ -22,6 +16,7 @@ namespace GCScript_for_Excel.Classes
             try
             {
                 gcsApp.ScreenUpdating = false;
+                gcsApp.DisplayAlerts = false;
 
                 var ws = ExcelFunctions.SearchWorksheet(gcsApp, "Dados");
 
@@ -59,6 +54,10 @@ namespace GCScript_for_Excel.Classes
                 int lastUsedRowBySaldo = ws.Cells[1048576, saldoColumnNumber].End(XlDirection.xlUp).Row;
 
                 var offSetRow = 0;
+                var countSaldo = 0;
+                var countValorDias = 0;
+                var countDiscountGreaterThan0AndLessThan10 = 0;
+                var countPurchaseGreaterThan0AndLessThan10 = 0;
 
                 while (true)
                 {
@@ -83,6 +82,8 @@ namespace GCScript_for_Excel.Classes
                         activeCellBySaldo.Value2 = 0;
                         activeCellByValorDias.Value2 = 0;
                         offSetRow--;
+                        countSaldo++;
+                        countValorDias++;
                         continue;
                     }
 
@@ -93,6 +94,8 @@ namespace GCScript_for_Excel.Classes
                         activeCellBySaldo.Value2 = 0;
                         activeCellByValorDias.Value2 = 0;
                         offSetRow--;
+                        countSaldo++;
+                        countValorDias++;
                         continue;
                     }
                     else
@@ -115,6 +118,8 @@ namespace GCScript_for_Excel.Classes
                         activeCellBySaldo.Value2 = 0;
                         activeCellByValorDias.Value2 = 0;
                         offSetRow--;
+                        countSaldo++;
+                        countValorDias++;
                         continue;
                     }
                     else
@@ -146,6 +151,8 @@ namespace GCScript_for_Excel.Classes
                         if (activeCellByDesconto.Value2 != activeCellByTotal.Value2) // SE [DESCONTO] FOR DIFERENTE DE [TOTAL]
                         {
                             activeCellBySaldo.Value2 = activeCellByValorDias.Value2; // [SALDO] VAI SER IGUAL A [VALOR DIAS]
+                            countSaldo++;
+                            countDiscountGreaterThan0AndLessThan10++;
                         }
                     }
 
@@ -160,7 +167,9 @@ namespace GCScript_for_Excel.Classes
                     {
                         if (activeCellByTotal.Value2 > 10) // SE [TOTAL] FOR MAIOR QUE [10]
                         {
-                            activeCellBySaldo.Value2 = activeCellBySaldo.Value2 - (10 - activeCellByCompraFinal.Value2); // [SALDO] VAI SER IGUAL A [SALDO] MENOS O RESULTADO DE [10] MENOS [COMPRA FINAL]
+                            activeCellBySaldo.Value2 -= (10 - activeCellByCompraFinal.Value2); // [SALDO] VAI SER IGUAL A [SALDO] MENOS O RESULTADO DE [10] MENOS [COMPRA FINAL]
+                            countSaldo++;
+                            countPurchaseGreaterThan0AndLessThan10++;
                         }
 
                     }
@@ -168,13 +177,14 @@ namespace GCScript_for_Excel.Classes
                     offSetRow--;
                 }
 
-                MessageBox.Show("Terminou");
+                MessageBox.Show($"Saldo(s) ajustado(s): {countSaldo}\n" +
+                                     $"ValorDias ajustado(s): {countValorDias}\n" +
+                                     $"Desconto(s) [>0] & [<10] ajustado(s): {countDiscountGreaterThan0AndLessThan10}\n" +
+                                     $"Compra Final [>0] & [<10] ajustada(s): {countPurchaseGreaterThan0AndLessThan10}", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
             }
             catch (Exception erro)
             {
-                gcsApp.ScreenUpdating = true;
-                MessageBox.Show(erro.ToString(), "ERROR: 812058", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                MessageBox.Show(erro.ToString(), "ERROR: 967040", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -182,9 +192,5 @@ namespace GCScript_for_Excel.Classes
                 gcsApp.DisplayAlerts = true;
             }
         }
-
-
-
-
     }
 }
