@@ -185,7 +185,7 @@ namespace GCScript_for_Excel
         {
             gcsApplication app = Globals.ThisAddIn.Application;
             ExcelFunctions.CreateBackup("FileToSend");
-            cl_GenerateFileToSend.Start();
+            GenerateFileToSend.Start();
         }
 
         private void Converter_btn_Text_Click(object sender, RibbonControlEventArgs e)

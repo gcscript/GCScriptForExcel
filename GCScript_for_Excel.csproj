@@ -158,7 +158,7 @@
   <ItemGroup>
     <Compile Include="Classes\AdjustDescontoAndCompraFinal.cs" />
     <Compile Include="Classes\cl_ExcelFunctions_new.cs" />
-    <Compile Include="Classes\cl_GenerateFileToSend.cs" />
+    <Compile Include="Classes\GenerateFileToSend.cs" />
     <Compile Include="Classes\cl_GeneratePurchase_new.cs" />
     <Compile Include="Classes\cl_Settings.cs" />
     <Compile Include="Classes\ExcelFunctions.cs" />

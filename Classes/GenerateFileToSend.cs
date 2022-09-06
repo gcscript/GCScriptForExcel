@@ -6,7 +6,7 @@ using xlApp = Microsoft.Office.Interop.Excel.Application;
 
 namespace GCScript_for_Excel.Classes
 {
-    public static class cl_GenerateFileToSend
+    public static class GenerateFileToSend
 
     {
         static xlApp app = Globals.ThisAddIn.Application;
@@ -38,7 +38,7 @@ namespace GCScript_for_Excel.Classes
                         List<string> lst_SortDataColumns = new List<string>() { ColumnsName.UF, ColumnsName.Operadora, ColumnsName.Empresa, ColumnsName.CUnid, ColumnsName.CDepto, ColumnsName.Depto, ColumnsName.Nome };
                         ExcelFunctions.SortDataByColumn(workSheet, lst_SortDataColumns);
 
-                        List<string> lst_RemoveColumns = new List<string>() { ColumnsName.Org, ColumnsName.VvtNovo, ColumnsName.TvtNovo, ColumnsName.RecPendSet, ColumnsName.SaldoSet, ColumnsName.CnpjCpfOperadora, ColumnsName.Buscador, ColumnsName.Ordem, ColumnsName.Cf10, ColumnsName.Tipo };
+                        List<string> lst_RemoveColumns = new List<string>() { ColumnsName.Org, ColumnsName.VvtNovo, ColumnsName.TvtNovo, ColumnsName.RecPendSet, ColumnsName.SaldoSet, ColumnsName.ValorDiasSet, ColumnsName.CnpjCpfOperadora, ColumnsName.Buscador, ColumnsName.Ordem, ColumnsName.Cf10, ColumnsName.Tipo };
                         ExcelFunctions.RemoveColumns(workSheet, lst_RemoveColumns);
 
                         Range PrintArea = workSheet.Range[workSheet.Cells[1, 1], workSheet.Cells[1048576, ExcelFunctions.GetNumberColumnByName(workSheet, ColumnsName.CompraFinal)].End(XlDirection.xlUp).Offset[0, 0]];
