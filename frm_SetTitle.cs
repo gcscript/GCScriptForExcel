@@ -35,7 +35,7 @@ namespace GCScript_for_Excel
         {
             try
             {
-                cl_Tools.DefinirDados(cmb_Titulo.Text, cmb_Mes.Text, cmb_Ano.Text, cmb_Compra.Text);
+                Tools.DefinirDados(cmb_Titulo.Text, cmb_Mes.Text, cmb_Ano.Text, cmb_Compra.Text);
                 this.Close();
             }
             catch (Exception erro)

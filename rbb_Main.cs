@@ -25,32 +25,32 @@ namespace GCScript_for_Excel
 
         private void Info_btn_ColunasUsadas_Click(object sender, RibbonControlEventArgs e)
         {
-            cl_Tools.ColunasUsadas();
+            Tools.ColunasUsadas();
 
         }
 
         private void Info_btn_LinhasUsadas_Click(object sender, RibbonControlEventArgs e)
         {
-            cl_Tools.LinhasUsadas();
+            Tools.LinhasUsadas();
 
         }
 
         private void Info_btn_SelecionarRange_Click(object sender, RibbonControlEventArgs e)
         {
-            cl_Tools.SelecionarRange();
+            Tools.SelecionarRange();
         }
 
         private void Info_btn_SelecionarTudo_Click(object sender, RibbonControlEventArgs e)
         {
-            cl_Tools.SelecionarTudo();
+            Tools.SelecionarTudo();
         }
 
         private void btn_T1_Click(object sender, RibbonControlEventArgs e)
         {
             //Appl app = Globals.ThisAddIn.Application;
             // cl_ExcelFunctions.CreateBackup();
-            var adjustBalanceDaysValueColumns = new AdjustDescontoAndCompraFinal();
-            adjustBalanceDaysValueColumns.Start();
+            var transferData = new TransferData();
+            transferData.Save();
         }
 
         private void btn_T2_Click(object sender, RibbonControlEventArgs e)
@@ -156,7 +156,7 @@ namespace GCScript_for_Excel
         private void Info_btn_ObterTipoSelecao_Click(object sender, RibbonControlEventArgs e)
         {
             gcsApplication app = Globals.ThisAddIn.Application;
-            cl_Tools.ObterTipoSelecao(app.Selection);
+            Tools.ObterTipoSelecao(app.Selection);
         }
 
         private void Generate_btn_AdjustDescontoAndCompraFinal_Click(object sender, RibbonControlEventArgs e)
@@ -246,7 +246,7 @@ namespace GCScript_for_Excel
                     }
                 }
 
-                cl_Tools.ConverterCPF(ws, selecao);
+                Tools.ConverterCPF(ws, selecao);
             }
             catch (Exception erro)
             {
@@ -837,7 +837,7 @@ namespace GCScript_for_Excel
                     }
                 }
 
-                cl_Tools.ConverterDecimalPlaces(ws, selecao, 0);
+                Tools.ConverterDecimalPlaces(ws, selecao, 0);
             }
             catch (Exception erro)
             {
@@ -871,7 +871,7 @@ namespace GCScript_for_Excel
                     }
                 }
 
-                cl_Tools.ConverterDecimalPlaces(ws, selecao, 2);
+                Tools.ConverterDecimalPlaces(ws, selecao, 2);
             }
             catch (Exception erro)
             {
@@ -950,7 +950,7 @@ namespace GCScript_for_Excel
                     }
                 }
 
-                cl_Tools.Generator_CPF(ws, selecao);
+                Tools.Generator_CPF(ws, selecao);
             }
             catch (Exception erro)
             {

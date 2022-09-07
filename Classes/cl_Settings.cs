@@ -110,12 +110,12 @@ namespace GCScript_for_Excel.Classes
 
                     if (Text_RemoverEspacoDuplicado)
                     {
-                        texto = RemoverEspacosDuplicados(texto);
+                        texto = Tools.RemoveDuplicateSpaces(texto);
                     }
 
                     if (Text_RemoverAcentos)
                     {
-                        texto = RemoverAcentos(texto);
+                        texto = Tools.RemoveAccents(texto);
                     }
 
                     if (Text_Option == 0) // Maiúsculo
@@ -227,26 +227,6 @@ namespace GCScript_for_Excel.Classes
                 }
             }
             MessageBox.Show("Valores alterados: " + contador.ToString());
-        }
-
-        public static string RemoverAcentos(string texto)
-        {
-            StringBuilder sbReturn = new StringBuilder();
-            var arrayText = texto.Normalize(NormalizationForm.FormD).ToCharArray();
-            foreach (char letter in arrayText)
-            {
-                if (CharUnicodeInfo.GetUnicodeCategory(letter) != UnicodeCategory.NonSpacingMark)
-                    sbReturn.Append(letter);
-            }
-            return sbReturn.ToString();
-        }
-
-        public static string RemoverEspacosDuplicados(string texto)
-        {
-            texto = Regex.Replace(texto, @"\s{2,}", " ");
-            texto = texto.Trim();
-
-            return texto;
         }
 
         public static string WorkSchedule(string texto)

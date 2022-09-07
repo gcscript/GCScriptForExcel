@@ -748,7 +748,7 @@ namespace GCScript_for_Excel.Classes
 
             List<string> lst_Sheets = new List<string>();
 
-            foreach (Worksheet sheet in app.Worksheets) { sheet.Name = cl_Settings.RemoverAcentos(sheet.Name).Trim(); }
+            foreach (Worksheet sheet in app.Worksheets) { sheet.Name = Tools.RemoveAccents(sheet.Name).Trim(); }
 
             foreach (Worksheet sheet in app.Worksheets) { lst_Sheets.Add(sheet.Name); }
 
@@ -847,7 +847,7 @@ namespace GCScript_for_Excel.Classes
                 Directory.CreateDirectory(Path.Combine(FilePath, "_BACKUPS"));
             }
 
-            wb.SaveCopyAs(Path.Combine(FilePath, "_BACKUPS", $"{cl_Tools.GetDateTime()}_{functionName}") + FileExt);
+            wb.SaveCopyAs(Path.Combine(FilePath, "_BACKUPS", $"{Tools.GetDateTime()}_{functionName}") + FileExt);
             //wb.SaveCopyAs(Path.Combine(FilePath, "_BACKUPS", cl_Tools.GetDateTime()) + FileExt);
         }
 

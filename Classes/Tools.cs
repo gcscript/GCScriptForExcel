@@ -15,7 +15,7 @@ using Appl = Microsoft.Office.Interop.Excel.Application;
 
 namespace GCScript_for_Excel.Classes
 {
-    public static class cl_Tools
+    public static class Tools
     {
         static Appl app = Globals.ThisAddIn.Application;
 
@@ -327,6 +327,40 @@ namespace GCScript_for_Excel.Classes
         public static string GetTime()
         {
             return DateTime.Now.ToString("HH-mm-ss");
+        }
+
+        public static string TreatText(string text, bool trim = true, bool toUpper = true, bool removeAccents = true, bool removeDuplicateSpaces = true)
+        {
+            if (trim)
+                text = text.Trim();
+            if (toUpper)
+                text = text.ToUpper();
+            if (removeAccents)
+                text = RemoveAccents(text);
+            if (removeDuplicateSpaces)
+                text = RemoveDuplicateSpaces(text);
+            return text;
+        }
+
+        public static string RemoveAccents(string texto)
+        {
+            var stringBuilder = new StringBuilder();
+            StringBuilder sbReturn = stringBuilder;
+            var arrayText = texto.Normalize(NormalizationForm.FormD).ToCharArray();
+            foreach (char letter in arrayText)
+            {
+                if (CharUnicodeInfo.GetUnicodeCategory(letter) != UnicodeCategory.NonSpacingMark)
+                    sbReturn.Append(letter);
+            }
+            return sbReturn.ToString();
+        }
+
+        public static string RemoveDuplicateSpaces(string texto)
+        {
+            texto = Regex.Replace(texto, @"\s{2,}", " ");
+            texto = texto.Trim();
+
+            return texto;
         }
     }
 }

@@ -262,7 +262,7 @@ namespace GCScript_for_Excel.Classes
 
             { // COPIAR E COLAR COMO VALOR | REMOVER SUBTOTAL
                 Range selecao = ws.Cells;
-                cl_Tools.CopiarColarValor(selecao);
+                Tools.CopiarColarValor(selecao);
                 app.Application.CutCopyMode = 0;
                 selecao.RemoveSubtotal();
             }
