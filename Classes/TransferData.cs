@@ -2,13 +2,14 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
+using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using gcsApplication = Microsoft.Office.Interop.Excel.Application;
 
 namespace GCScript_for_Excel.Classes
 {
-    public class TransferColumnData
+    internal class ModelTransferData
     {
         public string Cnpj { get; set; }
         public string Uf { get; set; }
@@ -33,7 +34,7 @@ namespace GCScript_for_Excel.Classes
 
     public class TransferData
     {
-        gcsApplication gcsApp = Globals.ThisAddIn.Application;
+        readonly gcsApplication gcsApp = Globals.ThisAddIn.Application;
 
         public void Save()
         {
@@ -69,130 +70,71 @@ namespace GCScript_for_Excel.Classes
                 var descColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Desc);
                 var obsColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Obs);
 
-                var lstTransferColumnData = new List<TransferColumnData>();
+                var lstModelTransferData = new List<ModelTransferData>();
 
                 int lastUsedRowByNome = ws.Cells[1048576, nomeColumnNumber].End(XlDirection.xlUp).Row;
 
                 var offSetRow = 0;
+                var count = 0;
 
                 while (true)
                 {
-                    var transferColumnData = new TransferColumnData();
+                    var modelTransferData = new ModelTransferData();
+
+                    if (ws.Cells[lastUsedRowByNome, nomeColumnNumber].Offset[offSetRow, 0].Row < 2) { break; }
 
                     // REQUIRED FIELDS
-                    Range activeCellByNome = ws.Cells[lastUsedRowByNome, nomeColumnNumber].Offset[offSetRow, 0]; if (activeCellByNome.Row < 2) { break; }
-                    transferColumnData.Nome = activeCellByNome.Text;
+                    modelTransferData.Nome = GetTextAndTreat(ws, lastUsedRowByNome, nomeColumnNumber, offSetRow, 0);
+                    if (modelTransferData.Nome is null) { offSetRow--; continue; }
 
                     Range activeCellByQvt = ws.Cells[lastUsedRowByNome, qvtColumnNumber].Offset[offSetRow, 0];
-                    transferColumnData.Qvt = (int)activeCellByQvt.Value2;
+                    if (activeCellByQvt.Value2 is null || activeCellByQvt.Value2 == 0) { offSetRow--; continue; }
+                    modelTransferData.Qvt = (int)activeCellByQvt.Value2;
 
                     Range activeCellByVvt = ws.Cells[lastUsedRowByNome, vvtColumnNumber].Offset[offSetRow, 0];
-                    transferColumnData.Vvt = (decimal)activeCellByVvt.Value2;
+                    if (activeCellByVvt.Value2 is null || activeCellByVvt.Value2 == 0) { offSetRow--; continue; }
+                    modelTransferData.Vvt = Math.Round((decimal)activeCellByVvt.Value2,2);
 
                     // OPTIONAL FIELDS
-
-                    if (cnpjColumnNumber != -1) {
-                        Range activeCellByCnpj = ws.Cells[lastUsedRowByNome, cnpjColumnNumber].Offset[offSetRow, 0];
-                        transferColumnData.Cnpj = activeCellByCnpj.Text;
-                    }
-
-                    if (ufColumnNumber != -1)
-                    {
-                        Range activeCellByUf = ws.Cells[lastUsedRowByNome, ufColumnNumber].Offset[offSetRow, 0];
-                        transferColumnData.Uf = activeCellByUf.Text;
-                    }
-
-                    if (empresaColumnNumber != -1)
-                    {
-                        Range activeCellByEmpresa = ws.Cells[lastUsedRowByNome, empresaColumnNumber].Offset[offSetRow, 0];
-                        transferColumnData.Empresa = activeCellByEmpresa.Text;
-                    }
-
-                    if (cUnidColumnNumber != -1)
-                    {
-                        Range activeCellByCUnid = ws.Cells[lastUsedRowByNome, cUnidColumnNumber].Offset[offSetRow, 0];
-                        transferColumnData.CUnid = activeCellByCUnid.Text;
-                    }
-
-                    if (cDeptoColumnNumber != -1)
-                    {
-                        Range activeCellByCDepto = ws.Cells[lastUsedRowByNome, cDeptoColumnNumber].Offset[offSetRow, 0];
-                        transferColumnData.CDepto = activeCellByCDepto.Text;
-                    }
-
-                    if (deptoColumnNumber != -1)
-                    {
-                        Range activeCellByDepto = ws.Cells[lastUsedRowByNome, deptoColumnNumber].Offset[offSetRow, 0];
-                        transferColumnData.Depto = activeCellByDepto.Text;
-                    }
-
-                    if (escalaColumnNumber != -1)
-                    {
-                        Range activeCellByEscala = ws.Cells[lastUsedRowByNome, escalaColumnNumber].Offset[offSetRow, 0];
-                        transferColumnData.Escala = activeCellByEscala.Text;
-                    }
-
-                    if (idColumnNumber != -1)
-                    {
-                        Range activeCellById = ws.Cells[lastUsedRowByNome, idColumnNumber].Offset[offSetRow, 0];
-                        transferColumnData.Id = activeCellById.Text;
-                    }
-
-                    if (matColumnNumber != -1)
-                    {
-                        Range activeCellByMat = ws.Cells[lastUsedRowByNome, matColumnNumber].Offset[offSetRow, 0];
-                        transferColumnData.Mat = activeCellByMat.Text;
-                    }
-
-                    if (matSiteColumnNumber != -1)
-                    {
-                        Range activeCellByMatSite = ws.Cells[lastUsedRowByNome, matSiteColumnNumber].Offset[offSetRow, 0];
-                        transferColumnData.MatSite = activeCellByMatSite.Text;
-                    }
-
-                    if (cpfColumnNumber != -1)
-                    {
-                        Range activeCellByCpf = ws.Cells[lastUsedRowByNome, cpfColumnNumber].Offset[offSetRow, 0];
-                        transferColumnData.Cpf = activeCellByCpf.Text;
-                    }
-
-                    if (rgColumnNumber != -1)
-                    {
-                        Range activeCellByRg = ws.Cells[lastUsedRowByNome, rgColumnNumber].Offset[offSetRow, 0];
-                        transferColumnData.Rg = activeCellByRg.Text;
-                    }
-
-                    if (dataNascimentoColumnNumber != -1)
-                    {
-                        Range activeCellByDataNascimento = ws.Cells[lastUsedRowByNome, dataNascimentoColumnNumber].Offset[offSetRow, 0];
-                        transferColumnData.DataNascimento = activeCellByDataNascimento.Text;
-                    }
-
-                    if (operadoraColumnNumber != -1)
-                    {
-                        Range activeCellByOperadora = ws.Cells[lastUsedRowByNome, operadoraColumnNumber].Offset[offSetRow, 0];
-                        transferColumnData.Operadora = activeCellByOperadora.Text;
-                    }
+                    modelTransferData.Cnpj = GetTextAndTreat(ws, lastUsedRowByNome, cnpjColumnNumber, offSetRow, 0);
+                    modelTransferData.Uf = GetTextAndTreat(ws, lastUsedRowByNome, ufColumnNumber, offSetRow, 0);
+                    modelTransferData.Empresa = GetTextAndTreat(ws, lastUsedRowByNome, empresaColumnNumber, offSetRow, 0);
+                    modelTransferData.CUnid = GetTextAndTreat(ws, lastUsedRowByNome, cUnidColumnNumber, offSetRow, 0);
+                    modelTransferData.CDepto = GetTextAndTreat(ws, lastUsedRowByNome, cDeptoColumnNumber, offSetRow, 0);
+                    modelTransferData.Depto = GetTextAndTreat(ws, lastUsedRowByNome, deptoColumnNumber, offSetRow, 0);
+                    modelTransferData.Escala = GetTextAndTreat(ws, lastUsedRowByNome, escalaColumnNumber, offSetRow, 0);
+                    modelTransferData.Id = GetTextAndTreat(ws, lastUsedRowByNome, idColumnNumber, offSetRow, 0);
+                    modelTransferData.Mat = GetTextAndTreat(ws, lastUsedRowByNome, matColumnNumber, offSetRow, 0);
+                    modelTransferData.MatSite = GetTextAndTreat(ws, lastUsedRowByNome, matSiteColumnNumber, offSetRow, 0);
+                    modelTransferData.Cpf = GetTextAndTreat(ws, lastUsedRowByNome, cpfColumnNumber, offSetRow, 0);
+                    modelTransferData.Rg = GetTextAndTreat(ws, lastUsedRowByNome, rgColumnNumber, offSetRow, 0);
+                    modelTransferData.DataNascimento = GetTextAndTreat(ws, lastUsedRowByNome, dataNascimentoColumnNumber, offSetRow, 0);
+                    modelTransferData.Operadora = GetTextAndTreat(ws, lastUsedRowByNome, operadoraColumnNumber, offSetRow, 0);
+                    modelTransferData.Obs = GetTextAndTreat(ws, lastUsedRowByNome, obsColumnNumber, offSetRow, 0);
 
                     if (descColumnNumber != -1)
                     {
                         Range activeCellByDesc = ws.Cells[lastUsedRowByNome, descColumnNumber].Offset[offSetRow, 0];
-                        transferColumnData.Desc = (decimal)activeCellByDesc.Value2;
+                        if (activeCellByDesc.Value2 != null) { modelTransferData.Desc = Math.Round((decimal)activeCellByDesc.Value2, 2); }
                     }
 
-                    if (obsColumnNumber != -1)
-                    {
-                        Range activeCellByObs = ws.Cells[lastUsedRowByNome, obsColumnNumber].Offset[offSetRow, 0];
-                        transferColumnData.Obs = activeCellByObs.Text;
-                    }
-
-                    lstTransferColumnData.Add(transferColumnData);
+                    lstModelTransferData.Add(modelTransferData);
+                    count++;
                     offSetRow--;
                 }
-                string json = JsonConvert.SerializeObject(lstTransferColumnData.ToArray());
-                System.IO.File.WriteAllText(@"D:\teste.json", json);
 
-                MessageBox.Show($"Terminou!", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+                var orderedCustomers = lstModelTransferData.OrderBy(c => c.Uf)
+                                                                                        .ThenBy(c => c.Operadora)
+                                                                                        .ThenBy(c => c.Empresa)
+                                                                                        .ThenBy(c => c.CUnid)
+                                                                                        .ThenBy(c => c.CDepto)
+                                                                                        .ThenBy(c => c.Depto)
+                                                                                        .ThenBy(c => c.Nome);
+                string json = JsonConvert.SerializeObject(orderedCustomers.ToArray());
+                string fullPath = Path.Combine(Path.GetDirectoryName(gcsApp.ActiveWorkbook.FullName), $"_PurchaseFile_{Tools.GetDateTime()}.json");
+                System.IO.File.WriteAllText(fullPath, json);
+
+                MessageBox.Show($"Linhas Salvas: {count}", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
             }
             catch (Exception erro)
             {
@@ -202,6 +144,38 @@ namespace GCScript_for_Excel.Classes
             {
                 gcsApp.ScreenUpdating = true;
                 gcsApp.DisplayAlerts = true;
+            }
+
+        }
+
+        private string GetTextAndTreat(Worksheet ws, int row, int column, int offSR, int offSC = 0)
+        {
+            if (column != -1)
+            {
+                Range rng = ws.Cells[row, column].Offset[offSR, offSC];
+
+                if (rng != null)
+                {
+                    string text = Tools.TreatText(rng.Text);
+                    //string text = rng.Text;
+
+                    if (text != "")
+                    {
+                        return text;
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                return null;
             }
 
         }
