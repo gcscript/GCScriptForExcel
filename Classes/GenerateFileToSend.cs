@@ -32,10 +32,10 @@ namespace GCScript_for_Excel.Classes
                         workSheet.Select();
                         if (!ChecksIfColumnsExist(workSheet)) { return; }
 
-                        List<string> lst_MoveColumnsName = new List<string>() { ColumnsName.Cnpj, ColumnsName.UF , ColumnsName.Operadora, ColumnsName.Empresa, ColumnsName.CUnid, ColumnsName.CDepto, ColumnsName.Depto };
+                        List<string> lst_MoveColumnsName = new List<string>() { ColumnsName.Cnpj, ColumnsName.Uf , ColumnsName.Operadora, ColumnsName.Empresa, ColumnsName.CUnid, ColumnsName.CDepto, ColumnsName.Depto };
                         ExcelFunctions.MoveColumns(workSheet, lst_MoveColumnsName);
 
-                        List<string> lst_SortDataColumns = new List<string>() { ColumnsName.UF, ColumnsName.Operadora, ColumnsName.Empresa, ColumnsName.CUnid, ColumnsName.CDepto, ColumnsName.Depto, ColumnsName.Nome };
+                        List<string> lst_SortDataColumns = new List<string>() { ColumnsName.Uf, ColumnsName.Operadora, ColumnsName.Empresa, ColumnsName.CUnid, ColumnsName.CDepto, ColumnsName.Depto, ColumnsName.Nome };
                         ExcelFunctions.SortDataByColumn(workSheet, lst_SortDataColumns);
 
                         List<string> lst_RemoveColumns = new List<string>() { ColumnsName.Org, ColumnsName.VvtNovo, ColumnsName.TvtNovo, ColumnsName.RecPendSet, ColumnsName.SaldoSet, ColumnsName.ValorDiasSet, ColumnsName.CnpjCpfOperadora, ColumnsName.Buscador, ColumnsName.Ordem, ColumnsName.Cf10, ColumnsName.Tipo };
@@ -98,7 +98,7 @@ namespace GCScript_for_Excel.Classes
         {
             int usedColumns = workSheet.UsedRange.Columns.Count;
 
-            string[] columnsName = { ColumnsName.UF, ColumnsName.Operadora, ColumnsName.Empresa, ColumnsName.CUnid, "Mat", "Mat Site", ColumnsName.Nome, ColumnsName.Desc, ColumnsName.Qvt, ColumnsName.Vvt, ColumnsName.Tvt, ColumnsName.Total, "Saldo", "ValorDias", ColumnsName.Desconto, ColumnsName.CompraFinal };
+            string[] columnsName = { ColumnsName.Uf, ColumnsName.Operadora, ColumnsName.Empresa, ColumnsName.CUnid, "Mat", "Mat Site", ColumnsName.Nome, ColumnsName.Desc, ColumnsName.Qvt, ColumnsName.Vvt, ColumnsName.Tvt, ColumnsName.Total, "Saldo", "ValorDias", ColumnsName.Desconto, ColumnsName.CompraFinal };
 
             foreach (string columnName in columnsName)
             {

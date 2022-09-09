@@ -193,6 +193,26 @@ namespace GCScript_for_Excel.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap data_export {
+            get {
+                object obj = ResourceManager.GetObject("data_export", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap data_import {
+            get {
+                object obj = ResourceManager.GetObject("data_import", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap decimal_place {
             get {
                 object obj = ResourceManager.GetObject("decimal_place", resourceCulture);
@@ -446,6 +466,16 @@ namespace GCScript_for_Excel.Properties {
         internal static System.Drawing.Bitmap title {
             get {
                 object obj = ResourceManager.GetObject("title", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap transfer_data {
+            get {
+                object obj = ResourceManager.GetObject("transfer_data", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -549,7 +549,7 @@ namespace GCScript_for_Excel.Classes
             }
         }
 
-        public static void RowHeight(Range rng, decimal height)
+        public static void RowHeight(Range rng, decimal height = 0)
         {
             // 0 = Auto
             if (height == 0)
@@ -562,7 +562,7 @@ namespace GCScript_for_Excel.Classes
             }
         }
 
-        public static void ColumnWidth(Range rng, decimal width)
+        public static void ColumnWidth(Range rng, decimal width = 0)
         {
             // 0 = Auto
             if (width == 0)

@@ -81,7 +81,7 @@ namespace GCScript_for_Excel.Classes
         {
             int usedColumns = ws.UsedRange.Columns.Count;
 
-            string[] columnsName = { ColumnsName.Org, ColumnsName.UF, ColumnsName.Empresa, ColumnsName.CUnid, ColumnsName.Nome, ColumnsName.Operadora, ColumnsName.Total, ColumnsName.Desconto, ColumnsName.CompraFinal, ColumnsName.CnpjCpfOperadora, ColumnsName.Ordem, ColumnsName.Obs };
+            string[] columnsName = { ColumnsName.Org, ColumnsName.Uf, ColumnsName.Empresa, ColumnsName.CUnid, ColumnsName.Nome, ColumnsName.Operadora, ColumnsName.Total, ColumnsName.Desconto, ColumnsName.CompraFinal, ColumnsName.CnpjCpfOperadora, ColumnsName.Ordem, ColumnsName.Obs };
 
             foreach (string columnName in columnsName)
             {
@@ -105,7 +105,7 @@ namespace GCScript_for_Excel.Classes
 
         static void MoveColumns()
         {
-            int ColumnUF_Number = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.UF);
+            int ColumnUF_Number = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Uf);
             ExcelFunctions.GetRangeColumn(ws, ColumnUF_Number).Cut();
             ExcelFunctions.GetRangeColumn(ws, 1).Insert(XlInsertShiftDirection.xlShiftToRight);
 
@@ -282,7 +282,7 @@ namespace GCScript_for_Excel.Classes
 
         static void OrganizeSubtotal()
         {
-            int ColumnUF_Number = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.UF);
+            int ColumnUF_Number = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Uf);
             int ColumnOperadora_Number = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Operadora);
             int ColumnEmpresa_Number = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Empresa);
             int ColumnCUnid_Number = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.CUnid);
@@ -709,7 +709,7 @@ namespace GCScript_for_Excel.Classes
 
         static void AdjustHideColumns()
         {
-            string[] nameAdjustColumns = { ColumnsName.UF, ColumnsName.Operadora, ColumnsName.Empresa, ColumnsName.CUnid };
+            string[] nameAdjustColumns = { ColumnsName.Uf, ColumnsName.Operadora, ColumnsName.Empresa, ColumnsName.CUnid };
             string[] nameHideColumns = { ColumnsName.CDepto, ColumnsName.Cnpj, ColumnsName.Escala, ColumnsName.Rg, ColumnsName.DataNascimento, ColumnsName.Desc, ColumnsName.Qvt, ColumnsName.Vvt, ColumnsName.Tvt, ColumnsName.Total, ColumnsName.Desconto };
 
             foreach (string nameAdjustColumn in nameAdjustColumns)

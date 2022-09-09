@@ -47,10 +47,11 @@ namespace GCScript_for_Excel
 
         private void btn_T1_Click(object sender, RibbonControlEventArgs e)
         {
-            //Appl app = Globals.ThisAddIn.Application;
-            // cl_ExcelFunctions.CreateBackup();
-            var transferData = new TransferData();
-            transferData.Save();
+            gcsApplication app = Globals.ThisAddIn.Application;
+            Worksheet ws = app.ActiveSheet;
+
+            Range teste = ws.Range[ws.Cells[2, 1], ws.Cells[10, 1]];
+            teste.EntireRow.Delete();
         }
 
         private void btn_T2_Click(object sender, RibbonControlEventArgs e)
@@ -743,7 +744,7 @@ namespace GCScript_for_Excel
             gcsApplication app = Globals.ThisAddIn.Application;
             Worksheet workSheet = app.ActiveSheet;
             ExcelFunctions.CreateBackup("SortPreset1");
-            List<string> lst_SortDataColumns = new List<string>() { ColumnsName.UF, ColumnsName.Operadora, ColumnsName.Nome };
+            List<string> lst_SortDataColumns = new List<string>() { ColumnsName.Uf, ColumnsName.Operadora, ColumnsName.Nome };
             ExcelFunctions.SortDataByColumn(workSheet, lst_SortDataColumns);
         }
 
@@ -752,7 +753,7 @@ namespace GCScript_for_Excel
             gcsApplication app = Globals.ThisAddIn.Application;
             Worksheet workSheet = app.ActiveSheet;
             ExcelFunctions.CreateBackup("SortPreset2");
-            List<string> lst_SortDataColumns = new List<string>() { ColumnsName.UF, ColumnsName.Operadora, ColumnsName.Empresa, ColumnsName.CUnid, ColumnsName.Nome };
+            List<string> lst_SortDataColumns = new List<string>() { ColumnsName.Uf, ColumnsName.Operadora, ColumnsName.Empresa, ColumnsName.CUnid, ColumnsName.Nome };
             ExcelFunctions.SortDataByColumn(workSheet, lst_SortDataColumns);
         }
 
@@ -761,7 +762,7 @@ namespace GCScript_for_Excel
             gcsApplication app = Globals.ThisAddIn.Application;
             Worksheet workSheet = app.ActiveSheet;
             ExcelFunctions.CreateBackup("SortPreset3");
-            List<string> lst_SortDataColumns = new List<string>() { ColumnsName.UF, ColumnsName.Operadora, ColumnsName.Empresa, ColumnsName.CUnid, ColumnsName.CDepto, "Depto", ColumnsName.Nome };
+            List<string> lst_SortDataColumns = new List<string>() { ColumnsName.Uf, ColumnsName.Operadora, ColumnsName.Empresa, ColumnsName.CUnid, ColumnsName.CDepto, "Depto", ColumnsName.Nome };
             ExcelFunctions.SortDataByColumn(workSheet, lst_SortDataColumns);
         }
 
@@ -770,7 +771,7 @@ namespace GCScript_for_Excel
             gcsApplication app = Globals.ThisAddIn.Application;
             Worksheet workSheet = app.ActiveSheet;
             ExcelFunctions.CreateBackup("SortPreset4");
-            List<string> lst_SortDataColumns = new List<string>() { ColumnsName.UF, ColumnsName.Operadora, ColumnsName.Empresa, ColumnsName.CUnid, ColumnsName.CDepto, "Depto", ColumnsName.Nome };
+            List<string> lst_SortDataColumns = new List<string>() { ColumnsName.Uf, ColumnsName.Operadora, ColumnsName.Empresa, ColumnsName.CUnid, ColumnsName.CDepto, "Depto", ColumnsName.Nome };
             ExcelFunctions.SortDataByColumn(workSheet, lst_SortDataColumns);
         }
 
@@ -1008,6 +1009,16 @@ namespace GCScript_for_Excel
             MessageBox.Show($"Is Null? {teste.isNull}\nIs Numeric? {teste.isNumeric}\nValue: {teste.value}", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
         }
 
-        
+        private void TransferData_btn_Import_Click(object sender, RibbonControlEventArgs e)
+        {
+            TransferData transferData = new TransferData();
+            transferData.Import();
+        }
+
+        private void TransferData_btn_Export_Click(object sender, RibbonControlEventArgs e)
+        {
+            TransferData transferData = new TransferData();
+            transferData.Export();
+        }
     }
 }

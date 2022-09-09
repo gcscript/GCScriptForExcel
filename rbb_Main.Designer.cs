@@ -40,6 +40,9 @@
             this.glr_ApplyRemove = this.Factory.CreateRibbonGallery();
             this.ApplyRemove_btn_Start = this.Factory.CreateRibbonButton();
             this.ApplyRemove_btn_Settings = this.Factory.CreateRibbonButton();
+            this.glr_TransferData = this.Factory.CreateRibbonGallery();
+            this.TransferData_btn_Import = this.Factory.CreateRibbonButton();
+            this.TransferData_btn_Export = this.Factory.CreateRibbonButton();
             this.glr_Generate = this.Factory.CreateRibbonGallery();
             this.Generate_btn_AdjustDescontoAndCompraFinal = this.Factory.CreateRibbonButton();
             this.Generate_btn_Apportionment = this.Factory.CreateRibbonButton();
@@ -154,6 +157,7 @@
             // grp_Tools
             // 
             this.grp_Tools.Items.Add(this.glr_ApplyRemove);
+            this.grp_Tools.Items.Add(this.glr_TransferData);
             this.grp_Tools.Items.Add(this.glr_Generate);
             this.grp_Tools.Items.Add(this.glr_Converter);
             this.grp_Tools.Items.Add(this.Tools_btn_BZA);
@@ -194,6 +198,37 @@
             this.ApplyRemove_btn_Settings.ShowImage = true;
             this.ApplyRemove_btn_Settings.SuperTip = "Settings";
             this.ApplyRemove_btn_Settings.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.ApplyRemove_btn_Settings_Click);
+            // 
+            // glr_TransferData
+            // 
+            this.glr_TransferData.Buttons.Add(this.TransferData_btn_Import);
+            this.glr_TransferData.Buttons.Add(this.TransferData_btn_Export);
+            this.glr_TransferData.ControlSize = Microsoft.Office.Core.RibbonControlSize.RibbonControlSizeLarge;
+            this.glr_TransferData.Image = global::GCScript_for_Excel.Properties.Resources.transfer_data;
+            this.glr_TransferData.KeyTip = "1";
+            this.glr_TransferData.Label = "Transfer Data";
+            this.glr_TransferData.Name = "glr_TransferData";
+            this.glr_TransferData.ShowImage = true;
+            // 
+            // TransferData_btn_Import
+            // 
+            this.TransferData_btn_Import.Image = global::GCScript_for_Excel.Properties.Resources.data_import;
+            this.TransferData_btn_Import.Label = "Import";
+            this.TransferData_btn_Import.Name = "TransferData_btn_Import";
+            this.TransferData_btn_Import.ScreenTip = "Import";
+            this.TransferData_btn_Import.ShowImage = true;
+            this.TransferData_btn_Import.SuperTip = "Start";
+            this.TransferData_btn_Import.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.TransferData_btn_Import_Click);
+            // 
+            // TransferData_btn_Export
+            // 
+            this.TransferData_btn_Export.Image = global::GCScript_for_Excel.Properties.Resources.data_export;
+            this.TransferData_btn_Export.Label = "Export";
+            this.TransferData_btn_Export.Name = "TransferData_btn_Export";
+            this.TransferData_btn_Export.ScreenTip = "Export";
+            this.TransferData_btn_Export.ShowImage = true;
+            this.TransferData_btn_Export.SuperTip = "Settings";
+            this.TransferData_btn_Export.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.TransferData_btn_Export_Click);
             // 
             // glr_Generate
             // 
@@ -1157,6 +1192,9 @@
         private Microsoft.Office.Tools.Ribbon.RibbonButton glr_Get_Content;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton btn_IsNumeric;
         private Microsoft.Office.Tools.Ribbon.RibbonButton Generate_btn_AdjustDescontoAndCompraFinal;
+        internal Microsoft.Office.Tools.Ribbon.RibbonGallery glr_TransferData;
+        private Microsoft.Office.Tools.Ribbon.RibbonButton TransferData_btn_Import;
+        private Microsoft.Office.Tools.Ribbon.RibbonButton TransferData_btn_Export;
     }
 
     partial class ThisRibbonCollection

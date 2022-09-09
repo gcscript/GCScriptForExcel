@@ -10,7 +10,7 @@ namespace GCScript_for_Excel.Classes
     {
         public static string Org { get; private set; } = "Org";
         public static string Cnpj { get; private set; } = "CNPJ";
-        public static string UF { get; private set; } = "UF";
+        public static string Uf { get; private set; } = "UF";
         public static string Empresa { get; private set; } = "Empresa";
         public static string CUnid { get; private set; } = "C.Unid";
         public static string CDepto { get; private set; } = "C.Depto";

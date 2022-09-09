@@ -360,6 +360,15 @@
   <ItemGroup>
     <None Include="icons\less_than_10.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="icons\transfer_data.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icons\data_export.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icons\data_import.png" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
