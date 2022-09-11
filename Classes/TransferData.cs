@@ -336,7 +336,7 @@ namespace GCScript_for_Excel.Classes
 
                 if (rng != null)
                 {
-                    string text = Tools.TratarCPF_0(rng.Text);
+                    string text = Tools.TreatCpf(rng.Text);
                     return text;
                 }
                 else
@@ -358,7 +358,7 @@ namespace GCScript_for_Excel.Classes
 
                 if (rng != null)
                 {
-                    string text = Tools.ConvertWorkSchedule(rng.Text);
+                    string text = Tools.TreatWorkSchedule(rng.Text);
                     if (text != "")
                     {
                         return text;

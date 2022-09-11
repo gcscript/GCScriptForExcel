@@ -113,9 +113,9 @@ namespace GCScript_for_Excel.Classes
             return regex.IsMatch(text);
         }
 
-        public static void ConverterCPF(Worksheet ws, Range rng)
+        public static int ConverterCPF(Worksheet ws, Range rng)
         {
-            int contador = 0;
+            int count = 0;
             foreach (Range item in rng.Cells)
             {
                 if (item.Value == null)
@@ -124,78 +124,54 @@ namespace GCScript_for_Excel.Classes
                 }
                 else
                 {
-                    string texto = item.Value.ToString();
+                    string text = item.Value.ToString();
                     bool addZero = cl_Settings.CPF_ZeroAEsquerda;
 
                     if (cl_Settings.CPF_Opcao == 0) // 00000000000
                     {
-                        texto = TratarCPF_0(texto, addZero);
+                        text = TreatCpf(text, true, addZero);
 
                     }
-                    else if (cl_Settings.CPF_Opcao == 1) // 000.000.000-00
+                    else // 000.000.000-00
                     {
-                        texto = TratarCPF_1(texto, addZero);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Option de conversão inválida!", "ERRO: 871174", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        text = TreatCpf(text, false, addZero);
                     }
 
-                    Range selecao = ws.Cells[item.Row, item.Column];
-                    selecao.NumberFormat = "@";
-                    selecao.Value = texto;
-                    contador++;
+                    Range selection = ws.Cells[item.Row, item.Column];
+                    selection.NumberFormat = "@";
+                    selection.Value = text;
+                    count++;
                 }
             }
-            MessageBox.Show("CPFs alterados: " + contador.ToString());
+            return count;
         }
 
-        public static string TratarCPF_0(string NumeroCPF, bool AddZero = false)
+        public static string TreatCpf(string cpf, bool onlyNumbers = true, bool addZero = true)
         {
-            // FORMATO: 00000000000
+            string newCpf = cpf.Trim();
+            newCpf = Regex.Replace(newCpf, @"[^\d]", "");
 
-            string NovoNumeroCPF = NumeroCPF.Trim();
-            NovoNumeroCPF = Regex.Replace(NovoNumeroCPF, @"[^\d]", "");
+            if (addZero)
+                newCpf = newCpf.Trim().PadLeft(11, '0');
 
-            if (AddZero)
+            if (newCpf.Length == 11)
             {
-                NovoNumeroCPF = NovoNumeroCPF.Trim().PadLeft(11, '0');
-            }
-
-            if (NovoNumeroCPF.Length == 11)
-            {
-                return NovoNumeroCPF;
+                if (onlyNumbers)
+                {
+                    return newCpf;
+                }
+                else
+                {
+                    return Regex.Replace(newCpf, "([0-9]{3})([0-9]{3})([0-9]{3})([0-9]{2})", "$1.$2.$3-$4");
+                }
             }
             else
             {
-                return NumeroCPF;
+                return newCpf;
             }
         }
 
-        public static string TratarCPF_1(string NumeroCPF, bool AddZero = false)
-        {
-            // FORMATO: 000.000.000-00
-            string NovoNumeroCPF = NumeroCPF.Trim();
-            NovoNumeroCPF = Regex.Replace(NovoNumeroCPF, @"[^\d]", "");
-
-            if (AddZero)
-            {
-                NovoNumeroCPF = NovoNumeroCPF.Trim().PadLeft(11, '0');
-            }
-
-            if (NovoNumeroCPF.Length == 11)
-            {
-                NovoNumeroCPF = Regex.Replace(NovoNumeroCPF, "([0-9][0-9][0-9])([0-9][0-9][0-9])([0-9][0-9][0-9])([0-9][0-9])", "$1.$2.$3-$4");
-            }
-            else
-            {
-                return NumeroCPF;
-            }
-
-            return NovoNumeroCPF;
-        }
-
-        public static string ConvertWorkSchedule(string text)
+        public static string TreatWorkSchedule(string text)
         {
             string newText = text.ToUpper().Trim();
             newText = Regex.Replace(text, @"\s", "");

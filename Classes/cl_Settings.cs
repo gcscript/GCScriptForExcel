@@ -219,7 +219,7 @@ namespace GCScript_for_Excel.Classes
                 else
                 {
                     string texto = item.Value.ToString();
-                    texto = Tools.ConvertWorkSchedule(texto);
+                    texto = Tools.TreatWorkSchedule(texto);
                     Range selecao = ws.Cells[item.Row, item.Column];
                     selecao.NumberFormat = "@";
                     selecao.Value = texto;

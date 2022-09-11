@@ -232,14 +232,14 @@ namespace GCScript_for_Excel
             app.ScreenUpdating = false;
             try
             {
-                Range selecao = app.Selection;
+                Range selection = app.Selection;
 
-                if (selecao.Cells.Count > 100000)
+                if (selection.Cells.Count > 100000)
                 {
                     MessageBox.Show("O Intervalo contém mais de 100.000 células.", "ERRO: 306904", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                else if (selecao.Cells.Count > 50000)
+                else if (selection.Cells.Count > 50000)
                 {
                     if (MessageBox.Show("O Intervalo contém mais de 50.000 células.\nIsso pode travar sua aplicação!\nDeseja continuar?", "ERRO: 452149", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
                     {
@@ -247,7 +247,9 @@ namespace GCScript_for_Excel
                     }
                 }
 
-                Tools.ConverterCPF(ws, selecao);
+                int count = Tools.ConverterCPF(ws, selection);
+
+                MessageBox.Show($"CPF(s) alterado(s): {count}", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
             }
             catch (Exception erro)
             {
