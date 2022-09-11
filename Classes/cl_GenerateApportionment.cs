@@ -187,7 +187,7 @@ namespace GCScript_for_Excel.Classes
         {
             string[] nameColumns = { ColumnsName.Org, ColumnsName.Cnpj, ColumnsName.Depto, ColumnsName.Escala, ColumnsName.Id,
                                      ColumnsName.Mat, ColumnsName.MatSite, ColumnsName.Nome, ColumnsName.Cpf, ColumnsName.Rg,
-                                     ColumnsName.DataNascimento, ColumnsName.Desc, ColumnsName.Qvt, ColumnsName.Vvt, ColumnsName.Tvt,
+                                     ColumnsName.DataNasc, ColumnsName.Desc, ColumnsName.Qvt, ColumnsName.Vvt, ColumnsName.Tvt,
                                      ColumnsName.VvtNovo, ColumnsName.TvtNovo, ColumnsName.RecPendSet, ColumnsName.SaldoSet, ColumnsName.Saldo,
                                      ColumnsName.ValorDiasSet, ColumnsName.ValorDias, ColumnsName.Compra1, ColumnsName.Compra2, ColumnsName.Tipo,
                                      ColumnsName.CnpjCpfOperadora, ColumnsName.Buscador, ColumnsName.Ordem, ColumnsName.Cf10, ColumnsName.NrDoCartao,

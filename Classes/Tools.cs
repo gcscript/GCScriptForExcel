@@ -195,6 +195,34 @@ namespace GCScript_for_Excel.Classes
             return NovoNumeroCPF;
         }
 
+        public static string ConvertWorkSchedule(string text)
+        {
+            string newText = text.ToUpper().Trim();
+            newText = Regex.Replace(text, @"\s", "");
+
+            if (newText.Contains("6X1")) { return "6X1"; }
+            else if (newText.Contains("06X01")) { return "6X1"; }
+            else if (newText.Contains("6X2")) { return "6X1"; }
+            else if (newText.Contains("60X01")) { return "6X1"; }
+            else if (newText.Contains("05X02")) { return "5X2"; }
+            else if (newText.Contains("5X2")) { return "5X2"; }
+            else if (newText.Contains("SX2")) { return "5X2"; }
+            else if (newText.Contains("5X1")) { return "5X2"; }
+            else if (newText.Contains("44H")) { return "5X2"; }
+            else if (newText.Contains("12X36")) { return "12X36"; }
+            else if (newText.Contains("13X36")) { return "12X36"; }
+            else if (newText.Contains("24X48")) { return "24X48"; }
+            else if (newText.Contains("04X03")) { return "4X3"; }
+            else if (newText.Contains("4X3")) { return "4X3"; }
+            else if (newText.Contains("03X04")) { return "3X4"; }
+            else if (newText.Contains("3X4")) { return "3X4"; }
+            else if (newText.Contains("02X05")) { return "2X5"; }
+            else if (newText.Contains("2X5")) { return "2X5"; }
+            else if (newText.Contains("01X06")) { return "1X6"; }
+            else if (newText.Contains("1X6")) { return "1X6"; }
+            else { return text; }
+        }
+
         public static void ConverterDecimalPlaces(Worksheet ws, Range rng, int places)
         {
             int count = 0;

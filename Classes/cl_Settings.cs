@@ -219,7 +219,7 @@ namespace GCScript_for_Excel.Classes
                 else
                 {
                     string texto = item.Value.ToString();
-                    texto = WorkSchedule(texto);
+                    texto = Tools.ConvertWorkSchedule(texto);
                     Range selecao = ws.Cells[item.Row, item.Column];
                     selecao.NumberFormat = "@";
                     selecao.Value = texto;
@@ -227,34 +227,6 @@ namespace GCScript_for_Excel.Classes
                 }
             }
             MessageBox.Show("Valores alterados: " + contador.ToString());
-        }
-
-        public static string WorkSchedule(string texto)
-        {
-            texto = texto.ToUpper().Trim();
-            texto = Regex.Replace(texto, @"\s", "");
-            if (texto.Contains("6X1")) { return "6X1"; }
-            else if (texto.Contains("06X01")) { return "6X1"; }
-            else if (texto.Contains("6X2")) { return "6X1"; }
-            else if (texto.Contains("60X01")) { return "6X1"; }
-            else if (texto.Contains("05X02")) { return "5X2"; }
-            else if (texto.Contains("5X2")) { return "5X2"; }
-            else if (texto.Contains("SX2")) { return "5X2"; }
-            else if (texto.Contains("5X1")) { return "5X2"; }
-            else if (texto.Contains("44H")) { return "5X2"; }
-            else if (texto.Contains("12X36")) { return "12X36"; }
-            else if (texto.Contains("13X36")) { return "12X36"; }
-            else if (texto.Contains("24X48")) { return "24X48"; }
-            else if (texto.Contains("04X03")) { return "4X3"; }
-            else if (texto.Contains("4X3")) { return "4X3"; }
-            else if (texto.Contains("03X04")) { return "3X4"; }
-            else if (texto.Contains("3X4")) { return "3X4"; }
-            else if (texto.Contains("02X05")) { return "2X5"; }
-            else if (texto.Contains("2X5")) { return "2X5"; }
-            else if (texto.Contains("01X06")) { return "1X6"; }
-            else if (texto.Contains("1X6")) { return "1X6"; }
-            else { return texto; }
-
         }
 
         public static string TextoAEsquerda(string texto, int comprimento, char preenchimento)

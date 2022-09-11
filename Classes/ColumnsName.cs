@@ -23,7 +23,7 @@ namespace GCScript_for_Excel.Classes
         public static string CpfDel { get; private set; } = "CPF [del]";
         public static string Cpf { get; private set; } = "CPF";
         public static string Rg { get; private set; } = "RG";
-        public static string DataNascimento { get; private set; } = "Data Nasc.";
+        public static string DataNasc { get; private set; } = "Data Nasc";
         public static string OperadoraDel { get; private set; } = "Operadora [del]";
         public static string Operadora { get; private set; } = "Operadora";
         public static string DescDel { get; private set; } = "Desc [del]";
