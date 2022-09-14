@@ -11,50 +11,13 @@ using System.Windows.Forms;
 using GCScript_for_Excel;
 using Microsoft.Office.Interop.Excel;
 using Microsoft.Office.Tools.Ribbon;
-using Appl = Microsoft.Office.Interop.Excel.Application;
+using gcsApplication = Microsoft.Office.Interop.Excel.Application;
 
 namespace GCScript_for_Excel.Classes
 {
     public static class Tools
     {
-        static Appl app = Globals.ThisAddIn.Application;
-
-        public static void T1(Worksheet ws, Range rng)
-        {
-
-        }
-
-        public static void T2(Worksheet ws, Range rng)
-        {
-
-        }
-
-        public static void T3()
-        {
-
-        }
-
-        public static void T4()
-        {
-
-        }
-
-        public static void T5()
-        {
-
-        }
-
-        public static void T6()
-        {
-            try
-            {
-                MessageBox.Show(app.ActiveCell.Value.GetType().ToString());
-            }
-            catch (Exception erro)
-            {
-                MessageBox.Show(erro.Message, "ERRO: 553757", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+        static gcsApplication gcsApp = Globals.ThisAddIn.Application;
 
         public static void ObterTipoSelecao(Range selecao)
         {
@@ -76,13 +39,13 @@ namespace GCScript_for_Excel.Classes
 
         public static void SelecionarRange()
         {
-            Worksheet ws = app.ActiveSheet;
+            Worksheet ws = gcsApp.ActiveSheet;
             ws.UsedRange.Select();
         }
 
         public static void SelecionarTudo()
         {
-            Worksheet ws = app.ActiveSheet;
+            Worksheet ws = gcsApp.ActiveSheet;
 
             Range teste = ws.Cells;
 
@@ -91,19 +54,19 @@ namespace GCScript_for_Excel.Classes
 
         public static void LinhasUsadas()
         {
-            Worksheet ws = app.ActiveSheet;
+            Worksheet ws = gcsApp.ActiveSheet;
             MessageBox.Show("Linhas usadas: " + ws.UsedRange.Rows.Count.ToString(), "", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         public static void ColunasUsadas()
         {
-            Worksheet ws = app.ActiveSheet;
+            Worksheet ws = gcsApp.ActiveSheet;
             MessageBox.Show("Colunas usadas: " + ws.UsedRange.Columns.Count.ToString(), "", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         public static void DefinirDados(string empresa, string mes, string ano, string compra)
         {
-            Worksheet ws = app.ActiveSheet;
+            Worksheet ws = gcsApp.ActiveSheet;
             ws.PageSetup.CenterHeader = "&\"Arial\"&B&14" + empresa + "\n&A - " + mes + "/" + ano + " (" + compra + ")";
         }
 
@@ -315,22 +278,17 @@ namespace GCScript_for_Excel.Classes
 
         }
 
-        public static string GetDateTime()
+        public static string GetDateTime(bool getDate = true, bool getTime = true)
         {
             string date = DateTime.Now.ToString("yyyy-MM-dd");
             string time = DateTime.Now.ToString("HH-mm-ss");
 
-            return string.Format("{0}_{1}", date, time);
-        }
-
-        public static string GetDate()
-        {
-            return DateTime.Now.ToString("yyyy-MM-dd"); ;
-        }
-
-        public static string GetTime()
-        {
-            return DateTime.Now.ToString("HH-mm-ss");
+            if (getDate && getTime)
+                return $"{date}_{time}";
+            else if (getDate && getTime == false)
+                return $"{date}";
+            else
+                return $"{time}";
         }
 
         public static string TreatText(string text, bool trim = true, bool toUpper = true, bool removeAccents = true, bool removeDuplicateSpaces = true)

@@ -413,36 +413,36 @@
             // Sort_btn_Preset01
             // 
             this.Sort_btn_Preset01.Image = global::GCScript_for_Excel.Properties.Resources.sort;
-            this.Sort_btn_Preset01.Label = "UF > Operadora > Nome";
+            this.Sort_btn_Preset01.Label = "AC > UF > Operadora > Nome";
             this.Sort_btn_Preset01.Name = "Sort_btn_Preset01";
-            this.Sort_btn_Preset01.ScreenTip = "UF > Operadora > Nome";
+            this.Sort_btn_Preset01.ScreenTip = "AC > UF > Operadora > Nome";
             this.Sort_btn_Preset01.ShowImage = true;
             this.Sort_btn_Preset01.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.Sort_btn_Preset01_Click);
             // 
             // Sort_btn_Preset02
             // 
             this.Sort_btn_Preset02.Image = global::GCScript_for_Excel.Properties.Resources.sort;
-            this.Sort_btn_Preset02.Label = "UF > Operadora > Empresa> C.Unid > Nome";
+            this.Sort_btn_Preset02.Label = "AC > UF > Operadora > Empresa> C.Unid > Nome";
             this.Sort_btn_Preset02.Name = "Sort_btn_Preset02";
-            this.Sort_btn_Preset02.ScreenTip = "UF > Operadora > Empresa> C.Unid > Nome";
+            this.Sort_btn_Preset02.ScreenTip = "AC > UF > Operadora > Empresa> C.Unid > Nome";
             this.Sort_btn_Preset02.ShowImage = true;
             this.Sort_btn_Preset02.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.Sort_btn_Preset02_Click);
             // 
             // Sort_btn_Preset03
             // 
             this.Sort_btn_Preset03.Image = global::GCScript_for_Excel.Properties.Resources.sort;
-            this.Sort_btn_Preset03.Label = "UF > Operadora > Empresa > C.Unid > C.Depto > Nome";
+            this.Sort_btn_Preset03.Label = "AC > UF > Operadora > Empresa > C.Unid > C.Depto > Nome";
             this.Sort_btn_Preset03.Name = "Sort_btn_Preset03";
-            this.Sort_btn_Preset03.ScreenTip = "UF > Operadora > Empresa > C.Unid > C.Depto > Nome";
+            this.Sort_btn_Preset03.ScreenTip = "AC > UF > Operadora > Empresa > C.Unid > C.Depto > Nome";
             this.Sort_btn_Preset03.ShowImage = true;
             this.Sort_btn_Preset03.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.Sort_btn_Preset03_Click);
             // 
             // Sort_btn_Preset04
             // 
             this.Sort_btn_Preset04.Image = global::GCScript_for_Excel.Properties.Resources.sort;
-            this.Sort_btn_Preset04.Label = "UF > Operadora > Empresa > C.Unid > C.Depto > Depto > Nome";
+            this.Sort_btn_Preset04.Label = "AC > UF > Operadora > Empresa > C.Unid > C.Depto > Depto > Nome";
             this.Sort_btn_Preset04.Name = "Sort_btn_Preset04";
-            this.Sort_btn_Preset04.ScreenTip = "UF > Operadora > Empresa > C.Unid > C.Depto > Depto > Nome";
+            this.Sort_btn_Preset04.ScreenTip = "AC > UF > Operadora > Empresa > C.Unid > C.Depto > Depto > Nome";
             this.Sort_btn_Preset04.ShowImage = true;
             this.Sort_btn_Preset04.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.Sort_btn_Preset04_Click);
             // 

@@ -80,7 +80,7 @@ namespace GCScript_for_Excel.Classes
             int usedColumns = gWs.UsedRange.Columns.Count;
 
             string[] columnsName = { ColumnsName.Org, ColumnsName.Uf, ColumnsName.Empresa, ColumnsName.CUnid, ColumnsName.Nome, 
-                                     ColumnsName.Operadora, ColumnsName.Total, ColumnsName.Desconto, ColumnsName.CompraFinal, ColumnsName.CnpjCpfOperadora, 
+                                     ColumnsName.Operadora, ColumnsName.Total, ColumnsName.Desconto, ColumnsName.CompraFinal, ColumnsName.BuscaValorDias, 
                                      ColumnsName.Ordem, ColumnsName.Obs };
 
             foreach (string columnName in columnsName)
@@ -133,7 +133,7 @@ namespace GCScript_for_Excel.Classes
 
         void RemoveDuplicateRows()
         {
-            int ColumnCnpjCpfOperadora_Number = ExcelFunctions.GetNumberColumnByName(gWs, ColumnsName.CnpjCpfOperadora);
+            int ColumnCnpjCpfOperadora_Number = ExcelFunctions.GetNumberColumnByName(gWs, ColumnsName.BuscaValorDias);
 
             Range rngInicial = gWs.Cells[1048576, ColumnCnpjCpfOperadora_Number].End(XlDirection.xlUp).Offset[0, 0];
 
@@ -184,7 +184,7 @@ namespace GCScript_for_Excel.Classes
         void RemoveColumns()
         {
             string[] nameColumns = { ColumnsName.Org, ColumnsName.Depto, ColumnsName.VvtNovo, ColumnsName.TvtNovo, ColumnsName.RecPendSet, 
-                                     ColumnsName.SaldoSet, ColumnsName.Saldo, ColumnsName.ValorDias, ColumnsName.CnpjCpfOperadora, ColumnsName.Buscador, 
+                                     ColumnsName.SaldoSet, ColumnsName.Saldo, ColumnsName.ValorDias, ColumnsName.BuscaValorDias, ColumnsName.BuscaCartao, 
                                      ColumnsName.Ordem, ColumnsName.Cf10, ColumnsName.NrDoCartao };
 
             foreach (string nameColumn in nameColumns)

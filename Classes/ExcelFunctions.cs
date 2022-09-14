@@ -4,6 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using Microsoft.Office.Interop.Excel;
+//using Microsoft.Office.Tools.Excel;
 using gcsApplication = Microsoft.Office.Interop.Excel.Application;
 
 namespace GCScript_for_Excel.Classes
@@ -510,6 +511,28 @@ namespace GCScript_for_Excel.Classes
         {
             foreach (Shape sh in ws.Shapes)
                 sh.Delete();
+        }
+
+        public static void RemoveRows(Worksheet ws)
+        {
+            int lastRow = ws.Cells.SpecialCells(XlCellType.xlCellTypeLastCell, Type.Missing).Row;
+            int lastColumn = ws.Cells.SpecialCells(XlCellType.xlCellTypeLastCell, Type.Missing).Column;
+            int offSetRow = 0;
+
+            foreach (Range row in ws.Rows)
+            {
+
+
+
+
+
+
+
+
+                Range entireRow = row.EntireRow;
+                Range aaa = entireRow.Find("*");
+
+            }
         }
 
         public static void RemoveConditionalFormatting(Range rng)

@@ -50,29 +50,12 @@ namespace GCScript_for_Excel
             gcsApplication app = Globals.ThisAddIn.Application;
             Worksheet ws = app.ActiveSheet;
 
-            Range teste = ws.Range[ws.Cells[2, 1], ws.Cells[10, 1]];
-            teste.EntireRow.Delete();
+            ExcelFunctions.RemoveRows(ws);
         }
 
         private void btn_T2_Click(object sender, RibbonControlEventArgs e)
         {
             gcsApplication app = Globals.ThisAddIn.Application;
-
-            Range activeCell = app.ActiveCell.Value2;
-
-            if (activeCell == null) { MessageBox.Show($"Is Null!"); return; }
-
-            decimal value;
-            bool IsNumeric = decimal.TryParse(app.ActiveCell.Value2.ToString(), out value);
-
-            if (IsNumeric)
-            {
-                MessageBox.Show($"Is Numeric!\n Value: {Math.Round(value, 2)}");
-            }
-            else
-            {
-                MessageBox.Show("It's Not Numeric!");
-            }
         }
 
         private void btn_T3_Click(object sender, RibbonControlEventArgs e)
@@ -746,7 +729,7 @@ namespace GCScript_for_Excel
             gcsApplication app = Globals.ThisAddIn.Application;
             Worksheet workSheet = app.ActiveSheet;
             ExcelFunctions.CreateBackup("SortPreset1");
-            List<string> lst_SortDataColumns = new List<string>() { ColumnsName.Uf, ColumnsName.Operadora, ColumnsName.Nome };
+            List<string> lst_SortDataColumns = new List<string>() { ColumnsName.ArquivoDeCompra, ColumnsName.Uf, ColumnsName.Operadora, ColumnsName.Nome };
             ExcelFunctions.SortDataByColumn(workSheet, lst_SortDataColumns);
         }
 
@@ -755,7 +738,7 @@ namespace GCScript_for_Excel
             gcsApplication app = Globals.ThisAddIn.Application;
             Worksheet workSheet = app.ActiveSheet;
             ExcelFunctions.CreateBackup("SortPreset2");
-            List<string> lst_SortDataColumns = new List<string>() { ColumnsName.Uf, ColumnsName.Operadora, ColumnsName.Empresa, ColumnsName.CUnid, ColumnsName.Nome };
+            List<string> lst_SortDataColumns = new List<string>() { ColumnsName.ArquivoDeCompra, ColumnsName.Uf, ColumnsName.Operadora, ColumnsName.Empresa, ColumnsName.CUnid, ColumnsName.Nome };
             ExcelFunctions.SortDataByColumn(workSheet, lst_SortDataColumns);
         }
 
@@ -764,7 +747,7 @@ namespace GCScript_for_Excel
             gcsApplication app = Globals.ThisAddIn.Application;
             Worksheet workSheet = app.ActiveSheet;
             ExcelFunctions.CreateBackup("SortPreset3");
-            List<string> lst_SortDataColumns = new List<string>() { ColumnsName.Uf, ColumnsName.Operadora, ColumnsName.Empresa, ColumnsName.CUnid, ColumnsName.CDepto, "Depto", ColumnsName.Nome };
+            List<string> lst_SortDataColumns = new List<string>() { ColumnsName.ArquivoDeCompra, ColumnsName.Uf, ColumnsName.Operadora, ColumnsName.Empresa, ColumnsName.CUnid, ColumnsName.CDepto, "Depto", ColumnsName.Nome };
             ExcelFunctions.SortDataByColumn(workSheet, lst_SortDataColumns);
         }
 
@@ -773,7 +756,7 @@ namespace GCScript_for_Excel
             gcsApplication app = Globals.ThisAddIn.Application;
             Worksheet workSheet = app.ActiveSheet;
             ExcelFunctions.CreateBackup("SortPreset4");
-            List<string> lst_SortDataColumns = new List<string>() { ColumnsName.Uf, ColumnsName.Operadora, ColumnsName.Empresa, ColumnsName.CUnid, ColumnsName.CDepto, "Depto", ColumnsName.Nome };
+            List<string> lst_SortDataColumns = new List<string>() { ColumnsName.ArquivoDeCompra, ColumnsName.Uf, ColumnsName.Operadora, ColumnsName.Empresa, ColumnsName.CUnid, ColumnsName.CDepto, "Depto", ColumnsName.Nome };
             ExcelFunctions.SortDataByColumn(workSheet, lst_SortDataColumns);
         }
 

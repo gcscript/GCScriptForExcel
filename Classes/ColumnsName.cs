@@ -11,6 +11,7 @@ namespace GCScript_for_Excel.Classes
         public static string Org { get; private set; } = "Org";
         public static string Cnpj { get; private set; } = "CNPJ";
         public static string Uf { get; private set; } = "UF";
+        public static string ArquivoDeCompra { get; private set; } = "AC";
         public static string Empresa { get; private set; } = "Empresa";
         public static string CUnid { get; private set; } = "C.Unid";
         public static string CDepto { get; private set; } = "C.Depto";
@@ -46,8 +47,8 @@ namespace GCScript_for_Excel.Classes
         public static string Compra2 { get; private set; } = "2ª Compra";
         public static string CompraFinal { get; private set; } = "CompraFinal";
         public static string Tipo { get; private set; } = "Tipo";
-        public static string CnpjCpfOperadora { get; private set; } = "CNPJ + CPF + Operadora";
-        public static string Buscador { get; private set; } = "Buscador";
+        public static string BuscaValorDias { get; private set; } = "Busca ValorDias";
+        public static string BuscaCartao { get; private set; } = "Busca Cartao";
         public static string Ordem { get; private set; } = "ORDEM";
         public static string Cf10 { get; private set; } = "CF -R$10";
         public static string NrDoCartao { get; private set; } = "Nr. do Cartao";

@@ -81,7 +81,7 @@ namespace GCScript_for_Excel.Classes
         {
             int usedColumns = ws.UsedRange.Columns.Count;
 
-            string[] columnsName = { ColumnsName.Org, ColumnsName.Uf, ColumnsName.Empresa, ColumnsName.CUnid, ColumnsName.Nome, ColumnsName.Operadora, ColumnsName.Total, ColumnsName.Desconto, ColumnsName.CompraFinal, ColumnsName.CnpjCpfOperadora, ColumnsName.Ordem, ColumnsName.Obs };
+            string[] columnsName = { ColumnsName.Org, ColumnsName.Uf, ColumnsName.Empresa, ColumnsName.CUnid, ColumnsName.Nome, ColumnsName.Operadora, ColumnsName.Total, ColumnsName.Desconto, ColumnsName.CompraFinal, ColumnsName.BuscaValorDias, ColumnsName.Ordem, ColumnsName.Obs };
 
             foreach (string columnName in columnsName)
             {
@@ -133,7 +133,7 @@ namespace GCScript_for_Excel.Classes
 
         static void RemoveDuplicateRows()
         {
-            int ColumnCnpjCpfOperadora_Number = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.CnpjCpfOperadora);
+            int ColumnCnpjCpfOperadora_Number = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.BuscaValorDias);
 
             Range rngInicial = ws.Cells[1048576, ColumnCnpjCpfOperadora_Number].End(XlDirection.xlUp).Offset[0, 0];
 
@@ -183,9 +183,9 @@ namespace GCScript_for_Excel.Classes
 
         static void RemoveColumns()
         {
-            string[] nameColumns = { ColumnsName.Org, ColumnsName.Depto, ColumnsName.VvtNovo, ColumnsName.TvtNovo, ColumnsName.RecPendSet,
-                                     ColumnsName.SaldoSet, ColumnsName.Saldo, ColumnsName.ValorDiasSet, ColumnsName.ValorDias, ColumnsName.CnpjCpfOperadora, 
-                                     ColumnsName.Buscador, ColumnsName.Ordem, ColumnsName.Cf10, ColumnsName.NrDoCartao };
+            string[] nameColumns = { ColumnsName.Org, ColumnsName.ArquivoDeCompra, ColumnsName.Depto, ColumnsName.VvtNovo, ColumnsName.TvtNovo, ColumnsName.RecPendSet,
+                                     ColumnsName.SaldoSet, ColumnsName.Saldo, ColumnsName.ValorDiasSet, ColumnsName.ValorDias, ColumnsName.BuscaValorDias, 
+                                     ColumnsName.BuscaCartao, ColumnsName.Ordem, ColumnsName.Cf10, ColumnsName.NrDoCartao };
 
             foreach (string nameColumn in nameColumns)
             {

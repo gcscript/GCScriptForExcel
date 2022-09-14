@@ -15,6 +15,7 @@ namespace GCScript_for_Excel.Classes
     internal class ModelTransferData
     {
         public string Cnpj { get; set; }
+        public string ArquivoDeCompra { get; set; }
         public string Uf { get; set; }
         public string Empresa { get; set; }
         public string CUnid { get; set; }
@@ -70,6 +71,9 @@ namespace GCScript_for_Excel.Classes
 
                 var cnpjColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Cnpj);
                 if (cnpjColumnNumber == -1) { MessageBox.Show($"A coluna {ColumnsName.Cnpj} não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+
+                var aCColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.ArquivoDeCompra);
+                if (aCColumnNumber == -1) { MessageBox.Show($"A coluna {ColumnsName.ArquivoDeCompra} não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
                 var ufColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Uf);
                 if (ufColumnNumber == -1) { MessageBox.Show($"A coluna {ColumnsName.Uf} não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -142,6 +146,7 @@ namespace GCScript_for_Excel.Classes
                     foreach (var item in jsonItems)
                     {
                         SetText(ws, row, cnpjColumnNumber, item.Cnpj);
+                        SetText(ws, row, aCColumnNumber, item.ArquivoDeCompra);
                         SetText(ws, row, ufColumnNumber, item.Uf);
                         SetText(ws, row, empresaColumnNumber, item.Empresa);
                         SetText(ws, row, cUnidColumnNumber, item.CUnid);
@@ -205,6 +210,7 @@ namespace GCScript_for_Excel.Classes
                 if (vvtColumnNumber == -1) { MessageBox.Show($"A coluna {ColumnsName.Vvt} não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
                 var cnpjColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Cnpj);
+                var aCColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.ArquivoDeCompra);
                 var ufColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Uf);
                 var empresaColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Empresa);
                 var cUnidColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.CUnid);
@@ -248,6 +254,7 @@ namespace GCScript_for_Excel.Classes
 
                     // OPTIONAL FIELDS
                     modelTransferData.Cnpj = GetTextAndTreat(ws, lastUsedRowByNome, cnpjColumnNumber, offSetRow, 0);
+                    modelTransferData.ArquivoDeCompra = GetTextAndTreat(ws, lastUsedRowByNome, aCColumnNumber, offSetRow, 0);
                     modelTransferData.Uf = GetTextAndTreat(ws, lastUsedRowByNome, ufColumnNumber, offSetRow, 0);
                     modelTransferData.Empresa = GetTextAndTreat(ws, lastUsedRowByNome, empresaColumnNumber, offSetRow, 0);
                     modelTransferData.CUnid = GetTextAndTreat(ws, lastUsedRowByNome, cUnidColumnNumber, offSetRow, 0);
@@ -274,7 +281,8 @@ namespace GCScript_for_Excel.Classes
                     offSetRow--;
                 }
 
-                var orderedCustomers = lstModelTransferData.OrderBy(c => c.Uf)
+                var orderedCustomers = lstModelTransferData.OrderBy(c => c.ArquivoDeCompra)
+                                                                                        .ThenBy(c => c.Uf)
                                                                                         .ThenBy(c => c.Operadora)
                                                                                         .ThenBy(c => c.Empresa)
                                                                                         .ThenBy(c => c.CUnid)
