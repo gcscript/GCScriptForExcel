@@ -33,6 +33,8 @@ namespace GCScript_for_Excel.Classes
         public decimal Desc { get; set; }
         public int Qvt { get; set; }
         public decimal Vvt { get; set; }
+        public decimal Total { get; set; }
+        public decimal CompraFinal { get; set; }
         public string Obs { get; set; }
     }
 
@@ -154,8 +156,17 @@ namespace GCScript_for_Excel.Classes
                         SetText(ws, row, deptoColumnNumber, item.Depto);
                         SetText(ws, row, escalaColumnNumber, item.Escala);
                         SetText(ws, row, idColumnNumber, item.Id);
-                        SetText(ws, row, matColumnNumber, item.Mat);
-                        SetText(ws, row, matSiteColumnNumber, item.MatSite);
+
+                        if (item.Mat == null)
+                            SetText(ws, row, matColumnNumber, "0");
+                        else
+                            SetText(ws, row, matColumnNumber, item.Mat);
+
+                        if (item.MatSite == null)
+                            SetText(ws, row, matSiteColumnNumber, "0");
+                        else
+                            SetText(ws, row, matSiteColumnNumber, item.MatSite);
+
                         SetText(ws, row, nomeColumnNumber, item.Nome);
                         SetText(ws, row, cpfColumnNumber, item.Cpf);
                         SetText(ws, row, rgColumnNumber, item.Rg);
@@ -167,6 +178,8 @@ namespace GCScript_for_Excel.Classes
                         SetText(ws, row, obsColumnNumber, item.Obs);
                         row++;
                         count++;
+
+
                     }
                 }
                 gcsApp.Calculation = XlCalculation.xlCalculationAutomatic;

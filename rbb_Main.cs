@@ -55,7 +55,8 @@ namespace GCScript_for_Excel
 
         private void btn_T2_Click(object sender, RibbonControlEventArgs e)
         {
-            gcsApplication app = Globals.ThisAddIn.Application;
+            var purchaseCreator = new PurchaseCreator();
+            purchaseCreator.Create();
         }
 
         private void btn_T3_Click(object sender, RibbonControlEventArgs e)

@@ -136,8 +136,8 @@ namespace GCScript_for_Excel.Classes
 
         public static string TreatWorkSchedule(string text)
         {
-            string newText = text.ToUpper().Trim();
-            newText = Regex.Replace(text, @"\s", "");
+            text = text.ToUpper().Trim();
+            string newText = Regex.Replace(text, @"\s", "");
 
             if (newText.Contains("6X1")) { return "6X1"; }
             else if (newText.Contains("06X01")) { return "6X1"; }
