@@ -33,6 +33,16 @@ namespace GCScript_for_Excel.Classes
         public string Obs { get; set; }
     }
 
+    internal class ModelPurchaseFilter
+    {
+        public string Uf { get; set; }
+        public string Operadora { get; set; }
+        public string Empresa { get; set; }
+        public string CUnid { get; set; }
+        public string CDepto { get; set; }
+        public string Depto { get; set; }
+    }
+
     public class PurchaseCreator
     {
         readonly gcsApplication gcsApp = Globals.ThisAddIn.Application;
@@ -166,7 +176,7 @@ namespace GCScript_for_Excel.Classes
                 var createByOperadora = true;
                 var createByEmpresa = true;
                 var createByCUnid = true;
-                var createByCDepto = true;
+                var createByCDepto = false;
                 var createByDepto = false;
 
                 if (createByUf && createByOperadora && createByEmpresa && createByCUnid && createByCDepto && createByDepto)
@@ -226,32 +236,11 @@ namespace GCScript_for_Excel.Classes
                     return;
                 }
 
-                //var distinct = new List<ModelPurchase>();
                 var lstFinal = new List<ModelPurchase>();
 
                 List<ModelPurchase> distinctUfs = orderedCustomers.GroupBy(p => p.Uf)
                                                                    .Select(g => g.First())
                                                                    .ToList();
-
-                //List<ModelPurchase> distinctOperadoras = orderedCustomers.GroupBy(p => new { p.Uf, p.Operadora })
-                //                                                   .Select(g => g.First())
-                //                                                   .ToList();
-
-                //List<ModelPurchase> distinctEmpresas = orderedCustomers.GroupBy(p => new { p.Uf, p.Operadora, p.Empresa })
-                //                                                   .Select(g => g.First())
-                //                                                   .ToList();
-
-                //List<ModelPurchase> distinctCUnids = orderedCustomers.GroupBy(p => new { p.Uf, p.Operadora, p.Empresa, p.CUnid })
-                //                                                   .Select(g => g.First())
-                //                                                   .ToList();
-
-                //List<ModelPurchase> distinctCDeptos = orderedCustomers.GroupBy(p => new { p.Uf, p.Operadora, p.Empresa, p.CUnid, p.CDepto })
-                //                                                   .Select(g => g.First())
-                //                                                   .ToList();
-
-                //List<ModelPurchase> distinctDeptos = orderedCustomers.GroupBy(p => new { p.Uf, p.Operadora, p.Empresa, p.CUnid, p.CDepto, p.Depto })
-                //                                                   .Select(g => g.First())
-                //                                                   .ToList();
 
                 foreach (var uf in distinctUfs)
                 {
@@ -332,7 +321,7 @@ namespace GCScript_for_Excel.Classes
                         lstFinal.AddRange(subTotalUf);
                     }
                 }
-
+                lstFinal.Add(new ModelPurchase { Empresa = $"Total Geral", CompraFinal = SubTotalGeneral(orderedCustomers) });
 
                 MessageBox.Show($"OK", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
             }
@@ -346,6 +335,12 @@ namespace GCScript_for_Excel.Classes
                 gcsApp.DisplayAlerts = true;
             }
 
+        }
+
+        private decimal SubTotalGeneral(List<ModelPurchase> origin)
+        {
+            var lstSum = origin.Sum(x => x.CompraFinal);
+            return lstSum;
         }
 
         private (List<ModelPurchase> subTotal, decimal compraFinalSum) SubTotalUf(List<ModelPurchase> origin, string uf)
