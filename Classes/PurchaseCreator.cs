@@ -11,9 +11,9 @@ namespace GCScript_for_Excel.Classes
 {
     internal class ModelPurchase
     {
+        public string Empresa { get; set; }
         public string Uf { get; set; }
         public string Operadora { get; set; }
-        public string Empresa { get; set; }
         public string CUnid { get; set; }
         public string CDepto { get; set; }
         public string Depto { get; set; }
@@ -27,20 +27,10 @@ namespace GCScript_for_Excel.Classes
         public int Qvt { get; set; }
         public decimal Vvt { get; set; }
         public decimal Tvt { get; set; }
-        public decimal Total { get; set; }
+        //public decimal Total { get; set; }
         public decimal Desconto { get; set; }
         public decimal CompraFinal { get; set; }
         public string Obs { get; set; }
-    }
-
-    internal class ModelPurchaseFilter
-    {
-        public string Uf { get; set; }
-        public string Operadora { get; set; }
-        public string Empresa { get; set; }
-        public string CUnid { get; set; }
-        public string CDepto { get; set; }
-        public string Depto { get; set; }
     }
 
     public class PurchaseCreator
@@ -56,14 +46,14 @@ namespace GCScript_for_Excel.Classes
 
                 Worksheet ws = gcsApp.ActiveSheet;
 
+                var empresaColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Empresa);
+                if (empresaColumnNumber == -1) { MessageBox.Show($"A coluna {ColumnsName.Empresa} não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+
                 var ufColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Uf);
                 if (ufColumnNumber == -1) { MessageBox.Show($"A coluna {ColumnsName.Uf} não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
                 var operadoraColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Operadora);
                 if (operadoraColumnNumber == -1) { MessageBox.Show($"A coluna {ColumnsName.Operadora} não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-
-                var empresaColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Empresa);
-                if (empresaColumnNumber == -1) { MessageBox.Show($"A coluna {ColumnsName.Empresa} não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
                 var cUnidColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.CUnid);
                 if (cUnidColumnNumber == -1) { MessageBox.Show($"A coluna {ColumnsName.CUnid} não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
@@ -133,9 +123,9 @@ namespace GCScript_for_Excel.Classes
                     Range activeCellByTotal = ws.Cells[lastUsedRowByNome, totalColumnNumber].Offset[offSetRow, 0];
                     if (activeCellByTotal.Value2 is null || activeCellByTotal.Value2 == 0) { offSetRow--; continue; }
 
+                    modelPurchase.Empresa = GetTextAndTreat(ws, lastUsedRowByNome, empresaColumnNumber, offSetRow, 0);
                     modelPurchase.Uf = GetTextAndTreat(ws, lastUsedRowByNome, ufColumnNumber, offSetRow, 0);
                     modelPurchase.Operadora = GetTextAndTreat(ws, lastUsedRowByNome, operadoraColumnNumber, offSetRow, 0);
-                    modelPurchase.Empresa = GetTextAndTreat(ws, lastUsedRowByNome, empresaColumnNumber, offSetRow, 0);
                     modelPurchase.CUnid = GetTextAndTreat(ws, lastUsedRowByNome, cUnidColumnNumber, offSetRow, 0);
                     modelPurchase.CDepto = GetTextAndTreat(ws, lastUsedRowByNome, cDeptoColumnNumber, offSetRow, 0);
                     modelPurchase.Depto = GetTextAndTreat(ws, lastUsedRowByNome, deptoColumnNumber, offSetRow, 0);
@@ -172,61 +162,61 @@ namespace GCScript_for_Excel.Classes
 
                 var orderedCustomers = new List<ModelPurchase>();
 
+                var createByEmpresa = true;
                 var createByUf = true;
                 var createByOperadora = true;
-                var createByEmpresa = true;
                 var createByCUnid = true;
                 var createByCDepto = false;
                 var createByDepto = false;
 
-                if (createByUf && createByOperadora && createByEmpresa && createByCUnid && createByCDepto && createByDepto)
+                if (createByEmpresa && createByUf && createByOperadora && createByCUnid && createByCDepto && createByDepto)
                 {
-                    orderedCustomers = lstGeneralData.OrderBy(c => c.Uf)
+                    orderedCustomers = lstGeneralData.OrderBy(c => c.Empresa)
+                                                     .ThenBy(c => c.Uf)
                                                      .ThenBy(c => c.Operadora)
-                                                     .ThenBy(c => c.Empresa)
                                                      .ThenBy(c => c.CUnid)
                                                      .ThenBy(c => c.CDepto)
                                                      .ThenBy(c => c.Depto)
                                                      .ThenBy(c => c.Nome)
                                                      .ToList();
                 }
-                else if (createByUf && createByOperadora && createByEmpresa && createByCUnid && createByCDepto)
+                else if (createByEmpresa && createByUf && createByOperadora && createByCUnid && createByCDepto)
                 {
-                    orderedCustomers = lstGeneralData.OrderBy(c => c.Uf)
+                    orderedCustomers = lstGeneralData.OrderBy(c => c.Empresa)
+                                                     .ThenBy(c => c.Uf)
                                                      .ThenBy(c => c.Operadora)
-                                                     .ThenBy(c => c.Empresa)
                                                      .ThenBy(c => c.CUnid)
                                                      .ThenBy(c => c.CDepto)
                                                      .ThenBy(c => c.Nome)
                                                      .ToList();
                 }
-                else if (createByUf && createByOperadora && createByEmpresa && createByCUnid)
+                else if (createByEmpresa && createByUf && createByOperadora && createByCUnid)
                 {
-                    orderedCustomers = lstGeneralData.OrderBy(c => c.Uf)
+                    orderedCustomers = lstGeneralData.OrderBy(c => c.Empresa)
+                                                     .ThenBy(c => c.Uf)
                                                      .ThenBy(c => c.Operadora)
-                                                     .ThenBy(c => c.Empresa)
                                                      .ThenBy(c => c.CUnid)
                                                      .ThenBy(c => c.Nome)
                                                      .ToList();
                 }
-                else if (createByUf && createByOperadora && createByEmpresa)
+                else if (createByEmpresa && createByUf && createByOperadora)
                 {
-                    orderedCustomers = lstGeneralData.OrderBy(c => c.Uf)
-                                                     .ThenBy(c => c.Operadora)
-                                                     .ThenBy(c => c.Empresa)
-                                                     .ThenBy(c => c.Nome)
-                                                     .ToList();
-                }
-                else if (createByUf && createByOperadora)
-                {
-                    orderedCustomers = lstGeneralData.OrderBy(c => c.Uf)
+                    orderedCustomers = lstGeneralData.OrderBy(c => c.Empresa)
+                                                     .ThenBy(c => c.Uf)
                                                      .ThenBy(c => c.Operadora)
                                                      .ThenBy(c => c.Nome)
                                                      .ToList();
                 }
-                else if (createByUf)
+                else if (createByEmpresa && createByUf)
                 {
-                    orderedCustomers = lstGeneralData.OrderBy(c => c.Uf)
+                    orderedCustomers = lstGeneralData.OrderBy(c => c.Empresa)
+                                                     .ThenBy(c => c.Uf)
+                                                     .ThenBy(c => c.Nome)
+                                                     .ToList();
+                }
+                else if (createByEmpresa)
+                {
+                    orderedCustomers = lstGeneralData.OrderBy(c => c.Empresa)
                                                      .ThenBy(c => c.Nome)
                                                      .ToList();
                 }
@@ -238,87 +228,105 @@ namespace GCScript_for_Excel.Classes
 
                 var lstFinal = new List<ModelPurchase>();
 
-                List<ModelPurchase> distinctUfs = orderedCustomers.GroupBy(p => p.Uf)
+                List<ModelPurchase> distinctEmpresas = orderedCustomers.GroupBy(p => p.Empresa)
                                                                    .Select(g => g.First())
                                                                    .ToList();
 
-                foreach (var uf in distinctUfs)
+                foreach (var distinctEmpresa in distinctEmpresas)
                 {
-                    if (createByOperadora)
+                    if (createByUf)
                     {
-                        List<ModelPurchase> distinctOperadoras = orderedCustomers.Where(w => (w.Uf == uf.Uf))
-                                                                   .GroupBy(p => new { p.Uf, p.Operadora })
+                        List<ModelPurchase> distinctUfs = orderedCustomers.Where(w => (w.Empresa == distinctEmpresa.Empresa))
+                                                                   .GroupBy(p => new { p.Empresa, p.Uf })
                                                                    .Select(g => g.First())
                                                                    .ToList();
 
-                        foreach (var operadora in distinctOperadoras)
+                        foreach (var distinctUf in distinctUfs)
                         {
-                            if (createByEmpresa)
+                            if (createByOperadora)
                             {
-                                List<ModelPurchase> distinctEmpresas = orderedCustomers.Where(w => (w.Uf == uf.Uf) && (w.Operadora == operadora.Operadora))
-                                                                   .GroupBy(p => new { p.Uf, p.Operadora, p.Empresa})
+                                List<ModelPurchase> distinctOperadoras = orderedCustomers.Where(w => (w.Empresa == distinctEmpresa.Empresa) && (w.Uf == distinctUf.Uf))
+                                                                   .GroupBy(p => new { p.Empresa, p.Uf, p.Operadora })
                                                                    .Select(g => g.First())
                                                                    .ToList();
 
-                                foreach (var empresa in distinctEmpresas)
+                                foreach (var distinctOperadora in distinctOperadoras)
                                 {
                                     if (createByCUnid)
                                     {
-                                        List<ModelPurchase> distinctCUnids = orderedCustomers.Where(w => (w.Uf == uf.Uf) && (w.Operadora == operadora.Operadora) && (w.Empresa == empresa.Empresa))
-                                                                   .GroupBy(p => new { p.Uf, p.Operadora, p.Empresa, p.CUnid })
+                                        List<ModelPurchase> distinctCUnids = orderedCustomers.Where(w => (w.Empresa == distinctEmpresa.Empresa) && (w.Uf == distinctUf.Uf) && (w.Operadora == distinctOperadora.Operadora))
+                                                                   .GroupBy(p => new { p.Empresa, p.Uf, p.Operadora, p.CUnid })
                                                                    .Select(g => g.First())
                                                                    .ToList();
 
-                                        foreach (var cunid in distinctCUnids)
+                                        foreach (var distinctCUnid in distinctCUnids)
                                         {
                                             if (createByCDepto)
                                             {
-                                                List<ModelPurchase> distinctCDeptos = orderedCustomers.Where(w => (w.Uf == uf.Uf) && (w.Operadora == operadora.Operadora) && (w.Empresa == empresa.Empresa) && (w.CUnid == cunid.CUnid))
-                                                                   .GroupBy(p => new { p.Uf, p.Operadora, p.Empresa, p.CUnid, p.CDepto })
+                                                List<ModelPurchase> distinctCDeptos = orderedCustomers.Where(w => (w.Empresa == distinctEmpresa.Empresa) && (w.Uf == distinctUf.Uf) && (w.Operadora == distinctOperadora.Operadora) && (w.CUnid == distinctCUnid.CUnid))
+                                                                   .GroupBy(p => new { p.Empresa, p.Uf, p.Operadora, p.CUnid, p.CDepto })
                                                                    .Select(g => g.First())
                                                                    .ToList();
 
-                                                foreach (var cdepto in distinctCDeptos)
+                                                foreach (var distinctCDepto in distinctCDeptos)
                                                 {
-                                                    var (subTotalCDepto, _) = SubTotalCDepto(orderedCustomers, uf.Uf, operadora.Operadora, empresa.Empresa, cunid.CUnid, cdepto.CDepto);
-                                                    lstFinal.AddRange(subTotalCDepto);
+                                                    List<ModelPurchase> lstCDepto = orderedCustomers.Where(x => (x.Empresa == distinctEmpresa.Empresa) && (x.Uf == distinctUf.Uf) && (x.Operadora == distinctOperadora.Operadora) && (x.CUnid == distinctCUnid.CUnid) && (x.CDepto == distinctCDepto.CDepto))
+                                                                                                    .ToList();
+                                                    var subTotalCDepto = SubTotalGCS(lstCDepto, ETypeSubTotal.CDepto, distinctCDepto.CDepto, false);
+                                                    lstFinal.AddRange(subTotalCDepto.filteredModel);
                                                 }
 
-                                                var (_, subTotalCUnidSum) = SubTotalCUnid(orderedCustomers, uf.Uf, operadora.Operadora, empresa.Empresa, cunid.CUnid);
-                                                lstFinal.Add(new ModelPurchase { CUnid = $"{cunid.CUnid.ToUpper()} Total", CompraFinal = subTotalCUnidSum });
+                                                List<ModelPurchase> lstCUnid = orderedCustomers.Where(x => (x.Empresa == distinctEmpresa.Empresa) && (x.Uf == distinctUf.Uf) && (x.Operadora == distinctOperadora.Operadora) && (x.CUnid == distinctCUnid.CUnid))
+                                                                                               .ToList();
+                                                var subTotalCUnid = SubTotalGCS(lstCUnid, ETypeSubTotal.CDepto, distinctCUnid.CUnid, true);
+                                                lstFinal.Add(new ModelPurchase { CUnid = $"{distinctCUnid.CUnid.ToUpper()} Total", CompraFinal = subTotalCUnid.modelSum });
                                             }
                                             else
                                             {
-                                                var (subTotalCUnid, _) = SubTotalCUnid(orderedCustomers, uf.Uf, operadora.Operadora, empresa.Empresa, cunid.CUnid);
-                                                lstFinal.AddRange(subTotalCUnid);
+                                                List<ModelPurchase> lstCUnid = orderedCustomers.Where(x => (x.Empresa == distinctEmpresa.Empresa) && (x.Uf == distinctUf.Uf) && (x.Operadora == distinctOperadora.Operadora) && (x.CUnid == distinctCUnid.CUnid))
+                                                                                               .ToList();
+                                                var subTotalCUnid = SubTotalGCS(lstCUnid, ETypeSubTotal.CUnid, distinctCUnid.CUnid, false);
+                                                lstFinal.AddRange(subTotalCUnid.filteredModel);
                                             }
                                         }
 
-                                        var (_, subTotalEmpresaSum) = SubTotalEmpresa(orderedCustomers, uf.Uf, operadora.Operadora, empresa.Empresa);
-                                        lstFinal.Add(new ModelPurchase { Empresa = $"{empresa.Empresa.ToUpper()} Total", CompraFinal = subTotalEmpresaSum });
+                                        List<ModelPurchase> lstOperadora = orderedCustomers.Where(x => (x.Empresa == distinctEmpresa.Empresa) && (x.Uf == distinctUf.Uf) && (x.Operadora == distinctOperadora.Operadora))
+                                                                                           .ToList();
+                                        var subTotalOperadora = SubTotalGCS(lstOperadora, ETypeSubTotal.CDepto, distinctOperadora.Operadora, true);
+                                        lstFinal.Add(new ModelPurchase { Operadora = $"{distinctOperadora.Operadora.ToUpper()} Total", CompraFinal = subTotalOperadora.modelSum });
                                     }
                                     else
                                     {
-                                        var (subTotalEmpresa, _) = SubTotalEmpresa(orderedCustomers, uf.Uf, operadora.Operadora, empresa.Empresa);
-                                        lstFinal.AddRange(subTotalEmpresa);
+                                        List<ModelPurchase> lstOperadora = orderedCustomers.Where(x => (x.Empresa == distinctEmpresa.Empresa) && (x.Uf == distinctUf.Uf) && (x.Operadora == distinctOperadora.Operadora))
+                                                                                           .ToList();
+                                        var subTotalOperadora = SubTotalGCS(lstOperadora, ETypeSubTotal.Operadora, distinctOperadora.Operadora, false);
+                                        lstFinal.AddRange(subTotalOperadora.filteredModel);
                                     }
                                 }
-                                var (_, subTotalOperadoraSum) = SubTotalOperadora(orderedCustomers, uf.Uf, operadora.Operadora);
-                                lstFinal.Add(new ModelPurchase { Operadora = $"{operadora.Operadora.ToUpper()} Total", CompraFinal = subTotalOperadoraSum });
+                                List<ModelPurchase> lstUf = orderedCustomers.Where(x => (x.Empresa == distinctEmpresa.Empresa) && (x.Uf == distinctUf.Uf))
+                                                                            .ToList();
+                                var subTotalUf = SubTotalGCS(lstUf, ETypeSubTotal.CDepto, distinctUf.Uf, true);
+                                lstFinal.Add(new ModelPurchase { Uf = $"{distinctUf.Uf.ToUpper()} Total", CompraFinal = subTotalUf.modelSum });
                             }
                             else
                             {
-                                var (subTotalOperadora, _) = SubTotalOperadora(orderedCustomers, uf.Uf, operadora.Operadora);
-                                lstFinal.AddRange(subTotalOperadora);
+                                List<ModelPurchase> lstUf = orderedCustomers.Where(x => (x.Empresa == distinctEmpresa.Empresa) && (x.Uf == distinctUf.Uf))
+                                                                            .ToList();
+                                var subTotalUf = SubTotalGCS(lstUf, ETypeSubTotal.Uf, distinctUf.Uf, false);
+                                lstFinal.AddRange(subTotalUf.filteredModel);
                             }
                         }
-                        var (_, subTotalUfSum) = SubTotalUf(orderedCustomers, uf.Uf);
-                        lstFinal.Add(new ModelPurchase { Uf = $"{uf.Uf.ToUpper()} Total", CompraFinal = subTotalUfSum });
+
+                        List<ModelPurchase> lstEmpresa = orderedCustomers.Where(x => (x.Empresa == distinctEmpresa.Empresa)).ToList();
+                        var subTotalEmpresa = SubTotalGCS(lstEmpresa, ETypeSubTotal.CDepto, distinctEmpresa.Empresa, true);
+                        lstFinal.Add(new ModelPurchase { Empresa = $"{distinctEmpresa.Empresa.ToUpper()} Total", CompraFinal = subTotalEmpresa.modelSum });
                     }
                     else
                     {
-                        var (subTotalUf, _) = SubTotalUf(orderedCustomers, uf.Uf);
-                        lstFinal.AddRange(subTotalUf);
+                        List<ModelPurchase> lstEmpresa = orderedCustomers.Where(x => (x.Empresa == distinctEmpresa.Empresa))
+                                                                            .ToList();
+                        var subTotalEmpresa = SubTotalGCS(lstEmpresa, ETypeSubTotal.Empresa, distinctEmpresa.Empresa, false);
+                        lstFinal.AddRange(subTotalEmpresa.filteredModel);
                     }
                 }
                 lstFinal.Add(new ModelPurchase { Empresa = $"Total Geral", CompraFinal = SubTotalGeneral(orderedCustomers) });
@@ -343,54 +351,283 @@ namespace GCScript_for_Excel.Classes
             return lstSum;
         }
 
-        private (List<ModelPurchase> subTotal, decimal compraFinalSum) SubTotalUf(List<ModelPurchase> origin, string uf)
-        {
-            List<ModelPurchase> lst = origin.Where(x => x.Uf == uf).ToList();
-            var lstSum = lst.Sum(x => x.CompraFinal);
-            lst.Add(new ModelPurchase { Uf = $"{uf.ToUpper()} Total", CompraFinal = lstSum });
-            return (lst, lstSum);
-        }
 
-        private (List<ModelPurchase> subTotal, decimal compraFinalSum) SubTotalOperadora(List<ModelPurchase> origin, string uf, string operadora)
+        private (List<ModelPurchase> subTotal, decimal compraFinalSum) SubTotalCUnidTeste(List<ModelPurchase> origin, string empresa, string uf, string operadora, string cunid)
         {
-            List<ModelPurchase> lst = origin.Where(x => (x.Uf == uf) && (x.Operadora == operadora)).ToList();
-            var lstSum = lst.Sum(x => x.CompraFinal);
-            lst.Add(new ModelPurchase { Operadora = $"{operadora.ToUpper()} Total", CompraFinal = lstSum });
-            return (lst, lstSum);
-        }
+            List<ModelPurchase> lst = new List<ModelPurchase>();
 
-        private (List<ModelPurchase> subTotal, decimal compraFinalSum) SubTotalEmpresa(List<ModelPurchase> origin, string uf, string operadora, string empresa)
-        {
-            List<ModelPurchase> lst = origin.Where(x => (x.Uf == uf) && (x.Operadora == operadora) && (x.Empresa == empresa)).ToList();
-            var lstSum = lst.Sum(x => x.CompraFinal);
-            lst.Add(new ModelPurchase { Empresa = $"{empresa.ToUpper()} Total", CompraFinal = lstSum });
-            return (lst, lstSum);
-        }
+            #region ZEROED
+            List<ModelPurchase> lstZeroed = origin.Where(x => (x.Empresa == empresa) &&
+                                                                                  (x.Uf == uf) &&
+                                                                                  (x.Operadora == operadora) &&
+                                                                                  (x.CUnid == cunid) &&
+                                                                                  (x.CompraFinal == 0))
+                                                                                  .ToList();
 
-        private (List<ModelPurchase> subTotal, decimal compraFinalSum) SubTotalCUnid(List<ModelPurchase> origin, string uf, string operadora, string empresa, string cunid)
-        {
-            List<ModelPurchase> lst = origin.Where(x => (x.Uf == uf) && (x.Operadora == operadora) && (x.Empresa == empresa) && (x.CUnid == cunid)).ToList();
+            if (lstZeroed.Count > 0)
+            {
+                lst.AddRange(lstZeroed);
+                lst.Add(new ModelPurchase { Nome = @"==//==\\==" });
+            }
+            #endregion
+
+            #region PROBLEMS
+            List<ModelPurchase> lstProblems = origin.Where(x => (x.Empresa == empresa) &&
+                                                                                    (x.Uf == uf) &&
+                                                                                    (x.Operadora == operadora) &&
+                                                                                    (x.CUnid == cunid) &&
+                                                                                    (x.Obs != null) &&
+                                                                                    (!x.Obs.Contains("NOVO/SEM CARTAO") || x.Obs.Contains("2ª VIA")))
+                                                                                    .OrderBy(c => c.Obs)
+                                                                                    .ThenBy(c => c.Nome)
+                                                                                    .ToList();
+
+            if (lstProblems.Count > 0)
+            {
+                lst.AddRange(lstProblems);
+                lst.Add(new ModelPurchase { Nome = @"==//==\\==" });
+            }
+            #endregion
+
+            #region NEWS & 2ª VIA
+            List<ModelPurchase> lstNews = origin.Where(x => (x.Empresa == empresa) &&
+                                                                                (x.Uf == uf) &&
+                                                                                (x.Operadora == operadora) &&
+                                                                                (x.CUnid == cunid) &&
+                                                                                (x.Obs != null) &&
+                                                                                (x.Obs.Contains("NOVO/SEM CARTAO") || x.Obs.Contains("2ª VIA")))
+                                                                                .ToList();
+
+            if (lstNews.Count > 0)
+                lst.AddRange(lstNews);
+            #endregion
+
+            #region REMAINDER
+            List<ModelPurchase> lstRemainder = origin.Where(x => (x.Empresa == empresa) &&
+                                                                                   (x.Uf == uf) &&
+                                                                                   (x.Operadora == operadora) &&
+                                                                                   (x.CUnid == cunid) &&
+                                                                                   (x.CompraFinal != 0) &&
+                                                                                   (x.Obs == null))
+                                                                                   .ToList();
+
+            lst.AddRange(lstRemainder);
+            #endregion
+
             var lstSum = lst.Sum(x => x.CompraFinal);
             lst.Add(new ModelPurchase { CUnid = $"{cunid.ToUpper()} Total", CompraFinal = lstSum });
             return (lst, lstSum);
         }
 
-        private (List<ModelPurchase> subTotal, decimal compraFinalSum) SubTotalCDepto(List<ModelPurchase> origin, string uf, string operadora, string empresa, string cunid, string cdepto)
+        private (List<ModelPurchase> subTotal, decimal compraFinalSum) SubTotalCDeptoTeste(List<ModelPurchase> origin, string empresa, string uf, string operadora, string cunid, string cdepto)
         {
-            List<ModelPurchase> lst = origin.Where(x => (x.Uf == uf) && (x.Operadora == operadora) && (x.Empresa == empresa) && (x.CUnid == cunid) && (x.CDepto == cdepto)).ToList();
+            List<ModelPurchase> lst = new List<ModelPurchase>();
+
+            #region ZEROED
+            List<ModelPurchase> lstZeroed = origin.Where(x => (x.Empresa == empresa) &&
+                                                                                  (x.Uf == uf) &&
+                                                                                  (x.Operadora == operadora) &&
+                                                                                  (x.CUnid == cunid) &&
+                                                                                  (x.CDepto == cdepto) &&
+                                                                                  (x.CompraFinal == 0))
+                                                                                  .ToList();
+
+            if (lstZeroed.Count > 0)
+            {
+                lst.AddRange(lstZeroed);
+                lst.Add(new ModelPurchase { Nome = @"==//==\\==" });
+            }
+            #endregion
+
+            #region PROBLEMS
+            List<ModelPurchase> lstProblems = origin.Where(x => (x.Empresa == empresa) &&
+                                                                                    (x.Uf == uf) &&
+                                                                                    (x.Operadora == operadora) &&
+                                                                                    (x.CUnid == cunid) &&
+                                                                                    (x.CDepto == cdepto) &&
+                                                                                    (x.Obs != null) &&
+                                                                                    (!x.Obs.Contains("NOVO/SEM CARTAO") || x.Obs.Contains("2ª VIA")))
+                                                                                    .OrderBy(c => c.Obs)
+                                                                                    .ThenBy(c => c.Nome)
+                                                                                    .ToList();
+
+            if (lstProblems.Count > 0)
+            {
+                lst.AddRange(lstProblems);
+                lst.Add(new ModelPurchase { Nome = @"==//==\\==" });
+            }
+            #endregion
+
+            #region NEWS & 2ª VIA
+            List<ModelPurchase> lstNews = origin.Where(x => (x.Empresa == empresa) &&
+                                                                                (x.Uf == uf) &&
+                                                                                (x.Operadora == operadora) &&
+                                                                                (x.CUnid == cunid) &&
+                                                                                (x.CDepto == cdepto) &&
+                                                                                (x.Obs != null) &&
+                                                                                (x.Obs.Contains("NOVO/SEM CARTAO") || x.Obs.Contains("2ª VIA")))
+                                                                                .ToList();
+
+            if (lstNews.Count > 0)
+                lst.AddRange(lstNews);
+            #endregion
+
+            #region REMAINDER
+            List<ModelPurchase> lstRemainder = origin.Where(x => (x.Empresa == empresa) &&
+                                                                                   (x.Uf == uf) &&
+                                                                                   (x.Operadora == operadora) &&
+                                                                                   (x.CUnid == cunid) &&
+                                                                                   (x.CDepto == cdepto) &&
+                                                                                   (x.CompraFinal != 0) &&
+                                                                                   (x.Obs == null))
+                                                                                   .ToList();
+
+            lst.AddRange(lstRemainder);
+            #endregion
+
             var lstSum = lst.Sum(x => x.CompraFinal);
             lst.Add(new ModelPurchase { CDepto = $"{cdepto.ToUpper()} Total", CompraFinal = lstSum });
             return (lst, lstSum);
         }
 
-        private (List<ModelPurchase> subTotal, decimal compraFinalSum) SubTotalDepto(List<ModelPurchase> origin, string uf, string operadora, string empresa, string cunid, string cdepto, string depto)
+        private enum ETypeSubTotal
         {
-            List<ModelPurchase> lst = origin.Where(x => (x.Uf == uf) && (x.Operadora == operadora) && (x.Empresa == empresa) && (x.CUnid == cunid) && (x.CDepto == cdepto) && (x.Depto == depto)).ToList();
+            Empresa = 0,
+            Uf = 1,
+            Operadora = 2,
+            CUnid = 3,
+            CDepto = 4,
+            Depto = 5
+        }
+
+        private (List<ModelPurchase> filteredModel, decimal modelSum) SubTotalGCS(List<ModelPurchase> modelPurchase, ETypeSubTotal type, string name, bool onlySum = false)
+        {
+            List<ModelPurchase> lst = new List<ModelPurchase>();
+            decimal modelSum = 0;
+
+            if (modelPurchase.Count < 1) { return (lst, modelSum); }
+
+            modelSum = modelPurchase.Sum(x => x.CompraFinal);
+
+            if (onlySum)
+                return (lst, modelSum);
+
+            #region ZEROED
+            List<ModelPurchase> lstZeroed = modelPurchase.Where(x => x.CompraFinal == 0)
+                                                  .ToList();
+
+            if (lstZeroed.Count > 0)
+            {
+                lst.AddRange(lstZeroed);
+                lst.Add(new ModelPurchase { Nome = @"==//==\\==" });
+            }
+            #endregion
+
+            #region PROBLEMS
+            List<ModelPurchase> lstProblems = modelPurchase.Where(x => (x.Obs != null) && (!x.Obs.Contains("NOVO/SEM CARTAO") || x.Obs.Contains("2ª VIA")))
+                                                           .OrderBy(c => c.Obs)
+                                                           .ThenBy(c => c.Nome)
+                                                           .ToList();
+
+            if (lstProblems.Count > 0)
+            {
+                lst.AddRange(lstProblems);
+                lst.Add(new ModelPurchase { Nome = @"==//==\\==" });
+            }
+            #endregion
+
+            #region NEWS & 2ª VIA
+            List<ModelPurchase> lstNews = modelPurchase.Where(x => (x.Obs != null) && (x.Obs.Contains("NOVO/SEM CARTAO") || x.Obs.Contains("2ª VIA")))
+                                                       .OrderBy(c => c.Nome)
+                                                       .ToList();
+
+            if (lstNews.Count > 0)
+                lst.AddRange(lstNews);
+            #endregion
+
+            #region PURCHASE
+            List<ModelPurchase> lstPurchase = modelPurchase.Where(x => (x.CompraFinal != 0) && (x.Obs == null))
+                                                           .OrderBy(c => c.Nome)
+                                                           .ToList();
+
+            lst.AddRange(lstPurchase);
+            #endregion
+
+            switch (type)
+            {
+                case ETypeSubTotal.Empresa:
+                    lst.Add(new ModelPurchase { Empresa = $"{name.ToUpper()} Total", CompraFinal = modelSum });
+                    break;
+                case ETypeSubTotal.Uf:
+                    lst.Add(new ModelPurchase { Uf = $"{name.ToUpper()} Total", CompraFinal = modelSum });
+                    break;
+                case ETypeSubTotal.Operadora:
+                    lst.Add(new ModelPurchase { Operadora = $"{name.ToUpper()} Total", CompraFinal = modelSum });
+                    break;
+                case ETypeSubTotal.CUnid:
+                    lst.Add(new ModelPurchase { CUnid = $"{name.ToUpper()} Total", CompraFinal = modelSum });
+                    break;
+                case ETypeSubTotal.CDepto:
+                    lst.Add(new ModelPurchase { CDepto = $"{name.ToUpper()} Total", CompraFinal = modelSum });
+                    break;
+                case ETypeSubTotal.Depto:
+                    lst.Add(new ModelPurchase { Depto = $"{name.ToUpper()} Total", CompraFinal = modelSum });
+                    break;
+                default:
+                    break;
+            }
+
+            return (lst, modelSum);
+        }
+
+        private (List<ModelPurchase> subTotal, decimal compraFinalSum) SubTotalEmpresa(List<ModelPurchase> origin, string empresa)
+        {
+            List<ModelPurchase> lst = origin.Where(x => x.Empresa == empresa).ToList();
+            var lstSum = lst.Sum(x => x.CompraFinal);
+            lst.Add(new ModelPurchase { Empresa = $"{empresa.ToUpper()} Total", CompraFinal = lstSum });
+            return (lst, lstSum);
+        }
+
+        private (List<ModelPurchase> subTotal, decimal compraFinalSum) SubTotalUf(List<ModelPurchase> origin, string empresa, string uf)
+        {
+            List<ModelPurchase> lst = origin.Where(x => (x.Empresa == empresa) && (x.Uf == uf)).ToList();
+            var lstSum = lst.Sum(x => x.CompraFinal);
+            lst.Add(new ModelPurchase { Uf = $"{uf.ToUpper()} Total", CompraFinal = lstSum });
+            return (lst, lstSum);
+        }
+
+        private (List<ModelPurchase> subTotal, decimal compraFinalSum) SubTotalOperadora(List<ModelPurchase> origin, string empresa, string uf, string operadora)
+        {
+            List<ModelPurchase> lst = origin.Where(x => (x.Empresa == empresa) && (x.Uf == uf) && (x.Operadora == operadora)).ToList();
+            var lstSum = lst.Sum(x => x.CompraFinal);
+            lst.Add(new ModelPurchase { Operadora = $"{operadora.ToUpper()} Total", CompraFinal = lstSum });
+            return (lst, lstSum);
+        }
+
+        private (List<ModelPurchase> subTotal, decimal compraFinalSum) SubTotalCUnid(List<ModelPurchase> origin, string empresa, string uf, string operadora, string cunid)
+        {
+            List<ModelPurchase> lst = origin.Where(x => (x.Empresa == empresa) && (x.Uf == uf) && (x.Operadora == operadora) && (x.CUnid == cunid)).ToList();
+            var lstSum = lst.Sum(x => x.CompraFinal);
+            lst.Add(new ModelPurchase { CUnid = $"{cunid.ToUpper()} Total", CompraFinal = lstSum });
+            return (lst, lstSum);
+        }
+
+        private (List<ModelPurchase> subTotal, decimal compraFinalSum) SubTotalCDepto(List<ModelPurchase> origin, string empresa, string uf, string operadora, string cunid, string cdepto)
+        {
+            List<ModelPurchase> lst = origin.Where(x => (x.Empresa == empresa) && (x.Uf == uf) && (x.Operadora == operadora) && (x.CUnid == cunid) && (x.CDepto == cdepto)).ToList();
+            var lstSum = lst.Sum(x => x.CompraFinal);
+            lst.Add(new ModelPurchase { CDepto = $"{cdepto.ToUpper()} Total", CompraFinal = lstSum });
+            return (lst, lstSum);
+        }
+
+        private (List<ModelPurchase> subTotal, decimal compraFinalSum) SubTotalDepto(List<ModelPurchase> origin, string empresa, string uf, string operadora, string cunid, string cdepto, string depto)
+        {
+            List<ModelPurchase> lst = origin.Where(x => (x.Empresa == empresa) && (x.Uf == uf) && (x.Operadora == operadora) && (x.CUnid == cunid) && (x.CDepto == cdepto) && (x.Depto == depto)).ToList();
             var lstSum = lst.Sum(x => x.CompraFinal);
             lst.Add(new ModelPurchase { Depto = $"{depto.ToUpper()} Total", CompraFinal = lstSum });
             return (lst, lstSum);
         }
-
+        
         private string GetTextAndTreat(Worksheet ws, int row, int column, int offSR, int offSC = 0)
         {
             if (column != -1)
