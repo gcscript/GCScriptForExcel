@@ -103,7 +103,6 @@ namespace GCScript_for_Excel.Classes
                 var obsColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Obs);
                 if (obsColumnNumber == -1) { MessageBox.Show($"A coluna {ColumnsName.Obs} não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
-
                 var lstGeneralData = new List<ModelPurchase>();
 
                 int lastUsedRowByNome = ws.Cells[1048576, nomeColumnNumber].End(XlDirection.xlUp).Row;
@@ -329,7 +328,7 @@ namespace GCScript_for_Excel.Classes
                         lstFinal.AddRange(subTotalEmpresa.filteredModel);
                     }
                 }
-                lstFinal.Add(new ModelPurchase { Empresa = $"Total Geral", CompraFinal = SubTotalGeneral(orderedCustomers) });
+                lstFinal.Add(new ModelPurchase { Empresa = $"Total Geral", CompraFinal = SubTotal(orderedCustomers) });
 
                 MessageBox.Show($"OK", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
             }
@@ -345,149 +344,10 @@ namespace GCScript_for_Excel.Classes
 
         }
 
-        private decimal SubTotalGeneral(List<ModelPurchase> origin)
+        private decimal SubTotal(List<ModelPurchase> origin)
         {
             var lstSum = origin.Sum(x => x.CompraFinal);
             return lstSum;
-        }
-
-
-        private (List<ModelPurchase> subTotal, decimal compraFinalSum) SubTotalCUnidTeste(List<ModelPurchase> origin, string empresa, string uf, string operadora, string cunid)
-        {
-            List<ModelPurchase> lst = new List<ModelPurchase>();
-
-            #region ZEROED
-            List<ModelPurchase> lstZeroed = origin.Where(x => (x.Empresa == empresa) &&
-                                                                                  (x.Uf == uf) &&
-                                                                                  (x.Operadora == operadora) &&
-                                                                                  (x.CUnid == cunid) &&
-                                                                                  (x.CompraFinal == 0))
-                                                                                  .ToList();
-
-            if (lstZeroed.Count > 0)
-            {
-                lst.AddRange(lstZeroed);
-                lst.Add(new ModelPurchase { Nome = @"==//==\\==" });
-            }
-            #endregion
-
-            #region PROBLEMS
-            List<ModelPurchase> lstProblems = origin.Where(x => (x.Empresa == empresa) &&
-                                                                                    (x.Uf == uf) &&
-                                                                                    (x.Operadora == operadora) &&
-                                                                                    (x.CUnid == cunid) &&
-                                                                                    (x.Obs != null) &&
-                                                                                    (!x.Obs.Contains("NOVO/SEM CARTAO") || x.Obs.Contains("2ª VIA")))
-                                                                                    .OrderBy(c => c.Obs)
-                                                                                    .ThenBy(c => c.Nome)
-                                                                                    .ToList();
-
-            if (lstProblems.Count > 0)
-            {
-                lst.AddRange(lstProblems);
-                lst.Add(new ModelPurchase { Nome = @"==//==\\==" });
-            }
-            #endregion
-
-            #region NEWS & 2ª VIA
-            List<ModelPurchase> lstNews = origin.Where(x => (x.Empresa == empresa) &&
-                                                                                (x.Uf == uf) &&
-                                                                                (x.Operadora == operadora) &&
-                                                                                (x.CUnid == cunid) &&
-                                                                                (x.Obs != null) &&
-                                                                                (x.Obs.Contains("NOVO/SEM CARTAO") || x.Obs.Contains("2ª VIA")))
-                                                                                .ToList();
-
-            if (lstNews.Count > 0)
-                lst.AddRange(lstNews);
-            #endregion
-
-            #region REMAINDER
-            List<ModelPurchase> lstRemainder = origin.Where(x => (x.Empresa == empresa) &&
-                                                                                   (x.Uf == uf) &&
-                                                                                   (x.Operadora == operadora) &&
-                                                                                   (x.CUnid == cunid) &&
-                                                                                   (x.CompraFinal != 0) &&
-                                                                                   (x.Obs == null))
-                                                                                   .ToList();
-
-            lst.AddRange(lstRemainder);
-            #endregion
-
-            var lstSum = lst.Sum(x => x.CompraFinal);
-            lst.Add(new ModelPurchase { CUnid = $"{cunid.ToUpper()} Total", CompraFinal = lstSum });
-            return (lst, lstSum);
-        }
-
-        private (List<ModelPurchase> subTotal, decimal compraFinalSum) SubTotalCDeptoTeste(List<ModelPurchase> origin, string empresa, string uf, string operadora, string cunid, string cdepto)
-        {
-            List<ModelPurchase> lst = new List<ModelPurchase>();
-
-            #region ZEROED
-            List<ModelPurchase> lstZeroed = origin.Where(x => (x.Empresa == empresa) &&
-                                                                                  (x.Uf == uf) &&
-                                                                                  (x.Operadora == operadora) &&
-                                                                                  (x.CUnid == cunid) &&
-                                                                                  (x.CDepto == cdepto) &&
-                                                                                  (x.CompraFinal == 0))
-                                                                                  .ToList();
-
-            if (lstZeroed.Count > 0)
-            {
-                lst.AddRange(lstZeroed);
-                lst.Add(new ModelPurchase { Nome = @"==//==\\==" });
-            }
-            #endregion
-
-            #region PROBLEMS
-            List<ModelPurchase> lstProblems = origin.Where(x => (x.Empresa == empresa) &&
-                                                                                    (x.Uf == uf) &&
-                                                                                    (x.Operadora == operadora) &&
-                                                                                    (x.CUnid == cunid) &&
-                                                                                    (x.CDepto == cdepto) &&
-                                                                                    (x.Obs != null) &&
-                                                                                    (!x.Obs.Contains("NOVO/SEM CARTAO") || x.Obs.Contains("2ª VIA")))
-                                                                                    .OrderBy(c => c.Obs)
-                                                                                    .ThenBy(c => c.Nome)
-                                                                                    .ToList();
-
-            if (lstProblems.Count > 0)
-            {
-                lst.AddRange(lstProblems);
-                lst.Add(new ModelPurchase { Nome = @"==//==\\==" });
-            }
-            #endregion
-
-            #region NEWS & 2ª VIA
-            List<ModelPurchase> lstNews = origin.Where(x => (x.Empresa == empresa) &&
-                                                                                (x.Uf == uf) &&
-                                                                                (x.Operadora == operadora) &&
-                                                                                (x.CUnid == cunid) &&
-                                                                                (x.CDepto == cdepto) &&
-                                                                                (x.Obs != null) &&
-                                                                                (x.Obs.Contains("NOVO/SEM CARTAO") || x.Obs.Contains("2ª VIA")))
-                                                                                .ToList();
-
-            if (lstNews.Count > 0)
-                lst.AddRange(lstNews);
-            #endregion
-
-            #region REMAINDER
-            List<ModelPurchase> lstRemainder = origin.Where(x => (x.Empresa == empresa) &&
-                                                                                   (x.Uf == uf) &&
-                                                                                   (x.Operadora == operadora) &&
-                                                                                   (x.CUnid == cunid) &&
-                                                                                   (x.CDepto == cdepto) &&
-                                                                                   (x.CompraFinal != 0) &&
-                                                                                   (x.Obs == null))
-                                                                                   .ToList();
-
-            lst.AddRange(lstRemainder);
-            #endregion
-
-            var lstSum = lst.Sum(x => x.CompraFinal);
-            lst.Add(new ModelPurchase { CDepto = $"{cdepto.ToUpper()} Total", CompraFinal = lstSum });
-            return (lst, lstSum);
         }
 
         private enum ETypeSubTotal
@@ -580,54 +440,6 @@ namespace GCScript_for_Excel.Classes
             return (lst, modelSum);
         }
 
-        private (List<ModelPurchase> subTotal, decimal compraFinalSum) SubTotalEmpresa(List<ModelPurchase> origin, string empresa)
-        {
-            List<ModelPurchase> lst = origin.Where(x => x.Empresa == empresa).ToList();
-            var lstSum = lst.Sum(x => x.CompraFinal);
-            lst.Add(new ModelPurchase { Empresa = $"{empresa.ToUpper()} Total", CompraFinal = lstSum });
-            return (lst, lstSum);
-        }
-
-        private (List<ModelPurchase> subTotal, decimal compraFinalSum) SubTotalUf(List<ModelPurchase> origin, string empresa, string uf)
-        {
-            List<ModelPurchase> lst = origin.Where(x => (x.Empresa == empresa) && (x.Uf == uf)).ToList();
-            var lstSum = lst.Sum(x => x.CompraFinal);
-            lst.Add(new ModelPurchase { Uf = $"{uf.ToUpper()} Total", CompraFinal = lstSum });
-            return (lst, lstSum);
-        }
-
-        private (List<ModelPurchase> subTotal, decimal compraFinalSum) SubTotalOperadora(List<ModelPurchase> origin, string empresa, string uf, string operadora)
-        {
-            List<ModelPurchase> lst = origin.Where(x => (x.Empresa == empresa) && (x.Uf == uf) && (x.Operadora == operadora)).ToList();
-            var lstSum = lst.Sum(x => x.CompraFinal);
-            lst.Add(new ModelPurchase { Operadora = $"{operadora.ToUpper()} Total", CompraFinal = lstSum });
-            return (lst, lstSum);
-        }
-
-        private (List<ModelPurchase> subTotal, decimal compraFinalSum) SubTotalCUnid(List<ModelPurchase> origin, string empresa, string uf, string operadora, string cunid)
-        {
-            List<ModelPurchase> lst = origin.Where(x => (x.Empresa == empresa) && (x.Uf == uf) && (x.Operadora == operadora) && (x.CUnid == cunid)).ToList();
-            var lstSum = lst.Sum(x => x.CompraFinal);
-            lst.Add(new ModelPurchase { CUnid = $"{cunid.ToUpper()} Total", CompraFinal = lstSum });
-            return (lst, lstSum);
-        }
-
-        private (List<ModelPurchase> subTotal, decimal compraFinalSum) SubTotalCDepto(List<ModelPurchase> origin, string empresa, string uf, string operadora, string cunid, string cdepto)
-        {
-            List<ModelPurchase> lst = origin.Where(x => (x.Empresa == empresa) && (x.Uf == uf) && (x.Operadora == operadora) && (x.CUnid == cunid) && (x.CDepto == cdepto)).ToList();
-            var lstSum = lst.Sum(x => x.CompraFinal);
-            lst.Add(new ModelPurchase { CDepto = $"{cdepto.ToUpper()} Total", CompraFinal = lstSum });
-            return (lst, lstSum);
-        }
-
-        private (List<ModelPurchase> subTotal, decimal compraFinalSum) SubTotalDepto(List<ModelPurchase> origin, string empresa, string uf, string operadora, string cunid, string cdepto, string depto)
-        {
-            List<ModelPurchase> lst = origin.Where(x => (x.Empresa == empresa) && (x.Uf == uf) && (x.Operadora == operadora) && (x.CUnid == cunid) && (x.CDepto == cdepto) && (x.Depto == depto)).ToList();
-            var lstSum = lst.Sum(x => x.CompraFinal);
-            lst.Add(new ModelPurchase { Depto = $"{depto.ToUpper()} Total", CompraFinal = lstSum });
-            return (lst, lstSum);
-        }
-        
         private string GetTextAndTreat(Worksheet ws, int row, int column, int offSR, int offSC = 0)
         {
             if (column != -1)
