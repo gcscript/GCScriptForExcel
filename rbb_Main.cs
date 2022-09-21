@@ -181,22 +181,12 @@ namespace GCScript_for_Excel
             app.ScreenUpdating = false;
             try
             {
-                Range selecao = app.Selection;
+                Range selection = app.Selection;
+                Range constantsSelection = selection.SpecialCells(XlCellType.xlCellTypeConstants);
+                Range formulasSelection = selection.SpecialCells(XlCellType.xlCellTypeFormulas);
+                Range finalSelection = app.Union(constantsSelection, formulasSelection);
 
-                if (selecao.Cells.Count > 100000)
-                {
-                    MessageBox.Show("O Intervalo contém mais de 100.000 células.", "ERRO: 428083", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                else if (selecao.Cells.Count > 50000)
-                {
-                    if (MessageBox.Show("O Intervalo contém mais de 50.000 células.\nIsso pode travar sua aplicação!\nDeseja continuar?", "ERRO: 978135", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
-                    {
-                        return;
-                    }
-                }
-
-                cl_Settings.ConverterText(ws, selecao);
+                cl_Settings.ConverterText(ws, finalSelection);
             }
             catch (Exception erro)
             {
@@ -217,21 +207,11 @@ namespace GCScript_for_Excel
             try
             {
                 Range selection = app.Selection;
+                Range constantsSelection = selection.SpecialCells(XlCellType.xlCellTypeConstants);
+                Range formulasSelection = selection.SpecialCells(XlCellType.xlCellTypeFormulas);
+                Range finalSelection = app.Union(constantsSelection, formulasSelection);
 
-                if (selection.Cells.Count > 100000)
-                {
-                    MessageBox.Show("O Intervalo contém mais de 100.000 células.", "ERRO: 306904", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                else if (selection.Cells.Count > 50000)
-                {
-                    if (MessageBox.Show("O Intervalo contém mais de 50.000 células.\nIsso pode travar sua aplicação!\nDeseja continuar?", "ERRO: 452149", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
-                    {
-                        return;
-                    }
-                }
-
-                int count = Tools.ConverterCPF(ws, selection);
+                int count = Tools.ConverterCPF(ws, finalSelection);
 
                 MessageBox.Show($"CPF(s) alterado(s): {count}", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
             }
@@ -253,22 +233,12 @@ namespace GCScript_for_Excel
             app.ScreenUpdating = false;
             try
             {
-                Range selecao = app.Selection;
+                Range selection = app.Selection;
+                Range constantsSelection = selection.SpecialCells(XlCellType.xlCellTypeConstants);
+                Range formulasSelection = selection.SpecialCells(XlCellType.xlCellTypeFormulas);
+                Range finalSelection = app.Union(constantsSelection, formulasSelection);
 
-                if (selecao.Cells.Count > 100000)
-                {
-                    MessageBox.Show("O Intervalo contém mais de 100.000 células.", "ERRO: 549661", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                else if (selecao.Cells.Count > 50000)
-                {
-                    if (MessageBox.Show("O Intervalo contém mais de 50.000 células.\nIsso pode travar sua aplicação!\nDeseja continuar?", "ERRO: 105067", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
-                    {
-                        return;
-                    }
-                }
-
-                cl_Settings.ConverterCNPJ(ws, selecao);
+                cl_Settings.ConverterCNPJ(ws, finalSelection);
             }
             catch (Exception erro)
             {
@@ -288,22 +258,12 @@ namespace GCScript_for_Excel
             app.ScreenUpdating = false;
             try
             {
-                Range selecao = app.Selection;
+                Range selection = app.Selection;
+                Range constantsSelection = selection.SpecialCells(XlCellType.xlCellTypeConstants);
+                Range formulasSelection = selection.SpecialCells(XlCellType.xlCellTypeFormulas);
+                Range finalSelection = app.Union(constantsSelection, formulasSelection);
 
-                if (selecao.Cells.Count > 100000)
-                {
-                    MessageBox.Show("O Intervalo contém mais de 100.000 células.", "ERRO: 491774", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                else if (selecao.Cells.Count > 50000)
-                {
-                    if (MessageBox.Show("O Intervalo contém mais de 50.000 células.\nIsso pode travar sua aplicação!\nDeseja continuar?", "ERRO: 138689", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
-                    {
-                        return;
-                    }
-                }
-
-                cl_Settings.ConverterWorkSchedule(ws, selecao);
+                cl_Settings.ConverterWorkSchedule(ws, finalSelection);
             }
             catch (Exception erro)
             {
