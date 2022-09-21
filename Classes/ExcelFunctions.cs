@@ -307,6 +307,20 @@ namespace GCScript_for_Excel.Classes
             return true;
         }
 
+        public static bool ChecksIfSheetExist(string sheetName)
+        {
+            sheetName = Tools.TreatText(sheetName);
+
+            foreach (Worksheet sheet in app.Worksheets)
+            {
+                if (Tools.TreatText(sheet.Name) == sheetName)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public static void RemoveCF(Worksheet ws)
         {
             if (cl_Settings.More_SelectionType == 1)

@@ -37,7 +37,17 @@ namespace GCScript_for_Excel.Classes
     {
         readonly gcsApplication gcsApp = Globals.ThisAddIn.Application;
 
-        public void Create()
+        private enum ETypePurchase
+        {
+            Empresa = 0,
+            Uf = 1,
+            Operadora = 2,
+            CUnid = 3,
+            CDepto = 4,
+            Depto = 5
+        }
+
+        public void CreateBackup()
         {
             try
             {
@@ -342,6 +352,310 @@ namespace GCScript_for_Excel.Classes
                 gcsApp.DisplayAlerts = true;
             }
 
+        }
+
+        public void Create()
+        {
+            try
+            {
+                gcsApp.ScreenUpdating = false;
+                gcsApp.DisplayAlerts = false;
+
+                var getData = GetData(); if (!getData.success) { return; }
+
+                var separatePurchase = SeparatePurchase(getData.data, ETypePurchase.CUnid);
+
+                MessageBox.Show($"Terminou", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+            }
+            catch (Exception erro)
+            {
+                MessageBox.Show(erro.ToString(), "x118400", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                gcsApp.ScreenUpdating = true;
+                gcsApp.DisplayAlerts = true;
+            }
+
+        }
+
+        private (List<ModelPurchase> data, bool success) GetData()
+        {
+            Worksheet ws = gcsApp.ActiveSheet;
+            var data = new List<ModelPurchase>();
+
+            var empresaColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Empresa);
+            if (empresaColumnNumber == -1) { MessageBox.Show($"A coluna {ColumnsName.Empresa} não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Error); return (data, false); }
+
+            var ufColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Uf);
+            if (ufColumnNumber == -1) { MessageBox.Show($"A coluna {ColumnsName.Uf} não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Error); return (data, false); }
+
+            var operadoraColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Operadora);
+            if (operadoraColumnNumber == -1) { MessageBox.Show($"A coluna {ColumnsName.Operadora} não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Error); return (data, false); }
+
+            var cUnidColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.CUnid);
+            if (cUnidColumnNumber == -1) { MessageBox.Show($"A coluna {ColumnsName.CUnid} não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Error); return (data, false); }
+
+            var cDeptoColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.CDepto);
+
+            var deptoColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Depto);
+
+            var cnpjColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Cnpj);
+            if (cnpjColumnNumber == -1) { MessageBox.Show($"A coluna {ColumnsName.Cnpj} não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Error); return (data, false); }
+
+            var idColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Id);
+
+            var matColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Mat);
+            if (matColumnNumber == -1) { MessageBox.Show($"A coluna {ColumnsName.Mat} não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Error); return (data, false); }
+
+            var matSiteColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.MatSite);
+            if (matSiteColumnNumber == -1) { MessageBox.Show($"A coluna {ColumnsName.MatSite} não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Error); return (data, false); }
+
+            var nomeColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Nome);
+            if (nomeColumnNumber == -1) { MessageBox.Show($"A coluna {ColumnsName.Nome} não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Error); return (data, false); }
+
+            var cpfColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Cpf);
+            if (cpfColumnNumber == -1) { MessageBox.Show($"A coluna {ColumnsName.Cpf} não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Error); return (data, false); }
+
+            var descColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Desc);
+            if (descColumnNumber == -1) { MessageBox.Show($"A coluna {ColumnsName.Desc} não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Error); return (data, false); }
+
+            var qvtColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Qvt);
+            if (qvtColumnNumber == -1) { MessageBox.Show($"A coluna {ColumnsName.Qvt} não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Error); return (data, false); }
+
+            var vvtColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Vvt);
+            if (vvtColumnNumber == -1) { MessageBox.Show($"A coluna {ColumnsName.Vvt} não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Error); return (data, false); }
+
+            var tvtColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Tvt);
+            if (tvtColumnNumber == -1) { MessageBox.Show($"A coluna {ColumnsName.Tvt} não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Error); return (data, false); }
+
+            var totalColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Total);
+            if (totalColumnNumber == -1) { MessageBox.Show($"A coluna {ColumnsName.Total} não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Error); return (data, false); }
+
+            var descontoColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Desconto);
+            if (descontoColumnNumber == -1) { MessageBox.Show($"A coluna {ColumnsName.Desconto} não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Error); return (data, false); }
+
+            var compraFinalColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.CompraFinal);
+            if (compraFinalColumnNumber == -1) { MessageBox.Show($"A coluna {ColumnsName.CompraFinal} não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Error); return (data, false); }
+
+            var obsColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Obs);
+            if (obsColumnNumber == -1) { MessageBox.Show($"A coluna {ColumnsName.Obs} não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Error); return (data, false); }
+
+            int lastUsedRowByNome = ws.Cells[1048576, nomeColumnNumber].End(XlDirection.xlUp).Row;
+
+            var offSetRow = 0;
+            var count = 0;
+
+            while (true)
+            {
+                var currentData = new ModelPurchase();
+
+                if (ws.Cells[lastUsedRowByNome, nomeColumnNumber].Offset[offSetRow, 0].Row < 2) { break; }
+
+                currentData.Nome = GetTextAndTreat(ws, lastUsedRowByNome, nomeColumnNumber, offSetRow, 0);
+                if (currentData.Nome is null) { offSetRow--; continue; }
+
+                Range activeCellByTotal = ws.Cells[lastUsedRowByNome, totalColumnNumber].Offset[offSetRow, 0];
+                if (activeCellByTotal.Value2 is null || activeCellByTotal.Value2 == 0) { offSetRow--; continue; }
+
+                currentData.Empresa = GetTextAndTreat(ws, lastUsedRowByNome, empresaColumnNumber, offSetRow, 0);
+                currentData.Uf = GetTextAndTreat(ws, lastUsedRowByNome, ufColumnNumber, offSetRow, 0);
+                currentData.Operadora = GetTextAndTreat(ws, lastUsedRowByNome, operadoraColumnNumber, offSetRow, 0);
+                currentData.CUnid = GetTextAndTreat(ws, lastUsedRowByNome, cUnidColumnNumber, offSetRow, 0);
+                currentData.CDepto = GetTextAndTreat(ws, lastUsedRowByNome, cDeptoColumnNumber, offSetRow, 0);
+                currentData.Depto = GetTextAndTreat(ws, lastUsedRowByNome, deptoColumnNumber, offSetRow, 0);
+                currentData.Cnpj = GetTextAndTreat(ws, lastUsedRowByNome, cnpjColumnNumber, offSetRow, 0);
+                currentData.Id = GetTextAndTreat(ws, lastUsedRowByNome, idColumnNumber, offSetRow, 0);
+                currentData.Mat = GetTextAndTreat(ws, lastUsedRowByNome, matColumnNumber, offSetRow, 0);
+                currentData.MatSite = GetTextAndTreat(ws, lastUsedRowByNome, matSiteColumnNumber, offSetRow, 0);
+                currentData.Cpf = GetCpfAndTreat(ws, lastUsedRowByNome, cpfColumnNumber, offSetRow, 0);
+                currentData.Obs = GetTextAndTreat(ws, lastUsedRowByNome, obsColumnNumber, offSetRow, 0);
+
+                Range activeCellByDesc = ws.Cells[lastUsedRowByNome, descColumnNumber].Offset[offSetRow, 0];
+                if (activeCellByDesc.Value2 != null) { currentData.Desc = Math.Round((decimal)activeCellByDesc.Value2, 2); }
+
+                Range activeCellByQvt = ws.Cells[lastUsedRowByNome, qvtColumnNumber].Offset[offSetRow, 0];
+                if (activeCellByQvt.Value2 != null) { currentData.Qvt = (int)activeCellByQvt.Value2; }
+
+                Range activeCellByVvt = ws.Cells[lastUsedRowByNome, vvtColumnNumber].Offset[offSetRow, 0];
+                if (activeCellByVvt.Value2 != null) { currentData.Vvt = Math.Round((decimal)activeCellByVvt.Value2, 2); }
+
+                Range activeCellByTvt = ws.Cells[lastUsedRowByNome, tvtColumnNumber].Offset[offSetRow, 0];
+                if (activeCellByTvt.Value2 != null) { currentData.Tvt = Math.Round((decimal)activeCellByTvt.Value2, 2); }
+
+                Range activeCellByDesconto = ws.Cells[lastUsedRowByNome, descontoColumnNumber].Offset[offSetRow, 0];
+                if (activeCellByDesconto.Value2 != null) { currentData.Desconto = Math.Round((decimal)activeCellByDesconto.Value2, 2); }
+
+                Range activeCellByCompraFinal = ws.Cells[lastUsedRowByNome, compraFinalColumnNumber].Offset[offSetRow, 0];
+                if (activeCellByCompraFinal.Value2 != null) { currentData.CompraFinal = Math.Round((decimal)activeCellByCompraFinal.Value2, 2); }
+
+                data.Add(currentData);
+                count++;
+                offSetRow--;
+            }
+
+            return (data, true);
+        }
+
+        private List<ModelPurchase> SeparatePurchase(List<ModelPurchase> model, ETypePurchase typeSeparation)
+        {
+            var orderedCustomers = new List<ModelPurchase>();
+
+            switch (typeSeparation)
+            {
+                case ETypePurchase.Empresa:
+                    orderedCustomers = model.OrderBy(c => c.Empresa)
+                                            .ThenBy(c => c.Nome)
+                                            .ToList();
+                    break;
+                case ETypePurchase.Uf:
+                    orderedCustomers = model.OrderBy(c => c.Empresa)
+                                            .ThenBy(c => c.Uf)
+                                            .ThenBy(c => c.Nome)
+                                            .ToList();
+                    break;
+                case ETypePurchase.Operadora:
+                    orderedCustomers = model.OrderBy(c => c.Empresa)
+                                            .ThenBy(c => c.Uf)
+                                            .ThenBy(c => c.Operadora)
+                                            .ThenBy(c => c.Nome)
+                                            .ToList();
+                    break;
+                case ETypePurchase.CUnid:
+                    orderedCustomers = model.OrderBy(c => c.Empresa)
+                                            .ThenBy(c => c.Uf)
+                                            .ThenBy(c => c.Operadora)
+                                            .ThenBy(c => c.CUnid)
+                                            .ThenBy(c => c.Nome)
+                                            .ToList();
+                    break;
+                case ETypePurchase.CDepto:
+                    orderedCustomers = model.OrderBy(c => c.Empresa)
+                                            .ThenBy(c => c.Uf)
+                                            .ThenBy(c => c.Operadora)
+                                            .ThenBy(c => c.CUnid)
+                                            .ThenBy(c => c.CDepto)
+                                            .ThenBy(c => c.Nome)
+                                            .ToList();
+                    break;
+                case ETypePurchase.Depto:
+                    orderedCustomers = model.OrderBy(c => c.Empresa)
+                                            .ThenBy(c => c.Uf)
+                                            .ThenBy(c => c.Operadora)
+                                            .ThenBy(c => c.CUnid)
+                                            .ThenBy(c => c.CDepto)
+                                            .ThenBy(c => c.Depto)
+                                            .ThenBy(c => c.Nome)
+                                            .ToList();
+                    break;
+            }
+
+            var lstFinal = new List<ModelPurchase>();
+
+            List<ModelPurchase> distinctEmpresas = orderedCustomers.GroupBy(p => p.Empresa)
+                                                               .Select(g => g.First())
+                                                               .ToList();
+
+            foreach (var distinctEmpresa in distinctEmpresas)
+            {
+                if (typeSeparation == ETypePurchase.Empresa)
+                {
+                    List<ModelPurchase> lstEmpresa = orderedCustomers.Where(x => (x.Empresa == distinctEmpresa.Empresa))
+                                                                        .ToList();
+                    var subTotalEmpresa = SubTotalGCS(lstEmpresa, ETypeSubTotal.Empresa, distinctEmpresa.Empresa, false);
+                    lstFinal.AddRange(subTotalEmpresa.filteredModel);
+                }
+                else
+                {
+                    List<ModelPurchase> distinctUfs = orderedCustomers.Where(w => (w.Empresa == distinctEmpresa.Empresa))
+                                                               .GroupBy(p => new { p.Empresa, p.Uf })
+                                                               .Select(g => g.First())
+                                                               .ToList();
+
+                    foreach (var distinctUf in distinctUfs)
+                    {
+                        if (typeSeparation == ETypePurchase.Uf)
+                        {
+                            List<ModelPurchase> lstUf = orderedCustomers.Where(x => (x.Empresa == distinctEmpresa.Empresa) && (x.Uf == distinctUf.Uf))
+                                                                        .ToList();
+                            var subTotalUf = SubTotalGCS(lstUf, ETypeSubTotal.Uf, distinctUf.Uf, false);
+                            lstFinal.AddRange(subTotalUf.filteredModel);
+                        }
+                        else
+                        {
+                            List<ModelPurchase> distinctOperadoras = orderedCustomers.Where(w => (w.Empresa == distinctEmpresa.Empresa) && (w.Uf == distinctUf.Uf))
+                                                               .GroupBy(p => new { p.Empresa, p.Uf, p.Operadora })
+                                                               .Select(g => g.First())
+                                                               .ToList();
+
+                            foreach (var distinctOperadora in distinctOperadoras)
+                            {
+                                if (typeSeparation == ETypePurchase.Operadora)
+                                {
+                                    List<ModelPurchase> lstOperadora = orderedCustomers.Where(x => (x.Empresa == distinctEmpresa.Empresa) && (x.Uf == distinctUf.Uf) && (x.Operadora == distinctOperadora.Operadora))
+                                                                                       .ToList();
+                                    var subTotalOperadora = SubTotalGCS(lstOperadora, ETypeSubTotal.Operadora, distinctOperadora.Operadora, false);
+                                    lstFinal.AddRange(subTotalOperadora.filteredModel);
+                                }
+                                else
+                                {
+                                    List<ModelPurchase> distinctCUnids = orderedCustomers.Where(w => (w.Empresa == distinctEmpresa.Empresa) && (w.Uf == distinctUf.Uf) && (w.Operadora == distinctOperadora.Operadora))
+                                                               .GroupBy(p => new { p.Empresa, p.Uf, p.Operadora, p.CUnid })
+                                                               .Select(g => g.First())
+                                                               .ToList();
+
+                                    foreach (var distinctCUnid in distinctCUnids)
+                                    {
+                                        if (typeSeparation == ETypePurchase.CUnid)
+                                        {
+                                            List<ModelPurchase> lstCUnid = orderedCustomers.Where(x => (x.Empresa == distinctEmpresa.Empresa) && (x.Uf == distinctUf.Uf) && (x.Operadora == distinctOperadora.Operadora) && (x.CUnid == distinctCUnid.CUnid))
+                                                                                           .ToList();
+                                            var subTotalCUnid = SubTotalGCS(lstCUnid, ETypeSubTotal.CUnid, distinctCUnid.CUnid, false);
+                                            lstFinal.AddRange(subTotalCUnid.filteredModel);
+                                        }
+                                        else
+                                        {
+                                            List<ModelPurchase> distinctCDeptos = orderedCustomers.Where(w => (w.Empresa == distinctEmpresa.Empresa) && (w.Uf == distinctUf.Uf) && (w.Operadora == distinctOperadora.Operadora) && (w.CUnid == distinctCUnid.CUnid))
+                                                               .GroupBy(p => new { p.Empresa, p.Uf, p.Operadora, p.CUnid, p.CDepto })
+                                                               .Select(g => g.First())
+                                                               .ToList();
+
+                                            foreach (var distinctCDepto in distinctCDeptos)
+                                            {
+                                                List<ModelPurchase> lstCDepto = orderedCustomers.Where(x => (x.Empresa == distinctEmpresa.Empresa) && (x.Uf == distinctUf.Uf) && (x.Operadora == distinctOperadora.Operadora) && (x.CUnid == distinctCUnid.CUnid) && (x.CDepto == distinctCDepto.CDepto))
+                                                                                                .ToList();
+                                                var subTotalCDepto = SubTotalGCS(lstCDepto, ETypeSubTotal.CDepto, distinctCDepto.CDepto, false);
+                                                lstFinal.AddRange(subTotalCDepto.filteredModel);
+                                            }
+
+                                            List<ModelPurchase> lstCUnid = orderedCustomers.Where(x => (x.Empresa == distinctEmpresa.Empresa) && (x.Uf == distinctUf.Uf) && (x.Operadora == distinctOperadora.Operadora) && (x.CUnid == distinctCUnid.CUnid))
+                                                                                           .ToList();
+                                            var subTotalCUnid = SubTotalGCS(lstCUnid, ETypeSubTotal.CDepto, distinctCUnid.CUnid, true);
+                                            lstFinal.Add(new ModelPurchase { CUnid = $"{distinctCUnid.CUnid.ToUpper()} Total", CompraFinal = subTotalCUnid.modelSum });
+                                        }
+                                    }
+
+                                    List<ModelPurchase> lstOperadora = orderedCustomers.Where(x => (x.Empresa == distinctEmpresa.Empresa) && (x.Uf == distinctUf.Uf) && (x.Operadora == distinctOperadora.Operadora))
+                                                                                       .ToList();
+                                    var subTotalOperadora = SubTotalGCS(lstOperadora, ETypeSubTotal.CDepto, distinctOperadora.Operadora, true);
+                                    lstFinal.Add(new ModelPurchase { Operadora = $"{distinctOperadora.Operadora.ToUpper()} Total", CompraFinal = subTotalOperadora.modelSum });
+                                }
+                            }
+                            List<ModelPurchase> lstUf = orderedCustomers.Where(x => (x.Empresa == distinctEmpresa.Empresa) && (x.Uf == distinctUf.Uf))
+                                                                        .ToList();
+                            var subTotalUf = SubTotalGCS(lstUf, ETypeSubTotal.CDepto, distinctUf.Uf, true);
+                            lstFinal.Add(new ModelPurchase { Uf = $"{distinctUf.Uf.ToUpper()} Total", CompraFinal = subTotalUf.modelSum });
+                        }
+                    }
+
+                    List<ModelPurchase> lstEmpresa = orderedCustomers.Where(x => x.Empresa == distinctEmpresa.Empresa)
+                                                                     .ToList();
+                    var subTotalEmpresa = SubTotalGCS(lstEmpresa, ETypeSubTotal.CDepto, distinctEmpresa.Empresa, true);
+                    lstFinal.Add(new ModelPurchase { Empresa = $"{distinctEmpresa.Empresa.ToUpper()} Total", CompraFinal = subTotalEmpresa.modelSum });
+                }
+            }
+            lstFinal.Add(new ModelPurchase { Empresa = $"Total Geral", CompraFinal = SubTotal(orderedCustomers) });
+            return lstFinal;
         }
 
         private decimal SubTotal(List<ModelPurchase> origin)
