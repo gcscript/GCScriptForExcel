@@ -143,6 +143,7 @@ namespace GCScript_for_Excel.Classes
             else if (newText.Contains("06X01")) { return "6X1"; }
             else if (newText.Contains("6X2")) { return "6X1"; }
             else if (newText.Contains("60X01")) { return "6X1"; }
+            else if (newText.Contains("45H")) { return "6X1"; }
             else if (newText.Contains("05X02")) { return "5X2"; }
             else if (newText.Contains("5X2")) { return "5X2"; }
             else if (newText.Contains("SX2")) { return "5X2"; }
