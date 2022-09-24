@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using System.Xml.XPath;
 using gcsApplication = Microsoft.Office.Interop.Excel.Application;
 
 namespace GCScript_for_Excel.Classes
@@ -213,6 +214,11 @@ namespace GCScript_for_Excel.Classes
                 gcsApp.DisplayAlerts = false;
 
                 Worksheet ws = gcsApp.ActiveSheet;
+
+                if (Path.GetExtension(gcsApp.ActiveWorkbook.FullName) == ".xls")
+                {
+                    MessageBox.Show($"Função não compatível com versões antigas do Excel.", "X425719", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1); return;
+                }
 
                 // REQUIRED FIELDS
                 var nomeColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Nome);
