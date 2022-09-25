@@ -307,12 +307,12 @@ namespace GCScript_for_Excel.Classes
                 if (valorColunaUF == "total geral")
                 {
                     Range rng_linha = gWs.Range[gWs.Cells[linha, ColumnUF_Number].Offset[offSetRow, 0], gWs.Cells[linha, ColumnCompraFinal_Number].Offset[offSetRow, 0]];
-                    ExcelFunctions.Styles_Emphasis(rng_linha, 5);
+                    ExcelFunctions.Styles_Emphasis_OLD(rng_linha, 5);
                 }
                 else if (valorColunaUF.Contains(" total"))
                 {
                     Range rng_linha = gWs.Range[gWs.Cells[linha, ColumnUF_Number].Offset[offSetRow, 0], gWs.Cells[linha, ColumnCompraFinal_Number].Offset[offSetRow, 0]];
-                    ExcelFunctions.Styles_Emphasis(rng_linha, 4);
+                    ExcelFunctions.Styles_Emphasis_OLD(rng_linha, 4);
 
                 }
                 //else if (valorColunaOperadora == "total geral")
@@ -325,7 +325,7 @@ namespace GCScript_for_Excel.Classes
                 else if (valorColunaOperadora.Contains(" total"))
                 {
                     Range rng_linha = gWs.Range[gWs.Cells[linha, ColumnUF_Number].Offset[offSetRow, 0], gWs.Cells[linha, ColumnCompraFinal_Number].Offset[offSetRow, 0]];
-                    ExcelFunctions.Styles_Emphasis(rng_linha, 3);
+                    ExcelFunctions.Styles_Emphasis_OLD(rng_linha, 3);
                 }
                 //else if (valorColunaEmpresa == "total geral")
                 //{
@@ -337,7 +337,7 @@ namespace GCScript_for_Excel.Classes
                 else if (valorColunaEmpresa.Contains(" total"))
                 {
                     Range rng_linha = gWs.Range[gWs.Cells[linha, ColumnUF_Number].Offset[offSetRow, 0], gWs.Cells[linha, ColumnCompraFinal_Number].Offset[offSetRow, 0]];
-                    ExcelFunctions.Styles_Emphasis(rng_linha, 2);
+                    ExcelFunctions.Styles_Emphasis_OLD(rng_linha, 2);
                 }
                 //else if (valorColunaCUNID == "total geral")
                 //{
@@ -349,7 +349,7 @@ namespace GCScript_for_Excel.Classes
                 else if (valorColunaCUNID.Contains(" total"))
                 {
                     Range rng_linha = gWs.Range[gWs.Cells[linha, ColumnUF_Number].Offset[offSetRow, 0], gWs.Cells[linha, ColumnCompraFinal_Number].Offset[offSetRow, 0]];
-                    ExcelFunctions.Styles_Emphasis(rng_linha, 1);
+                    ExcelFunctions.Styles_Emphasis_OLD(rng_linha, 1);
                 }
 
                 if (gWs.Cells[linha, ColumnCompraFinal_Number].Offset[offSetRow, 0].Row < 2)
@@ -398,7 +398,7 @@ namespace GCScript_for_Excel.Classes
                     {
                         // COLUNA NOME NA LINHA [CIMA] DA ATUAL ESTÁ VAZIA
                         // COLUNA NOME NA LINHA [BAIXO] DA ATUAL ESTÁ VAZIA
-                        ExcelFunctions.Styles_Colors(ExcelFunctions.GetRangeCell(gWs, actvCell.Row, ColumnCompraFinal_Number), 5);
+                        ExcelFunctions.Styles_Colors_OLD(ExcelFunctions.GetRangeCell(gWs, actvCell.Row, ColumnCompraFinal_Number), 5);
                         if (warning == false) { ExcelFunctions.TabColor(gWs, 5); warning = true; }
                     }
                     else if (ColumnNome_CellValueBottomRow == "" && ColumnNome_CellValueTopRow != "")
@@ -406,7 +406,7 @@ namespace GCScript_for_Excel.Classes
                         // COLUNA NOME NA LINHA [CIMA] DA ATUAL ESTÁ OCUPADA
                         // COLUNA NOME NA LINHA [BAIXO] DA ATUAL ESTÁ VAZIA
                         CheckInRows(actvCell, false, true);
-                        ExcelFunctions.Styles_Colors(ExcelFunctions.GetRangeCell(gWs, actvCell.Row, ColumnCompraFinal_Number), 5);
+                        ExcelFunctions.Styles_Colors_OLD(ExcelFunctions.GetRangeCell(gWs, actvCell.Row, ColumnCompraFinal_Number), 5);
                         if (warning == false) { ExcelFunctions.TabColor(gWs, 5); warning = true; }
                     }
                     else if (ColumnNome_CellValueBottomRow != "" && ColumnNome_CellValueTopRow == "")
@@ -414,7 +414,7 @@ namespace GCScript_for_Excel.Classes
                         // COLUNA NOME NA LINHA [CIMA] DA ATUAL ESTÁ VAZIA
                         // COLUNA NOME NA LINHA [BAIXO] DA ATUAL ESTÁ OCUPADA
                         CheckInRows(actvCell, true, true);
-                        ExcelFunctions.Styles_Colors(ExcelFunctions.GetRangeCell(gWs, actvCell.Row, ColumnCompraFinal_Number), 5);
+                        ExcelFunctions.Styles_Colors_OLD(ExcelFunctions.GetRangeCell(gWs, actvCell.Row, ColumnCompraFinal_Number), 5);
                         if (warning == false) { ExcelFunctions.TabColor(gWs, 5); warning = true; }
                     }
                     else if (ColumnNome_CellValueBottomRow != "" && ColumnNome_CellValueTopRow != "")
@@ -423,7 +423,7 @@ namespace GCScript_for_Excel.Classes
                         // COLUNA NOME NA LINHA [BAIXO] DA ATUAL ESTÁ OCUPADA
                         CheckInRows(actvCell, true, true);
                         CheckInRows(actvCell, false, true);
-                        ExcelFunctions.Styles_Colors(ExcelFunctions.GetRangeCell(gWs, actvCell.Row, ColumnCompraFinal_Number), 5);
+                        ExcelFunctions.Styles_Colors_OLD(ExcelFunctions.GetRangeCell(gWs, actvCell.Row, ColumnCompraFinal_Number), 5);
                         if (warning == false) { ExcelFunctions.TabColor(gWs, 5); warning = true; }
                     }
                     else

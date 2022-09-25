@@ -3,6 +3,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using gcsApplication = Microsoft.Office.Interop.Excel.Application;
@@ -45,6 +46,30 @@ namespace GCScript_for_Excel.Classes
             CUnid = 3,
             CDepto = 4,
             Depto = 5
+        }
+
+        private enum EColumnOrder
+        {
+            Empresa = 1,
+            Uf = 2,
+            Operadora = 3,
+            CUnid = 4,
+            CDepto = 5,
+            Depto = 6,
+            Cnpj = 7,
+            Id = 8,
+            Mat = 9,
+            MatSite = 10,
+            Nome = 11,
+            Cpf = 12,
+            Desc = 13,
+            Qvt = 14,
+            Vvt = 15,
+            Tvt = 16,
+            Desconto = 17,
+            CompraFinal = 18,
+            Obs = 19,
+            Count = 19
         }
 
         public void CreateBackup()
@@ -354,7 +379,7 @@ namespace GCScript_for_Excel.Classes
 
         }
 
-        public void Create()
+        public void Start()
         {
             try
             {
@@ -364,6 +389,95 @@ namespace GCScript_for_Excel.Classes
                 var getData = GetData(); if (!getData.success) { return; }
 
                 var separatePurchase = SeparatePurchase(getData.data, ETypePurchase.CUnid);
+
+                string sheetName = "Compra";
+
+                if (ExcelFunctions.ChecksIfSheetExist(sheetName))
+                {
+                    MessageBox.Show($"A aba {sheetName} já existe!", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+                    return;
+                }
+                gcsApp.Worksheets.Add(After: gcsApp.Worksheets[gcsApp.Worksheets.Count]);
+                Worksheet sheet = gcsApp.ActiveSheet;
+
+                sheet.Name = sheetName;
+
+                if (separatePurchase.Count < 1) { return; }
+
+                Range allCells = sheet.Cells;
+
+                ExcelFunctions.FontName(allCells, "Consolas");
+                ExcelFunctions.FontSize(allCells, 10);
+                ExcelFunctions.VerticalAlignment(allCells, 1);
+
+                Range rngEmpresa = sheet.Range[sheet.Cells[1, EColumnOrder.Empresa], sheet.Cells[separatePurchase.Count + 1, EColumnOrder.Empresa]];
+                Range rngUf = sheet.Range[sheet.Cells[1, EColumnOrder.Uf], sheet.Cells[separatePurchase.Count + 1, EColumnOrder.Uf]];
+                Range rngOperadora = sheet.Range[sheet.Cells[1, EColumnOrder.Operadora], sheet.Cells[separatePurchase.Count + 1, EColumnOrder.Operadora]];
+                Range rngCUnid = sheet.Range[sheet.Cells[1, EColumnOrder.CUnid], sheet.Cells[separatePurchase.Count + 1, EColumnOrder.CUnid]];
+                Range rngCDepto = sheet.Range[sheet.Cells[1, EColumnOrder.CDepto], sheet.Cells[separatePurchase.Count + 1, EColumnOrder.CDepto]];
+                Range rngDepto = sheet.Range[sheet.Cells[1, EColumnOrder.Depto], sheet.Cells[separatePurchase.Count + 1, EColumnOrder.Depto]];
+                Range rngCnpj = sheet.Range[sheet.Cells[1, EColumnOrder.Cnpj], sheet.Cells[separatePurchase.Count + 1, EColumnOrder.Cnpj]];
+                Range rngId = sheet.Range[sheet.Cells[1, EColumnOrder.Id], sheet.Cells[separatePurchase.Count + 1, EColumnOrder.Id]];
+                Range rngMat = sheet.Range[sheet.Cells[1, EColumnOrder.Mat], sheet.Cells[separatePurchase.Count + 1, EColumnOrder.Mat]];
+                Range rngMatSite = sheet.Range[sheet.Cells[1, EColumnOrder.MatSite], sheet.Cells[separatePurchase.Count + 1, EColumnOrder.MatSite]];
+                Range rngNome = sheet.Range[sheet.Cells[1, EColumnOrder.Nome], sheet.Cells[separatePurchase.Count + 1, EColumnOrder.Nome]];
+                Range rngCpf = sheet.Range[sheet.Cells[1, EColumnOrder.Cpf], sheet.Cells[separatePurchase.Count + 1, EColumnOrder.Cpf]];
+
+                Range rngDesc = sheet.Range[sheet.Cells[1, EColumnOrder.Desc], sheet.Cells[separatePurchase.Count + 1, EColumnOrder.Desc]];
+                Range rngQvt = sheet.Range[sheet.Cells[1, EColumnOrder.Qvt], sheet.Cells[separatePurchase.Count + 1, EColumnOrder.Qvt]];
+                Range rngVvt = sheet.Range[sheet.Cells[1, EColumnOrder.Vvt], sheet.Cells[separatePurchase.Count + 1, EColumnOrder.Vvt]];
+                Range rngTvt = sheet.Range[sheet.Cells[1, EColumnOrder.Tvt], sheet.Cells[separatePurchase.Count + 1, EColumnOrder.Tvt]];
+                Range rngDesconto = sheet.Range[sheet.Cells[1, EColumnOrder.Desconto], sheet.Cells[separatePurchase.Count + 1, EColumnOrder.Desconto]];
+                Range rngCompraFinal = sheet.Range[sheet.Cells[1, EColumnOrder.CompraFinal], sheet.Cells[separatePurchase.Count + 1, EColumnOrder.CompraFinal]];
+                Range rngObs = sheet.Range[sheet.Cells[1, EColumnOrder.Obs], sheet.Cells[separatePurchase.Count + 1, EColumnOrder.Obs]];
+
+                Range textColumns = gcsApp.Union(rngEmpresa,
+                                                 rngUf,
+                                                 rngOperadora,
+                                                 rngCUnid,
+                                                 rngDepto,
+                                                 rngDepto,
+                                                 rngCnpj,
+                                                 rngId,
+                                                 rngMat,
+                                                 rngMatSite,
+                                                 rngNome,
+                                                 rngCpf,
+                                                 rngObs);
+
+                textColumns.NumberFormat = "@";
+
+                rngQvt.NumberFormat = @"_(* #,##0_);_(* (#,##0);_(* ""-""_);_(@_)";
+
+                Range decimalColumns = gcsApp.Union(rngDesc,
+                                                 rngVvt,
+                                                 rngTvt,
+                                                 rngDesconto,
+                                                 rngCompraFinal);
+
+                decimalColumns.NumberFormat = @"_(* #,##0.00_);_(* (#,##0.00);_(* ""-""??_);_(@_)";
+
+                rngObs.Font.Color = ColorTranslator.FromHtml("#FF0000");
+                rngObs.Font.Bold = true;
+
+                gcsApp.ActiveWindow.SplitRow = 1;
+                gcsApp.ActiveWindow.FreezePanes = true;
+
+                ColumnsHeader(sheet);
+                FillDataColumns(separatePurchase, sheet);
+
+                allCells.EntireColumn.AutoFit();
+
+                Range columnsTitle = gcsApp.Union(rngEmpresa, rngUf, rngOperadora, rngCUnid, rngCDepto, rngDepto);
+                columnsTitle.ColumnWidth = 0.08;
+
+                Range columnsHide = gcsApp.Union(rngCnpj, rngId, rngDesc, rngQvt, rngVvt, rngTvt, rngDesconto);
+                columnsHide.EntireColumn.Hidden = true;
+
+                Range rngBZPA = sheet.Range[sheet.Cells[1, 1], sheet.Cells[separatePurchase.Count + 1, EColumnOrder.CompraFinal]];
+
+                ExcelFunctions.SetBZPA(sheet, rngBZPA);
+
 
                 MessageBox.Show($"Terminou", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
             }
@@ -377,6 +491,124 @@ namespace GCScript_for_Excel.Classes
                 gcsApp.DisplayAlerts = true;
             }
 
+        }
+
+        private static void FillDataColumns(List<ModelPurchase> data, Worksheet sheet)
+        {
+            int row = 2;
+            bool containsProblem = false;
+
+            foreach (var item in data)
+            {
+                if (item.Nome != null && item.Nome != "")
+                {
+                    if (item.Nome == "[[[]]]") { row++; continue; }
+
+                    if (item.Obs != null)
+                    {
+                        if (!item.Obs.Contains("NOVO/SEM CARTAO") && !item.Obs.Contains("2ª VIA"))
+                        {
+                            Range rng = sheet.Cells[row, EColumnOrder.CompraFinal];
+                            ExcelFunctions.Styles_Colors(rng, ExcelFunctions.EStylesColors.Warning);
+                            containsProblem = true;
+                        }
+                    }
+
+                    sheet.Cells[row, EColumnOrder.Empresa].Value2 = item.Empresa;
+                    sheet.Cells[row, EColumnOrder.Uf].Value2 = item.Uf;
+                    sheet.Cells[row, EColumnOrder.Operadora].Value2 = item.Operadora;
+                    sheet.Cells[row, EColumnOrder.CUnid].Value2 = item.CUnid;
+                    sheet.Cells[row, EColumnOrder.CDepto].Value2 = item.CDepto;
+                    sheet.Cells[row, EColumnOrder.Depto].Value2 = item.Depto;
+                    sheet.Cells[row, EColumnOrder.Cnpj].Value2 = item.Cnpj;
+                    sheet.Cells[row, EColumnOrder.Id].Value2 = item.Id;
+                    sheet.Cells[row, EColumnOrder.Mat].Value2 = item.Mat;
+                    sheet.Cells[row, EColumnOrder.MatSite].Value2 = item.MatSite;
+                    sheet.Cells[row, EColumnOrder.Nome].Value2 = item.Nome;
+                    sheet.Cells[row, EColumnOrder.Cpf].Value2 = item.Cpf;
+                    sheet.Cells[row, EColumnOrder.Desc].Value2 = item.Desc;
+                    sheet.Cells[row, EColumnOrder.Qvt].Value2 = item.Qvt;
+                    sheet.Cells[row, EColumnOrder.Vvt].Value2 = item.Vvt;
+                    sheet.Cells[row, EColumnOrder.Tvt].Value2 = item.Tvt;
+                    sheet.Cells[row, EColumnOrder.Desconto].Value2 = item.Desconto;
+                    sheet.Cells[row, EColumnOrder.CompraFinal].Value2 = item.CompraFinal;
+                    sheet.Cells[row, EColumnOrder.Obs].Value2 = item.Obs;
+                    row++;
+                }
+                else
+                {
+                    if (item.Empresa != null || item.Uf != null || item.Operadora != null || item.CUnid != null || item.CDepto != null || item.Depto != null)
+                    {
+                        Range rngRow = sheet.Range[sheet.Cells[row, 1], sheet.Cells[row, EColumnOrder.CompraFinal]];
+
+                        if (item.Empresa != null && item.Empresa == "Total Geral")
+                        {
+                            sheet.Cells[row, EColumnOrder.Empresa].Value2 = item.Empresa;
+                            ExcelFunctions.Styles_Emphasis(rngRow, ExcelFunctions.EStylesEmphasis.TotalGeral);
+                        }
+                        else if (item.Empresa != null && item.Empresa.EndsWith(" Total"))
+                        {
+                            sheet.Cells[row, EColumnOrder.Empresa].Value2 = item.Empresa;
+                            ExcelFunctions.Styles_Emphasis(rngRow, ExcelFunctions.EStylesEmphasis.Empresa);
+                        }
+                        else if (item.Uf != null && item.Uf.EndsWith(" Total"))
+                        {
+                            sheet.Cells[row, EColumnOrder.Uf].Value2 = item.Uf;
+                            ExcelFunctions.Styles_Emphasis(rngRow, ExcelFunctions.EStylesEmphasis.Uf);
+                        }
+                        else if (item.Operadora != null && item.Operadora.EndsWith(" Total"))
+                        {
+                            sheet.Cells[row, EColumnOrder.Operadora].Value2 = item.Operadora;
+                            ExcelFunctions.Styles_Emphasis(rngRow, ExcelFunctions.EStylesEmphasis.Operadora);
+                        }
+                        else if (item.CUnid != null && item.CUnid.EndsWith(" Total"))
+                        {
+                            sheet.Cells[row, EColumnOrder.CUnid].Value2 = item.CUnid;
+                            ExcelFunctions.Styles_Emphasis(rngRow, ExcelFunctions.EStylesEmphasis.CUnid);
+                        }
+                        else if (item.CDepto != null && item.CDepto.EndsWith(" Total"))
+                        {
+                            sheet.Cells[row, EColumnOrder.CDepto].Value2 = item.CDepto;
+                            ExcelFunctions.Styles_Emphasis(rngRow, ExcelFunctions.EStylesEmphasis.CDepto);
+                        }
+                        else if (item.Depto != null && item.Depto.EndsWith(" Total"))
+                        {
+                            sheet.Cells[row, EColumnOrder.Depto].Value2 = item.Depto;
+                            ExcelFunctions.Styles_Emphasis(rngRow, ExcelFunctions.EStylesEmphasis.Depto);
+                        }
+
+                        sheet.Cells[row, EColumnOrder.CompraFinal].Value2 = item.CompraFinal;
+                        row++; continue;
+                    }
+                }
+            }
+
+            if (containsProblem) { ExcelFunctions.TabColor(sheet, 5); }
+        }
+
+        private static void ColumnsHeader(Worksheet sheet)
+        {
+            sheet.Cells[1, EColumnOrder.Empresa].Value2 = ColumnsName.Empresa;
+            sheet.Cells[1, EColumnOrder.Uf].Value2 = ColumnsName.Uf;
+            sheet.Cells[1, EColumnOrder.Operadora].Value2 = ColumnsName.Operadora;
+            sheet.Cells[1, EColumnOrder.CUnid].Value2 = ColumnsName.CUnid;
+            sheet.Cells[1, EColumnOrder.CDepto].Value2 = ColumnsName.CDepto;
+            sheet.Cells[1, EColumnOrder.Depto].Value2 = ColumnsName.Depto;
+            sheet.Cells[1, EColumnOrder.Cnpj].Value2 = ColumnsName.Cnpj;
+            sheet.Cells[1, EColumnOrder.Id].Value2 = ColumnsName.Id;
+            sheet.Cells[1, EColumnOrder.Mat].Value2 = ColumnsName.Mat;
+            sheet.Cells[1, EColumnOrder.MatSite].Value2 = ColumnsName.MatSite;
+            sheet.Cells[1, EColumnOrder.Nome].Value2 = ColumnsName.Nome;
+            sheet.Cells[1, EColumnOrder.Cpf].Value2 = ColumnsName.Cpf;
+            sheet.Cells[1, EColumnOrder.Desc].Value2 = ColumnsName.Desc;
+            sheet.Cells[1, EColumnOrder.Qvt].Value2 = ColumnsName.Qvt;
+            sheet.Cells[1, EColumnOrder.Vvt].Value2 = ColumnsName.Vvt;
+            sheet.Cells[1, EColumnOrder.Tvt].Value2 = ColumnsName.Tvt;
+            sheet.Cells[1, EColumnOrder.Desconto].Value2 = ColumnsName.Desconto;
+            sheet.Cells[1, EColumnOrder.CompraFinal].Value2 = ColumnsName.CompraFinal;
+            sheet.Cells[1, EColumnOrder.Obs].Value2 = ColumnsName.Obs;
+            Range header = sheet.Range[sheet.Cells[1, 1], sheet.Cells[1, EColumnOrder.Obs]];
+            ExcelFunctions.FontBold(header, true);
         }
 
         private (List<ModelPurchase> data, bool success) GetData()
@@ -693,7 +925,7 @@ namespace GCScript_for_Excel.Classes
             if (lstZeroed.Count > 0)
             {
                 lst.AddRange(lstZeroed);
-                lst.Add(new ModelPurchase { Nome = @"==//==\\==" });
+                lst.Add(new ModelPurchase { Nome = "[[[]]]" });
             }
             #endregion
 
@@ -706,7 +938,7 @@ namespace GCScript_for_Excel.Classes
             if (lstProblems.Count > 0)
             {
                 lst.AddRange(lstProblems);
-                lst.Add(new ModelPurchase { Nome = @"==//==\\==" });
+                lst.Add(new ModelPurchase { Nome = "[[[]]]" });
             }
             #endregion
 

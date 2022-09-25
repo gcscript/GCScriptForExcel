@@ -56,7 +56,7 @@ namespace GCScript_for_Excel
         private void btn_T2_Click(object sender, RibbonControlEventArgs e)
         {
             var purchaseCreator = new PurchaseCreator();
-            purchaseCreator.Create();
+            purchaseCreator.Start();
         }
 
         private void btn_T3_Click(object sender, RibbonControlEventArgs e)
@@ -345,42 +345,42 @@ namespace GCScript_for_Excel
         {
             gcsApplication app = Globals.ThisAddIn.Application;
             ExcelFunctions.CreateBackup("StylesPrimary");
-            ExcelFunctions.Styles_Colors(app.Selection, 1);
+            ExcelFunctions.Styles_Colors_OLD(app.Selection, 1);
         }
 
         private void Styles_btn_Secondary_Click(object sender, RibbonControlEventArgs e)
         {
             gcsApplication app = Globals.ThisAddIn.Application;
             ExcelFunctions.CreateBackup("StylesSecondary");
-            ExcelFunctions.Styles_Colors(app.Selection, 2);
+            ExcelFunctions.Styles_Colors_OLD(app.Selection, 2);
         }
 
         private void Styles_btn_Success_Click(object sender, RibbonControlEventArgs e)
         {
             gcsApplication app = Globals.ThisAddIn.Application;
             ExcelFunctions.CreateBackup("StylesSuccess");
-            ExcelFunctions.Styles_Colors(app.Selection, 3);
+            ExcelFunctions.Styles_Colors_OLD(app.Selection, 3);
         }
 
         private void Styles_btn_Danger_Click(object sender, RibbonControlEventArgs e)
         {
             gcsApplication app = Globals.ThisAddIn.Application;
             ExcelFunctions.CreateBackup("StylesDanger");
-            ExcelFunctions.Styles_Colors(app.Selection, 4);
+            ExcelFunctions.Styles_Colors_OLD(app.Selection, 4);
         }
 
         private void Styles_btn_Warning_Click(object sender, RibbonControlEventArgs e)
         {
             gcsApplication app = Globals.ThisAddIn.Application;
             ExcelFunctions.CreateBackup("StylesWarning");
-            ExcelFunctions.Styles_Colors(app.Selection, 5);
+            ExcelFunctions.Styles_Colors_OLD(app.Selection, 5);
         }
 
         private void Styles_btn_Info_Click(object sender, RibbonControlEventArgs e)
         {
             gcsApplication app = Globals.ThisAddIn.Application;
             ExcelFunctions.CreateBackup("StylesInfo");
-            ExcelFunctions.Styles_Colors(app.Selection, 6);
+            ExcelFunctions.Styles_Colors_OLD(app.Selection, 6);
         }
 
         private void Styles_glr_Bootstrap_Primary_Click(object sender, RibbonControlEventArgs e)
@@ -450,42 +450,42 @@ namespace GCScript_for_Excel
         {
             gcsApplication app = Globals.ThisAddIn.Application;
             ExcelFunctions.CreateBackup("StylesEmphasis1");
-            ExcelFunctions.Styles_Emphasis(app.Selection, 1);
+            ExcelFunctions.Styles_Emphasis_OLD(app.Selection, 1);
         }
 
         private void Styles_glr_Emphasis2_Click(object sender, RibbonControlEventArgs e)
         {
             gcsApplication app = Globals.ThisAddIn.Application;
             ExcelFunctions.CreateBackup("StylesEmphasis2");
-            ExcelFunctions.Styles_Emphasis(app.Selection, 2);
+            ExcelFunctions.Styles_Emphasis_OLD(app.Selection, 2);
         }
 
         private void Styles_glr_Emphasis3_Click(object sender, RibbonControlEventArgs e)
         {
             gcsApplication app = Globals.ThisAddIn.Application;
             ExcelFunctions.CreateBackup("StylesEmphasis3");
-            ExcelFunctions.Styles_Emphasis(app.Selection, 3);
+            ExcelFunctions.Styles_Emphasis_OLD(app.Selection, 3);
         }
 
         private void Styles_glr_Emphasis4_Click(object sender, RibbonControlEventArgs e)
         {
             gcsApplication app = Globals.ThisAddIn.Application;
             ExcelFunctions.CreateBackup("StylesEmphasis4");
-            ExcelFunctions.Styles_Emphasis(app.Selection, 4);
+            ExcelFunctions.Styles_Emphasis_OLD(app.Selection, 4);
         }
 
         private void Styles_glr_Emphasis5_Click(object sender, RibbonControlEventArgs e)
         {
             gcsApplication app = Globals.ThisAddIn.Application;
             ExcelFunctions.CreateBackup("StylesEmphasis5");
-            ExcelFunctions.Styles_Emphasis(app.Selection, 5);
+            ExcelFunctions.Styles_Emphasis_OLD(app.Selection, 5);
         }
 
         private void Styles_btn_Default_Click(object sender, RibbonControlEventArgs e)
         {
             gcsApplication app = Globals.ThisAddIn.Application;
             ExcelFunctions.CreateBackup("StylesDefault");
-            ExcelFunctions.Styles_Colors(app.Selection, 0);
+            ExcelFunctions.Styles_Colors_OLD(app.Selection, 0);
         }
 
         private void glr_More_ItemsLoading(object sender, RibbonControlEventArgs e)

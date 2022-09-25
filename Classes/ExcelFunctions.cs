@@ -78,7 +78,79 @@ namespace GCScript_for_Excel.Classes
             }
         }
 
-        public static void Styles_Colors(Range rng, int color)
+        public enum EStylesColors
+        {
+            Default = 0,
+            Primary = 1,
+            Secondary = 2,
+            Success = 3,
+            Danger = 4,
+            Warning = 5,
+            Info = 6
+        }
+
+        public static void Styles_Colors(Range rng, EStylesColors color)
+        {
+            switch (color)
+            {
+                case EStylesColors.Default:
+                    rng.Interior.Pattern = Constants.xlNone;
+                    rng.Interior.TintAndShade = 0;
+                    rng.Interior.PatternTintAndShade = 0;
+
+                    rng.Font.Bold = false;
+                    rng.Font.Italic = false;
+                    rng.Font.Underline = false;
+                    rng.Font.ColorIndex = Constants.xlAutomatic;
+                    rng.Font.TintAndShade = 0;
+                    break;
+                case EStylesColors.Primary:
+                    BackgroundColor("#99BCFF");
+                    FontColor("#002365");
+                    break;
+                case EStylesColors.Secondary:
+                    BackgroundColor("#C8CCCF");
+                    FontColor("#2F3336");
+                    break;
+                case EStylesColors.Success:
+                    BackgroundColor("#B4E3B8");
+                    FontColor("#1B4A1F");
+                    break;
+                case EStylesColors.Danger:
+                    BackgroundColor("#EDAAB1");
+                    FontColor("#541118");
+                    break;
+                case EStylesColors.Warning:
+                    BackgroundColor("#FCE49B");
+                    FontColor("#634B02");
+                    break;
+                case EStylesColors.Info:
+                    BackgroundColor("#B0DEE7");
+                    FontColor("#17454E");
+                    break;
+                default:
+                    break;
+            }
+
+            void BackgroundColor(string htmlColor)
+            {
+                rng.Interior.PatternColorIndex = Constants.xlAutomatic;
+                rng.Interior.Color = ColorTranslator.FromHtml(htmlColor);
+                rng.Interior.TintAndShade = 0;
+                rng.Interior.PatternTintAndShade = 0;
+            }
+
+            void FontColor(string htmlColor)
+            {
+                rng.Font.Bold = false;
+                rng.Font.Italic = false;
+                rng.Font.Underline = false;
+                rng.Font.Color = ColorTranslator.FromHtml(htmlColor);
+                rng.Font.TintAndShade = 0;
+            }
+        }
+
+        public static void Styles_Colors_OLD(Range rng, int color)
         {
             // 0 = Default
             // 1 = Primary
@@ -219,7 +291,7 @@ namespace GCScript_for_Excel.Classes
             }
         }
 
-        public static void Styles_Emphasis(Range rng, int color)
+        public static void Styles_Emphasis_OLD(Range rng, int color)
         {
             switch (color)
             {
@@ -246,6 +318,71 @@ namespace GCScript_for_Excel.Classes
                 default:
                     break;
             }
+            void BackgroundColor(string htmlColor)
+            {
+                rng.Interior.PatternColorIndex = Constants.xlAutomatic;
+                rng.Interior.Color = ColorTranslator.FromHtml(htmlColor);
+                rng.Interior.TintAndShade = 0;
+                rng.Interior.PatternTintAndShade = 0;
+            }
+
+            void FontColor(string htmlColor)
+            {
+                rng.Font.Bold = true;
+                rng.Font.Italic = false;
+                rng.Font.Underline = false;
+                rng.Font.Color = ColorTranslator.FromHtml(htmlColor);
+                rng.Font.TintAndShade = 0;
+            }
+        }
+
+        public enum EStylesEmphasis
+        {
+            TotalGeral = 0,
+            Empresa = 1,
+            Uf = 2,
+            Operadora = 3,
+            CUnid = 4,
+            CDepto = 5,
+            Depto = 6
+        }
+
+        public static void Styles_Emphasis(Range rng, EStylesEmphasis color)
+        {
+            switch (color)
+            {
+                case EStylesEmphasis.TotalGeral:
+                    BackgroundColor("#000000");
+                    FontColor("#FFFFFF");
+                    break;
+                case EStylesEmphasis.Empresa:
+                    BackgroundColor("#191919");
+                    FontColor("#FFFFFF");
+                    break;
+                case EStylesEmphasis.Uf:
+                    BackgroundColor("#333333");
+                    FontColor("#FFFFFF");
+                    break;
+                case EStylesEmphasis.Operadora:
+                    BackgroundColor("#4C4C4C");
+                    FontColor("#FFFFFF");
+                    break;
+                case EStylesEmphasis.CUnid:
+                    BackgroundColor("#666666");
+                    FontColor("#FFFFFF");
+                    break;
+                case EStylesEmphasis.CDepto:
+                    BackgroundColor("#7F7F7F");
+                    FontColor("#FFFFFF");
+                    break;
+                case EStylesEmphasis.Depto:
+                    BackgroundColor("#999999");
+                    FontColor("#FFFFFF");
+                    break;
+                default:
+                    break;
+            }
+
             void BackgroundColor(string htmlColor)
             {
                 rng.Interior.PatternColorIndex = Constants.xlAutomatic;

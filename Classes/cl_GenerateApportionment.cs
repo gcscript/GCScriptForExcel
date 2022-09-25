@@ -308,23 +308,23 @@ namespace GCScript_for_Excel.Classes
                 if (valorColunaUF == "total geral")
                 {
                     Range rng_linha = ws.Range[ws.Cells[linha, ColumnUF_Number].Offset[offSetRow, 0], ws.Cells[linha, ColumnCompraFinal_Number].Offset[offSetRow, 0]];
-                    ExcelFunctions.Styles_Emphasis(rng_linha, 5);
+                    ExcelFunctions.Styles_Emphasis_OLD(rng_linha, 5);
                 }
                 else if (valorColunaUF.Contains(" total"))
                 {
                     Range rng_linha = ws.Range[ws.Cells[linha, ColumnUF_Number].Offset[offSetRow, 0], ws.Cells[linha, ColumnCompraFinal_Number].Offset[offSetRow, 0]];
-                    ExcelFunctions.Styles_Emphasis(rng_linha, 4);
+                    ExcelFunctions.Styles_Emphasis_OLD(rng_linha, 4);
 
                 }
                 else if (valorColunaOperadora.Contains(" total"))
                 {
                     Range rng_linha = ws.Range[ws.Cells[linha, ColumnUF_Number].Offset[offSetRow, 0], ws.Cells[linha, ColumnCompraFinal_Number].Offset[offSetRow, 0]];
-                    ExcelFunctions.Styles_Emphasis(rng_linha, 3);
+                    ExcelFunctions.Styles_Emphasis_OLD(rng_linha, 3);
                 }
                 else if (valorColunaEmpresa.Contains(" total"))
                 {
                     Range rng_linha = ws.Range[ws.Cells[linha, ColumnUF_Number].Offset[offSetRow, 0], ws.Cells[linha, ColumnCompraFinal_Number].Offset[offSetRow, 0]];
-                    ExcelFunctions.Styles_Emphasis(rng_linha, 2);
+                    ExcelFunctions.Styles_Emphasis_OLD(rng_linha, 2);
                 }
                 else if (valorColunaCUNID.EndsWith(" total"))
                 {
@@ -369,12 +369,12 @@ namespace GCScript_for_Excel.Classes
                 if (valorColunaUF == "total geral")
                 {
                     Range rng_linha = ws.Range[ws.Cells[linha, ColumnUF_Number].Offset[offSetRow, 0], ws.Cells[linha, ColumnCompraFinal_Number].Offset[offSetRow, 0]];
-                    ExcelFunctions.Styles_Emphasis(rng_linha, 5);
+                    ExcelFunctions.Styles_Emphasis_OLD(rng_linha, 5);
                 }
                 else if (valorColunaUF.Contains(" total"))
                 {
                     Range rng_linha = ws.Range[ws.Cells[linha, ColumnUF_Number].Offset[offSetRow, 0], ws.Cells[linha, ColumnCompraFinal_Number].Offset[offSetRow, 0]];
-                    ExcelFunctions.Styles_Emphasis(rng_linha, 4);
+                    ExcelFunctions.Styles_Emphasis_OLD(rng_linha, 4);
 
                 }
                 else if (valorColunaOperadora == "total geral")
@@ -387,7 +387,7 @@ namespace GCScript_for_Excel.Classes
                 else if (valorColunaOperadora.Contains(" total"))
                 {
                     Range rng_linha = ws.Range[ws.Cells[linha, ColumnUF_Number].Offset[offSetRow, 0], ws.Cells[linha, ColumnCompraFinal_Number].Offset[offSetRow, 0]];
-                    ExcelFunctions.Styles_Emphasis(rng_linha, 3);
+                    ExcelFunctions.Styles_Emphasis_OLD(rng_linha, 3);
                 }
                 else if (valorColunaEmpresa == "total geral")
                 {
@@ -399,7 +399,7 @@ namespace GCScript_for_Excel.Classes
                 else if (valorColunaEmpresa.Contains(" total"))
                 {
                     Range rng_linha = ws.Range[ws.Cells[linha, ColumnUF_Number].Offset[offSetRow, 0], ws.Cells[linha, ColumnCompraFinal_Number].Offset[offSetRow, 0]];
-                    ExcelFunctions.Styles_Emphasis(rng_linha, 2);
+                    ExcelFunctions.Styles_Emphasis_OLD(rng_linha, 2);
                 }
                 else if (valorColunaCUNID == "total geral")
                 {
