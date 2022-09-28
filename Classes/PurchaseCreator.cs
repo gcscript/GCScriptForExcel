@@ -1,11 +1,14 @@
-﻿using Microsoft.Office.Interop.Excel;
+﻿using Microsoft.Office.Core;
+using Microsoft.Office.Interop.Excel;
 //using Microsoft.Office.Tools.Excel;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using static GCScript_for_Excel.Classes.Enums;
 using gcsApplication = Microsoft.Office.Interop.Excel.Application;
 
 namespace GCScript_for_Excel.Classes
@@ -28,7 +31,6 @@ namespace GCScript_for_Excel.Classes
         public int Qvt { get; set; }
         public decimal Vvt { get; set; }
         public decimal Tvt { get; set; }
-        //public decimal Total { get; set; }
         public decimal Desconto { get; set; }
         public decimal CompraFinal { get; set; }
         public string Obs { get; set; }
@@ -37,16 +39,6 @@ namespace GCScript_for_Excel.Classes
     public class PurchaseCreator
     {
         readonly gcsApplication gcsApp = Globals.ThisAddIn.Application;
-
-        private enum ETypePurchase
-        {
-            Empresa = 0,
-            Uf = 1,
-            Operadora = 2,
-            CUnid = 3,
-            CDepto = 4,
-            Depto = 5
-        }
 
         private enum EColumnOrder
         {
@@ -69,7 +61,6 @@ namespace GCScript_for_Excel.Classes
             Desconto = 17,
             CompraFinal = 18,
             Obs = 19,
-            Count = 19
         }
 
         public void CreateBackup()
@@ -388,15 +379,32 @@ namespace GCScript_for_Excel.Classes
 
                 var getData = GetData(); if (!getData.success) { return; }
 
-                var separatePurchase = SeparatePurchase(getData.data, ETypePurchase.CUnid);
+                var separatePurchase = SeparatePurchase(getData.data, cl_Settings.PurchaseCreatorSubtotalOption);
 
-                string sheetName = "Compra";
+                string sheetName = cl_Settings.PurchaseCreatorTabName;
+
+                switch (cl_Settings.PurchaseCreatorTabOption)
+                {
+                    case EPurchaseCreatorTabOption.Empresa:
+                        break;
+                    case EPurchaseCreatorTabOption.Uf:
+                        break;
+                    case EPurchaseCreatorTabOption.Operadora:
+                        break;
+                    case EPurchaseCreatorTabOption.CUnid:
+                        break;
+                    case EPurchaseCreatorTabOption.CustomName:
+                        break;
+                }
 
                 if (ExcelFunctions.ChecksIfSheetExist(sheetName))
                 {
                     MessageBox.Show($"A aba {sheetName} já existe!", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
                     return;
                 }
+
+                Stopwatch stopwatch = Stopwatch.StartNew();
+
                 gcsApp.Worksheets.Add(After: gcsApp.Worksheets[gcsApp.Worksheets.Count]);
                 Worksheet sheet = gcsApp.ActiveSheet;
 
@@ -478,8 +486,8 @@ namespace GCScript_for_Excel.Classes
 
                 ExcelFunctions.SetBZPA(sheet, rngBZPA);
 
-
-                MessageBox.Show($"Terminou", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+                stopwatch.Stop();
+                MessageBox.Show($"Compra Criada com Sucesso!\nTempo: {stopwatch.Elapsed:hh\\:mm\\:ss\\.ff}", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
             }
             catch (Exception erro)
             {
@@ -609,6 +617,7 @@ namespace GCScript_for_Excel.Classes
             sheet.Cells[1, EColumnOrder.Obs].Value2 = ColumnsName.Obs;
             Range header = sheet.Range[sheet.Cells[1, 1], sheet.Cells[1, EColumnOrder.Obs]];
             ExcelFunctions.FontBold(header, true);
+            header.NumberFormat = "@";
         }
 
         private (List<ModelPurchase> data, bool success) GetData()
@@ -729,31 +738,31 @@ namespace GCScript_for_Excel.Classes
             return (data, true);
         }
 
-        private List<ModelPurchase> SeparatePurchase(List<ModelPurchase> model, ETypePurchase typeSeparation)
+        private List<ModelPurchase> SeparatePurchase(List<ModelPurchase> model, EPurchaseCreatorSubtotalOption typeSeparation)
         {
             var orderedCustomers = new List<ModelPurchase>();
 
             switch (typeSeparation)
             {
-                case ETypePurchase.Empresa:
+                case EPurchaseCreatorSubtotalOption.Empresa:
                     orderedCustomers = model.OrderBy(c => c.Empresa)
                                             .ThenBy(c => c.Nome)
                                             .ToList();
                     break;
-                case ETypePurchase.Uf:
+                case EPurchaseCreatorSubtotalOption.Uf:
                     orderedCustomers = model.OrderBy(c => c.Empresa)
                                             .ThenBy(c => c.Uf)
                                             .ThenBy(c => c.Nome)
                                             .ToList();
                     break;
-                case ETypePurchase.Operadora:
+                case EPurchaseCreatorSubtotalOption.Operadora:
                     orderedCustomers = model.OrderBy(c => c.Empresa)
                                             .ThenBy(c => c.Uf)
                                             .ThenBy(c => c.Operadora)
                                             .ThenBy(c => c.Nome)
                                             .ToList();
                     break;
-                case ETypePurchase.CUnid:
+                case EPurchaseCreatorSubtotalOption.CUnid:
                     orderedCustomers = model.OrderBy(c => c.Empresa)
                                             .ThenBy(c => c.Uf)
                                             .ThenBy(c => c.Operadora)
@@ -761,7 +770,7 @@ namespace GCScript_for_Excel.Classes
                                             .ThenBy(c => c.Nome)
                                             .ToList();
                     break;
-                case ETypePurchase.CDepto:
+                case EPurchaseCreatorSubtotalOption.CDepto:
                     orderedCustomers = model.OrderBy(c => c.Empresa)
                                             .ThenBy(c => c.Uf)
                                             .ThenBy(c => c.Operadora)
@@ -770,7 +779,7 @@ namespace GCScript_for_Excel.Classes
                                             .ThenBy(c => c.Nome)
                                             .ToList();
                     break;
-                case ETypePurchase.Depto:
+                case EPurchaseCreatorSubtotalOption.Depto:
                     orderedCustomers = model.OrderBy(c => c.Empresa)
                                             .ThenBy(c => c.Uf)
                                             .ThenBy(c => c.Operadora)
@@ -790,7 +799,7 @@ namespace GCScript_for_Excel.Classes
 
             foreach (var distinctEmpresa in distinctEmpresas)
             {
-                if (typeSeparation == ETypePurchase.Empresa)
+                if (typeSeparation == EPurchaseCreatorSubtotalOption.Empresa)
                 {
                     List<ModelPurchase> lstEmpresa = orderedCustomers.Where(x => (x.Empresa == distinctEmpresa.Empresa))
                                                                         .ToList();
@@ -806,7 +815,7 @@ namespace GCScript_for_Excel.Classes
 
                     foreach (var distinctUf in distinctUfs)
                     {
-                        if (typeSeparation == ETypePurchase.Uf)
+                        if (typeSeparation == EPurchaseCreatorSubtotalOption.Uf)
                         {
                             List<ModelPurchase> lstUf = orderedCustomers.Where(x => (x.Empresa == distinctEmpresa.Empresa) && (x.Uf == distinctUf.Uf))
                                                                         .ToList();
@@ -822,7 +831,7 @@ namespace GCScript_for_Excel.Classes
 
                             foreach (var distinctOperadora in distinctOperadoras)
                             {
-                                if (typeSeparation == ETypePurchase.Operadora)
+                                if (typeSeparation == EPurchaseCreatorSubtotalOption.Operadora)
                                 {
                                     List<ModelPurchase> lstOperadora = orderedCustomers.Where(x => (x.Empresa == distinctEmpresa.Empresa) && (x.Uf == distinctUf.Uf) && (x.Operadora == distinctOperadora.Operadora))
                                                                                        .ToList();
@@ -838,7 +847,7 @@ namespace GCScript_for_Excel.Classes
 
                                     foreach (var distinctCUnid in distinctCUnids)
                                     {
-                                        if (typeSeparation == ETypePurchase.CUnid)
+                                        if (typeSeparation == EPurchaseCreatorSubtotalOption.CUnid)
                                         {
                                             List<ModelPurchase> lstCUnid = orderedCustomers.Where(x => (x.Empresa == distinctEmpresa.Empresa) && (x.Uf == distinctUf.Uf) && (x.Operadora == distinctOperadora.Operadora) && (x.CUnid == distinctCUnid.CUnid))
                                                                                            .ToList();

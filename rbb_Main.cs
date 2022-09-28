@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using GCScript_for_Excel.Classes;
-
+using GCScript_for_Excel.Views;
 using Microsoft.Office.Interop.Excel;
 using Microsoft.Office.Tools.Ribbon;
 using gcsApplication = Microsoft.Office.Interop.Excel.Application;
@@ -47,16 +47,16 @@ namespace GCScript_for_Excel
 
         private void btn_T1_Click(object sender, RibbonControlEventArgs e)
         {
-            gcsApplication app = Globals.ThisAddIn.Application;
-            Worksheet ws = app.ActiveSheet;
+            frm_PurchaseCreator frm = new frm_PurchaseCreator();
+            frm.ShowDialog();
+            //gcsApplication app = Globals.ThisAddIn.Application;
+            //Worksheet ws = app.ActiveSheet;
 
-            ExcelFunctions.RemoveRows(ws);
+            //ExcelFunctions.RemoveRows(ws);
         }
 
         private void btn_T2_Click(object sender, RibbonControlEventArgs e)
         {
-            var purchaseCreator = new PurchaseCreator();
-            purchaseCreator.Start();
         }
 
         private void btn_T3_Click(object sender, RibbonControlEventArgs e)
@@ -65,53 +65,53 @@ namespace GCScript_for_Excel
 
         private void btn_T4_Click(object sender, RibbonControlEventArgs e)
         {
-            gcsApplication app = Globals.ThisAddIn.Application;
-            Worksheet ws = app.ActiveSheet;
+            //gcsApplication app = Globals.ThisAddIn.Application;
+            //Worksheet ws = app.ActiveSheet;
 
-            try
-            {
-                app.ScreenUpdating = false;
-                app.DisplayAlerts = false;
-                ExcelFunctions.SetColumnWidthByName(ws, ColumnsName.Nome, 50);
-            }
-            catch (Exception erro)
-            {
-                MessageBox.Show(erro.Message, "ERRO: 117089", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                app.ScreenUpdating = true;
-                app.DisplayAlerts = true;
-            }
+            //try
+            //{
+            //    app.ScreenUpdating = false;
+            //    app.DisplayAlerts = false;
+            //    ExcelFunctions.SetColumnWidthByName(ws, ColumnsName.Nome, 50);
+            //}
+            //catch (Exception erro)
+            //{
+            //    MessageBox.Show(erro.Message, "ERRO: 117089", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
+            //finally
+            //{
+            //    app.ScreenUpdating = true;
+            //    app.DisplayAlerts = true;
+            //}
         }
 
         private void btn_T5_Click(object sender, RibbonControlEventArgs e)
         {
-            gcsApplication app = Globals.ThisAddIn.Application;
+            //gcsApplication app = Globals.ThisAddIn.Application;
 
-            try
-            {
-                app.ScreenUpdating = false;
-                app.DisplayAlerts = false;
-                ExcelFunctions.RenameSheet("Compra", "Shopping");
-            }
-            catch (Exception erro)
-            {
-                MessageBox.Show(erro.Message, "ERRO: 626819", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                app.ScreenUpdating = true;
-                app.DisplayAlerts = true;
-            }
+            //try
+            //{
+            //    app.ScreenUpdating = false;
+            //    app.DisplayAlerts = false;
+            //    ExcelFunctions.RenameSheet("Compra", "Shopping");
+            //}
+            //catch (Exception erro)
+            //{
+            //    MessageBox.Show(erro.Message, "ERRO: 626819", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
+            //finally
+            //{
+            //    app.ScreenUpdating = true;
+            //    app.DisplayAlerts = true;
+            //}
         }
 
         private void btn_T6_Click(object sender, RibbonControlEventArgs e)
         {
-            gcsApplication app = Globals.ThisAddIn.Application;
-            Worksheet ws = app.ActiveSheet;
+            //gcsApplication app = Globals.ThisAddIn.Application;
+            //Worksheet ws = app.ActiveSheet;
 
-            MessageBox.Show(ws.Application.Worksheets.Count.ToString());
+            //MessageBox.Show(ws.Application.Worksheets.Count.ToString());
         }
 
         private void rbb_Main_Load(object sender, RibbonUIEventArgs e)

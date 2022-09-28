@@ -167,6 +167,7 @@
     <Compile Include="Classes\ExcelFunctions.cs" />
     <Compile Include="Classes\cl_GenerateApportionment.cs" />
     <Compile Include="Classes\PurchaseCreator.cs" />
+    <Compile Include="Classes\Enums.cs" />
     <Compile Include="Classes\Tools.cs" />
     <Compile Include="Classes\cl_GeneratePurchase.cs" />
     <Compile Include="Classes\ColumnsName.cs" />
@@ -186,6 +187,12 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Views\frm_PurchaseCreator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\frm_PurchaseCreator.Designer.cs">
+      <DependentUpon>frm_PurchaseCreator.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="frm_Settings.resx">
       <DependentUpon>frm_Settings.cs</DependentUpon>
     </EmbeddedResource>
@@ -199,6 +206,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="rbb_Main.resx">
       <DependentUpon>rbb_Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\frm_PurchaseCreator.resx">
+      <DependentUpon>frm_PurchaseCreator.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="GCScript_for_Excel_TemporaryKey.pfx" />
     <None Include="packages.config" />

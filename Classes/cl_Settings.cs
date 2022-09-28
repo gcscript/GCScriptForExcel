@@ -5,13 +5,18 @@ using System.Windows.Forms;
 using GCScript_for_Excel;
 using Microsoft.Office.Interop.Excel;
 using Microsoft.Office.Tools.Ribbon;
+using static GCScript_for_Excel.Classes.Enums;
 using Appl = Microsoft.Office.Interop.Excel.Application;
 
 namespace GCScript_for_Excel.Classes
 {
-    public static class cl_Settings
+    public static partial class cl_Settings
     {
         static Appl app = Globals.ThisAddIn.Application;
+
+        public static EPurchaseCreatorSubtotalOption PurchaseCreatorSubtotalOption = EPurchaseCreatorSubtotalOption.CUnid;
+        public static EPurchaseCreatorTabOption PurchaseCreatorTabOption = EPurchaseCreatorTabOption.CustomName;
+        public static string PurchaseCreatorTabName = "Compra";
 
         public static bool Text_Trim = true;
         public static bool Text_RemoverEspacoDuplicado = true;
