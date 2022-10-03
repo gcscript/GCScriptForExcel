@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using GCScript_for_Excel.Classes;
 
-namespace GCScript_for_Excel
+namespace GCScript_for_Excel.Views
 {
     public partial class frm_Settings : Form
     {
@@ -40,11 +40,11 @@ namespace GCScript_for_Excel
             }
 
             #region Converter
-            Converter_chk_Texto_Trim.Checked = cl_Settings.Text_Trim;
-            Converter_chk_Texto_RemoverEspacoDuplicado.Checked = cl_Settings.Text_RemoverEspacoDuplicado;
-            Converter_chk_Texto_Acentos.Checked = cl_Settings.Text_RemoverAcentos;
+            Converter_chk_Texto_Trim.Checked = Settings.Text_Trim;
+            Converter_chk_Texto_RemoverEspacoDuplicado.Checked = Settings.Text_RemoverEspacoDuplicado;
+            Converter_chk_Texto_Acentos.Checked = Settings.Text_RemoverAcentos;
 
-            switch (cl_Settings.Text_Option)
+            switch (Settings.Text_Option)
             {
                 case 0:
                     Converter_rdo_Texto_Maiusculo.Checked = true;
@@ -66,7 +66,7 @@ namespace GCScript_for_Excel
                     break;
             }
 
-            switch (cl_Settings.converter_Text_Opcao_Alinhamento)
+            switch (Settings.converter_Text_Opcao_Alinhamento)
             {
                 case 0:
                     Converter_rdo_Texto_Alinhamento_Esquerda.Checked = true;
@@ -79,14 +79,14 @@ namespace GCScript_for_Excel
                     break;
             }
 
-            Converter_txt_Texto_Substituir_Origem.Text = cl_Settings.converter_Text_Substituir_Origem;
-            Converter_txt_Texto_Substituir_Destino.Text = cl_Settings.converter_Text_Substituir_Destino;
+            Converter_txt_Texto_Substituir_Origem.Text = Settings.converter_Text_Substituir_Origem;
+            Converter_txt_Texto_Substituir_Destino.Text = Settings.converter_Text_Substituir_Destino;
 
-            Converter_nud_Texto_Alinhamento_Comprimento.Value = cl_Settings.converter_Text_Alinhamento_Comprimento;
-            Converter_txt_Texto_Alinhamento_Preenchimento.Text = cl_Settings.converter_Text_Alinhamento_Preenchimento;
+            Converter_nud_Texto_Alinhamento_Comprimento.Value = Settings.converter_Text_Alinhamento_Comprimento;
+            Converter_txt_Texto_Alinhamento_Preenchimento.Text = Settings.converter_Text_Alinhamento_Preenchimento;
 
-            Converter_chk_CPF_ZeroAEsquerda.Checked = cl_Settings.CPF_ZeroAEsquerda;
-            switch (cl_Settings.CPF_Opcao)
+            Converter_chk_CPF_ZeroAEsquerda.Checked = Settings.CPF_ZeroAEsquerda;
+            switch (Settings.CPF_Opcao)
             {
                 case 0:
                     Converter_rdo_CPF_Formato01.Checked = true;
@@ -96,8 +96,8 @@ namespace GCScript_for_Excel
                     break;
             }
 
-            Converter_chk_CNPJ_ZeroAEsquerda.Checked = cl_Settings.CNPJ_ZeroAEsquerda;
-            switch (cl_Settings.CNPJ_Opcao)
+            Converter_chk_CNPJ_ZeroAEsquerda.Checked = Settings.CNPJ_ZeroAEsquerda;
+            switch (Settings.CNPJ_Opcao)
             {
                 case 0:
                     Converter_rdo_CNPJ_Formato01.Checked = true;
@@ -109,14 +109,14 @@ namespace GCScript_for_Excel
             #endregion
 
             #region APPLY & REMOVE
-            ApplyRemove_chk_Apply_AllSheets.Checked = cl_Settings.ApplyRemove_Apply_AllSheets;
-            ApplyRemove_chk_Apply_FontName.Checked = cl_Settings.ApplyRemove_Apply_FontName;
-            ApplyRemove_cmb_Apply_FontName.SelectedItem = cl_Settings.ApplyRemove_Apply_FontNameText;
-            ApplyRemove_chk_Apply_FontSize.Checked = cl_Settings.ApplyRemove_Apply_FontSize;
-            ApplyRemove_cmb_Apply_FontSize.SelectedItem = cl_Settings.ApplyRemove_Apply_FontSizeText;
+            ApplyRemove_chk_Apply_AllSheets.Checked = Settings.ApplyRemove_Apply_AllSheets;
+            ApplyRemove_chk_Apply_FontName.Checked = Settings.ApplyRemove_Apply_FontName;
+            ApplyRemove_cmb_Apply_FontName.SelectedItem = Settings.ApplyRemove_Apply_FontNameText;
+            ApplyRemove_chk_Apply_FontSize.Checked = Settings.ApplyRemove_Apply_FontSize;
+            ApplyRemove_cmb_Apply_FontSize.SelectedItem = Settings.ApplyRemove_Apply_FontSizeText;
 
-            ApplyRemove_chk_Apply_Align_Vertical.Checked = cl_Settings.ApplyRemove_Apply_Align_Vertical;
-            switch (cl_Settings.ApplyRemove_Apply_Align_VerticalValue)
+            ApplyRemove_chk_Apply_Align_Vertical.Checked = Settings.ApplyRemove_Apply_Align_Vertical;
+            switch (Settings.ApplyRemove_Apply_Align_VerticalValue)
             {
                 case 0:
                     ApplyRemove_cmb_Apply_Align_Vertical.SelectedItem = "Top";
@@ -129,8 +129,8 @@ namespace GCScript_for_Excel
                     break;
             }
 
-            ApplyRemove_chk_Apply_Align_Horizontal.Checked = cl_Settings.ApplyRemove_Apply_Align_Horizontal;
-            switch (cl_Settings.ApplyRemove_Apply_Align_HorizontalValue)
+            ApplyRemove_chk_Apply_Align_Horizontal.Checked = Settings.ApplyRemove_Apply_Align_Horizontal;
+            switch (Settings.ApplyRemove_Apply_Align_HorizontalValue)
             {
                 case 0:
                     ApplyRemove_cmb_Apply_Align_Horizontal.SelectedItem = "Left";
@@ -143,70 +143,70 @@ namespace GCScript_for_Excel
                     break;
             }
 
-            ApplyRemove_chk_Apply_RowHeight.Checked = cl_Settings.ApplyRemove_Apply_RowHeight;
-            ApplyRemove_nud_Apply_RowHeight.Value = cl_Settings.ApplyRemove_Apply_RowHeightValue;
-            ApplyRemove_chk_Apply_ColumnWidth.Checked = cl_Settings.ApplyRemove_Apply_ColumnWidth;
-            ApplyRemove_nud_Apply_ColumnWidth.Value = cl_Settings.ApplyRemove_Apply_ColumnWidthValue;
-            ApplyRemove_chk_Apply_Zoom.Checked = cl_Settings.ApplyRemove_Apply_Zoom;
-            ApplyRemove_nud_Apply_Zoom.Value = cl_Settings.ApplyRemove_Apply_ZoomValue;
+            ApplyRemove_chk_Apply_RowHeight.Checked = Settings.ApplyRemove_Apply_RowHeight;
+            ApplyRemove_nud_Apply_RowHeight.Value = Settings.ApplyRemove_Apply_RowHeightValue;
+            ApplyRemove_chk_Apply_ColumnWidth.Checked = Settings.ApplyRemove_Apply_ColumnWidth;
+            ApplyRemove_nud_Apply_ColumnWidth.Value = Settings.ApplyRemove_Apply_ColumnWidthValue;
+            ApplyRemove_chk_Apply_Zoom.Checked = Settings.ApplyRemove_Apply_Zoom;
+            ApplyRemove_nud_Apply_Zoom.Value = Settings.ApplyRemove_Apply_ZoomValue;
 
-            ApplyRemove_chk_Remove_FontBold.Checked = cl_Settings.ApplyRemove_Remove_FontBold;
-            ApplyRemove_chk_Remove_FontItalic.Checked = cl_Settings.ApplyRemove_Remove_FontItalic;
-            ApplyRemove_chk_Remove_FontUnderline.Checked = cl_Settings.ApplyRemove_Remove_FontUnderline;
-            ApplyRemove_chk_Remove_Borders.Checked = cl_Settings.ApplyRemove_Remove_Borders;
-            ApplyRemove_chk_Remove_Fill.Checked = cl_Settings.ApplyRemove_Remove_Fill;
-            ApplyRemove_chk_Remove_FontColor.Checked = cl_Settings.ApplyRemove_Remove_FontColor;
-            ApplyRemove_chk_Remove_WrapText.Checked = cl_Settings.ApplyRemove_Remove_WrapText;
-            ApplyRemove_chk_Remove_MergeCells.Checked = cl_Settings.ApplyRemove_Remove_MergeCells;
-            ApplyRemove_chk_Remove_Formula.Checked = cl_Settings.ApplyRemove_Remove_Formula;
-            ApplyRemove_chk_Remove_ConditionalFormatting.Checked = cl_Settings.ApplyRemove_Remove_ConditionalFormatting;
-            ApplyRemove_chk_Remove_Filter.Checked = cl_Settings.ApplyRemove_Remove_Filter;
-            ApplyRemove_chk_Remove_Images.Checked = cl_Settings.ApplyRemove_Remove_Images;
+            ApplyRemove_chk_Remove_FontBold.Checked = Settings.ApplyRemove_Remove_FontBold;
+            ApplyRemove_chk_Remove_FontItalic.Checked = Settings.ApplyRemove_Remove_FontItalic;
+            ApplyRemove_chk_Remove_FontUnderline.Checked = Settings.ApplyRemove_Remove_FontUnderline;
+            ApplyRemove_chk_Remove_Borders.Checked = Settings.ApplyRemove_Remove_Borders;
+            ApplyRemove_chk_Remove_Fill.Checked = Settings.ApplyRemove_Remove_Fill;
+            ApplyRemove_chk_Remove_FontColor.Checked = Settings.ApplyRemove_Remove_FontColor;
+            ApplyRemove_chk_Remove_WrapText.Checked = Settings.ApplyRemove_Remove_WrapText;
+            ApplyRemove_chk_Remove_MergeCells.Checked = Settings.ApplyRemove_Remove_MergeCells;
+            ApplyRemove_chk_Remove_Formula.Checked = Settings.ApplyRemove_Remove_Formula;
+            ApplyRemove_chk_Remove_ConditionalFormatting.Checked = Settings.ApplyRemove_Remove_ConditionalFormatting;
+            ApplyRemove_chk_Remove_Filter.Checked = Settings.ApplyRemove_Remove_Filter;
+            ApplyRemove_chk_Remove_Images.Checked = Settings.ApplyRemove_Remove_Images;
 
-            ApplyRemove_chk_RemoveAllSheets_EmptySheets.Checked = cl_Settings.ApplyRemove_RemoveAllSheets_EmptySheets;
-            ApplyRemove_chk_RemoveAllSheets_HiddenSheets.Checked = cl_Settings.ApplyRemove_RemoveAllSheets_HiddenSheets;
+            ApplyRemove_chk_RemoveAllSheets_EmptySheets.Checked = Settings.ApplyRemove_RemoveAllSheets_EmptySheets;
+            ApplyRemove_chk_RemoveAllSheets_HiddenSheets.Checked = Settings.ApplyRemove_RemoveAllSheets_HiddenSheets;
             #endregion
         }
 
         private void Converter_chk_Texto_Trim_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.Text_Trim = Converter_chk_Texto_Trim.Checked;
+            Settings.Text_Trim = Converter_chk_Texto_Trim.Checked;
         }
 
         private void Converter_chk_Texto_RemoverEspacoDuplicado_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.Text_RemoverEspacoDuplicado = Converter_chk_Texto_RemoverEspacoDuplicado.Checked;
+            Settings.Text_RemoverEspacoDuplicado = Converter_chk_Texto_RemoverEspacoDuplicado.Checked;
         }
 
         private void Converter_chk_Texto_Acentos_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.Text_RemoverAcentos = Converter_chk_Texto_Acentos.Checked;
+            Settings.Text_RemoverAcentos = Converter_chk_Texto_Acentos.Checked;
         }
 
         //----------------[FUNCOES DE TEXTO]----------------
         private void Converter_rdo_Texto_Maiusculo_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.Text_Option = 0;
+            Settings.Text_Option = 0;
         }
 
         private void Converter_rdo_Texto_Minusculo_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.Text_Option = 1;
+            Settings.Text_Option = 1;
         }
 
         private void Converter_rdo_Texto_Titulo_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.Text_Option = 2;
+            Settings.Text_Option = 2;
         }
 
         private void Converter_rdo_Texto_Original_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.Text_Option = 3;
+            Settings.Text_Option = 3;
         }
 
         private void Converter_rdo_Texto_Substituir_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.Text_Option = 4;
+            Settings.Text_Option = 4;
 
             if (Converter_rdo_Texto_Substituir.Checked)
             {
@@ -220,7 +220,7 @@ namespace GCScript_for_Excel
 
         private void Converter_rdo_Texto_Alinhamento_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.Text_Option = 5;
+            Settings.Text_Option = 5;
 
             if (Converter_rdo_Texto_Alinhamento.Checked)
             {
@@ -235,84 +235,84 @@ namespace GCScript_for_Excel
         //---------------[SUBSTITUIR: OPCOES]---------------
         private void Converter_txt_Texto_Substituir_Origem_TextChanged(object sender, EventArgs e)
         {
-            cl_Settings.converter_Text_Substituir_Origem = Converter_txt_Texto_Substituir_Origem.Text;
+            Settings.converter_Text_Substituir_Origem = Converter_txt_Texto_Substituir_Origem.Text;
         }
 
         private void Converter_txt_Texto_Substituir_Destino_TextChanged(object sender, EventArgs e)
         {
-            cl_Settings.converter_Text_Substituir_Destino = Converter_txt_Texto_Substituir_Destino.Text;
+            Settings.converter_Text_Substituir_Destino = Converter_txt_Texto_Substituir_Destino.Text;
         }
 
         //--------------[ALINHAMENTO: OPCOES]---------------
         private void Converter_rdo_Texto_Alinhamento_Esquerda_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.converter_Text_Opcao_Alinhamento = 0;
+            Settings.converter_Text_Opcao_Alinhamento = 0;
         }
 
         private void Converter_rdo_Texto_Alinhamento_Centralizado_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.converter_Text_Opcao_Alinhamento = 1;
+            Settings.converter_Text_Opcao_Alinhamento = 1;
         }
 
         private void Converter_rdo_Texto_Alinhamento_Direita_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.converter_Text_Opcao_Alinhamento = 2;
+            Settings.converter_Text_Opcao_Alinhamento = 2;
         }
 
         private void Converter_nud_Texto_Alinhamento_Comprimento_ValueChanged(object sender, EventArgs e)
         {
-            cl_Settings.converter_Text_Alinhamento_Comprimento = (int)Converter_nud_Texto_Alinhamento_Comprimento.Value;
+            Settings.converter_Text_Alinhamento_Comprimento = (int)Converter_nud_Texto_Alinhamento_Comprimento.Value;
         }
 
         private void Converter_txt_Texto_Alinhamento_Preenchimento_TextChanged(object sender, EventArgs e)
         {
-            cl_Settings.converter_Text_Alinhamento_Preenchimento = Converter_txt_Texto_Alinhamento_Preenchimento.Text;
+            Settings.converter_Text_Alinhamento_Preenchimento = Converter_txt_Texto_Alinhamento_Preenchimento.Text;
         }
 
         //-----------------[OPCOES DE CPF]------------------
         private void Converter_chk_CPF_ZeroAEsquerda_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.CPF_ZeroAEsquerda = Converter_chk_CPF_ZeroAEsquerda.Checked;
+            Settings.CPF_ZeroAEsquerda = Converter_chk_CPF_ZeroAEsquerda.Checked;
         }
 
         //-----------------[FORMATO DE CPF]-----------------
 
         private void Converter_rdo_CPF_Formato01_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.CPF_Opcao = 0;
+            Settings.CPF_Opcao = 0;
         }
 
         private void Converter_rdo_CPF_Formato02_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.CPF_Opcao = 1;
+            Settings.CPF_Opcao = 1;
         }
 
         //-----------------[OPCOES DE CNPJ]-----------------
         private void Converter_chk_CNPJ_ZeroAEsquerda_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.CNPJ_ZeroAEsquerda = Converter_chk_CNPJ_ZeroAEsquerda.Checked;
+            Settings.CNPJ_ZeroAEsquerda = Converter_chk_CNPJ_ZeroAEsquerda.Checked;
         }
 
         //----------------[FORMATO DE CNPJ]-----------------
         private void Converter_rdo_CNPJ_Formato01_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.CNPJ_Opcao = 0;
+            Settings.CNPJ_Opcao = 0;
         }
 
         private void Converter_rdo_CNPJ_Formato02_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.CNPJ_Opcao = 1;
+            Settings.CNPJ_Opcao = 1;
         }
 
         //-----------------[APPLY & REMOVE]-----------------
         private void ApplyRemove_chk_Apply_AllSheets_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.ApplyRemove_Apply_AllSheets = ApplyRemove_chk_Apply_AllSheets.Checked;
+            Settings.ApplyRemove_Apply_AllSheets = ApplyRemove_chk_Apply_AllSheets.Checked;
         }
 
         private void ApplyRemove_chk_Apply_FontName_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.ApplyRemove_Apply_FontName = ApplyRemove_chk_Apply_FontName.Checked;
+            Settings.ApplyRemove_Apply_FontName = ApplyRemove_chk_Apply_FontName.Checked;
 
             if (ApplyRemove_chk_Apply_FontName.Checked == false)
             {
@@ -327,12 +327,12 @@ namespace GCScript_for_Excel
 
         private void ApplyRemove_cmb_Apply_FontName_SelectedIndexChanged(object sender, EventArgs e)
         {
-            cl_Settings.ApplyRemove_Apply_FontNameText = ApplyRemove_cmb_Apply_FontName.Text;
+            Settings.ApplyRemove_Apply_FontNameText = ApplyRemove_cmb_Apply_FontName.Text;
         }
 
         private void ApplyRemove_chk_Apply_FontSize_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.ApplyRemove_Apply_FontSize = ApplyRemove_chk_Apply_FontSize.Checked;
+            Settings.ApplyRemove_Apply_FontSize = ApplyRemove_chk_Apply_FontSize.Checked;
 
             if (ApplyRemove_chk_Apply_FontSize.Checked == false)
             {
@@ -346,71 +346,71 @@ namespace GCScript_for_Excel
 
         private void ApplyRemove_cmb_Apply_FontSize_SelectedIndexChanged(object sender, EventArgs e)
         {
-            cl_Settings.ApplyRemove_Apply_FontSizeText = ApplyRemove_cmb_Apply_FontSize.Text;
+            Settings.ApplyRemove_Apply_FontSizeText = ApplyRemove_cmb_Apply_FontSize.Text;
         }
 
         private void ApplyRemove_chk_Remove_FontBold_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.ApplyRemove_Remove_FontBold = ApplyRemove_chk_Remove_FontBold.Checked;
+            Settings.ApplyRemove_Remove_FontBold = ApplyRemove_chk_Remove_FontBold.Checked;
         }
 
         private void ApplyRemove_chk_Remove_FontItalic_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.ApplyRemove_Remove_FontItalic = ApplyRemove_chk_Remove_FontItalic.Checked;
+            Settings.ApplyRemove_Remove_FontItalic = ApplyRemove_chk_Remove_FontItalic.Checked;
         }
 
         private void ApplyRemove_chk_Remove_FontUnderline_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.ApplyRemove_Remove_FontUnderline = ApplyRemove_chk_Remove_FontUnderline.Checked;
+            Settings.ApplyRemove_Remove_FontUnderline = ApplyRemove_chk_Remove_FontUnderline.Checked;
         }
 
         private void ApplyRemove_chk_Remove_Borders_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.ApplyRemove_Remove_Borders = ApplyRemove_chk_Remove_Borders.Checked;
+            Settings.ApplyRemove_Remove_Borders = ApplyRemove_chk_Remove_Borders.Checked;
         }
 
         private void ApplyRemove_chk_Remove_Fill_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.ApplyRemove_Remove_Fill = ApplyRemove_chk_Remove_Fill.Checked;
+            Settings.ApplyRemove_Remove_Fill = ApplyRemove_chk_Remove_Fill.Checked;
         }
 
         private void ApplyRemove_chk_Remove_FontColor_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.ApplyRemove_Remove_FontColor = ApplyRemove_chk_Remove_FontColor.Checked;
+            Settings.ApplyRemove_Remove_FontColor = ApplyRemove_chk_Remove_FontColor.Checked;
         }
 
         private void ApplyRemove_chk_Remove_WrapText_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.ApplyRemove_Remove_WrapText = ApplyRemove_chk_Remove_WrapText.Checked;
+            Settings.ApplyRemove_Remove_WrapText = ApplyRemove_chk_Remove_WrapText.Checked;
         }
 
         private void ApplyRemove_chk_Remove_MergeCells_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.ApplyRemove_Remove_MergeCells = ApplyRemove_chk_Remove_MergeCells.Checked;
+            Settings.ApplyRemove_Remove_MergeCells = ApplyRemove_chk_Remove_MergeCells.Checked;
         }
 
         private void ApplyRemove_chk_Remove_Formula_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.ApplyRemove_Remove_Formula = ApplyRemove_chk_Remove_Formula.Checked;
+            Settings.ApplyRemove_Remove_Formula = ApplyRemove_chk_Remove_Formula.Checked;
         }
 
         private void ApplyRemove_chk_Remove_ConditionalFormatting_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.ApplyRemove_Remove_ConditionalFormatting = ApplyRemove_chk_Remove_ConditionalFormatting.Checked; 
+            Settings.ApplyRemove_Remove_ConditionalFormatting = ApplyRemove_chk_Remove_ConditionalFormatting.Checked; 
         }
 
         private void ApplyRemove_chk_Remove_Filter_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.ApplyRemove_Remove_Filter = ApplyRemove_chk_Remove_Filter.Checked; 
+            Settings.ApplyRemove_Remove_Filter = ApplyRemove_chk_Remove_Filter.Checked; 
         }
         private void ApplyRemove_chk_Remove_Images_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.ApplyRemove_Remove_Images = ApplyRemove_chk_Remove_Images.Checked;
+            Settings.ApplyRemove_Remove_Images = ApplyRemove_chk_Remove_Images.Checked;
         }
 
         private void ApplyRemove_chk_Apply_RowHeight_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.ApplyRemove_Apply_RowHeight = ApplyRemove_chk_Apply_RowHeight.Checked;
+            Settings.ApplyRemove_Apply_RowHeight = ApplyRemove_chk_Apply_RowHeight.Checked;
 
             if (ApplyRemove_chk_Apply_RowHeight.Checked == false)
             {
@@ -424,12 +424,12 @@ namespace GCScript_for_Excel
 
         private void ApplyRemove_nud_Apply_RowHeight_ValueChanged(object sender, EventArgs e)
         {
-            cl_Settings.ApplyRemove_Apply_RowHeightValue = ApplyRemove_nud_Apply_RowHeight.Value;
+            Settings.ApplyRemove_Apply_RowHeightValue = ApplyRemove_nud_Apply_RowHeight.Value;
         }
 
         private void ApplyRemove_chk_Apply_ColumnWidth_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.ApplyRemove_Apply_ColumnWidth = ApplyRemove_chk_Apply_ColumnWidth.Checked;
+            Settings.ApplyRemove_Apply_ColumnWidth = ApplyRemove_chk_Apply_ColumnWidth.Checked;
 
             if (ApplyRemove_chk_Apply_ColumnWidth.Checked == false)
             {
@@ -443,12 +443,12 @@ namespace GCScript_for_Excel
 
         private void ApplyRemove_nud_Apply_ColumnWidth_ValueChanged(object sender, EventArgs e)
         {
-            cl_Settings.ApplyRemove_Apply_ColumnWidthValue = ApplyRemove_nud_Apply_ColumnWidth.Value;
+            Settings.ApplyRemove_Apply_ColumnWidthValue = ApplyRemove_nud_Apply_ColumnWidth.Value;
         }
 
         private void ApplyRemove_chk_Apply_Align_Vertical_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.ApplyRemove_Apply_Align_Vertical = ApplyRemove_chk_Apply_Align_Vertical.Checked;
+            Settings.ApplyRemove_Apply_Align_Vertical = ApplyRemove_chk_Apply_Align_Vertical.Checked;
 
             if (ApplyRemove_chk_Apply_Align_Vertical.Checked == false)
             {
@@ -462,12 +462,12 @@ namespace GCScript_for_Excel
 
         private void ApplyRemove_cmb_Apply_Align_Vertical_SelectedIndexChanged(object sender, EventArgs e)
         {
-            cl_Settings.ApplyRemove_Apply_Align_VerticalValue = ApplyRemove_cmb_Apply_Align_Vertical.SelectedIndex;
+            Settings.ApplyRemove_Apply_Align_VerticalValue = ApplyRemove_cmb_Apply_Align_Vertical.SelectedIndex;
         }
 
         private void ApplyRemove_chk_Apply_Align_Horizontal_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.ApplyRemove_Apply_Align_Horizontal = ApplyRemove_chk_Apply_Align_Horizontal.Checked;
+            Settings.ApplyRemove_Apply_Align_Horizontal = ApplyRemove_chk_Apply_Align_Horizontal.Checked;
 
             if (ApplyRemove_chk_Apply_Align_Horizontal.Checked == false)
             {
@@ -481,12 +481,12 @@ namespace GCScript_for_Excel
 
         private void ApplyRemove_cmb_Apply_Align_Horizontal_SelectedIndexChanged(object sender, EventArgs e)
         {
-            cl_Settings.ApplyRemove_Apply_Align_HorizontalValue = ApplyRemove_cmb_Apply_Align_Horizontal.SelectedIndex;
+            Settings.ApplyRemove_Apply_Align_HorizontalValue = ApplyRemove_cmb_Apply_Align_Horizontal.SelectedIndex;
         }
 
         private void ApplyRemove_chk_Apply_Zoom_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.ApplyRemove_Apply_Zoom = ApplyRemove_chk_Apply_Zoom.Checked;
+            Settings.ApplyRemove_Apply_Zoom = ApplyRemove_chk_Apply_Zoom.Checked;
 
             if (ApplyRemove_chk_Apply_Zoom.Checked == false)
             {
@@ -500,17 +500,17 @@ namespace GCScript_for_Excel
 
         private void ApplyRemove_nud_Apply_Zoom_ValueChanged(object sender, EventArgs e)
         {
-            cl_Settings.ApplyRemove_Apply_ZoomValue = ApplyRemove_nud_Apply_Zoom.Value;
+            Settings.ApplyRemove_Apply_ZoomValue = ApplyRemove_nud_Apply_Zoom.Value;
         }
 
         private void ApplyRemove_chk_RemoveAllSheets_EmptySheets_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.ApplyRemove_RemoveAllSheets_EmptySheets = ApplyRemove_chk_RemoveAllSheets_EmptySheets.Checked;
+            Settings.ApplyRemove_RemoveAllSheets_EmptySheets = ApplyRemove_chk_RemoveAllSheets_EmptySheets.Checked;
         }
 
         private void ApplyRemove_chk_RemoveAllSheets_HiddenSheets_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.ApplyRemove_RemoveAllSheets_HiddenSheets = ApplyRemove_chk_RemoveAllSheets_HiddenSheets.Checked;
+            Settings.ApplyRemove_RemoveAllSheets_HiddenSheets = ApplyRemove_chk_RemoveAllSheets_HiddenSheets.Checked;
         }
     }
 }

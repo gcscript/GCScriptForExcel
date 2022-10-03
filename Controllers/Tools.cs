@@ -88,9 +88,9 @@ namespace GCScript_for_Excel.Classes
                 else
                 {
                     string text = item.Value.ToString();
-                    bool addZero = cl_Settings.CPF_ZeroAEsquerda;
+                    bool addZero = Settings.CPF_ZeroAEsquerda;
 
-                    if (cl_Settings.CPF_Opcao == 0) // 00000000000
+                    if (Settings.CPF_Opcao == 0) // 00000000000
                     {
                         text = TreatCpf(text, true, addZero);
 

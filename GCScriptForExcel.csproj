@@ -159,30 +159,28 @@
     can be found.
   -->
   <ItemGroup>
-    <Compile Include="Classes\AdjustDescontoAndCompraFinal.cs" />
-    <Compile Include="Classes\cl_ExcelFunctions_new.cs" />
+    <Compile Include="Controllers\AdjustDescontoAndCompraFinal.cs" />
     <Compile Include="Models\ColumnsRangeOnPurchase.cs" />
-    <Compile Include="Classes\GenerateFileToSend.cs" />
-    <Compile Include="Classes\cl_GeneratePurchase_new.cs" />
-    <Compile Include="Classes\cl_Settings.cs" />
-    <Compile Include="Classes\ExcelFunctions.cs" />
-    <Compile Include="Classes\cl_GenerateApportionment.cs" />
-    <Compile Include="Classes\PurchaseCreator.cs" />
+    <Compile Include="Controllers\GenerateFileToSend.cs" />
+    <Compile Include="Controllers\Settings.cs" />
+    <Compile Include="Controllers\ExcelFunctions.cs" />
+    <Compile Include="Controllers\GenerateApportionment.cs" />
+    <Compile Include="Controllers\PurchaseCreator.cs" />
     <Compile Include="Models\Enums.cs" />
-    <Compile Include="Classes\Tools.cs" />
-    <Compile Include="Classes\cl_GeneratePurchase.cs" />
-    <Compile Include="Classes\ColumnsName.cs" />
-    <Compile Include="Classes\TransferData.cs" />
-    <Compile Include="frm_Settings.cs">
+    <Compile Include="Controllers\Tools.cs" />
+    <Compile Include="Controllers\GeneratePurchase.cs" />
+    <Compile Include="Controllers\ColumnsName.cs" />
+    <Compile Include="Controllers\TransferData.cs" />
+    <Compile Include="Views\frm_Settings.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frm_Settings.Designer.cs">
+    <Compile Include="Views\frm_Settings.Designer.cs">
       <DependentUpon>frm_Settings.cs</DependentUpon>
     </Compile>
-    <Compile Include="frm_SetTitle.cs">
+    <Compile Include="Views\frm_SetTitle.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frm_SetTitle.Designer.cs">
+    <Compile Include="Views\frm_SetTitle.Designer.cs">
       <DependentUpon>frm_SetTitle.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -194,10 +192,10 @@
     <Compile Include="Views\frm_PurchaseCreator.Designer.cs">
       <DependentUpon>frm_PurchaseCreator.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="frm_Settings.resx">
+    <EmbeddedResource Include="Views\frm_Settings.resx">
       <DependentUpon>frm_Settings.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frm_SetTitle.resx">
+    <EmbeddedResource Include="Views\frm_SetTitle.resx">
       <DependentUpon>frm_SetTitle.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

@@ -83,7 +83,7 @@ namespace GCScript_for_Excel.Classes
                 var getData = GetData(); if (!getData.success) { return; }
                 var tabNameList = new List<string>();
 
-                switch (cl_Settings.PurchaseCreatorTabOption)
+                switch (Settings.PurchaseCreatorTabOption)
                 {
                     case EPurchaseCreatorTabOption.Empresa:
                         tabNameList = getData.data.Select(x => x.Empresa).Distinct().OrderBy(o => o).ToList();
@@ -98,7 +98,7 @@ namespace GCScript_for_Excel.Classes
                         tabNameList = getData.data.Select(x => x.CUnid).Distinct().OrderBy(o => o).ToList();
                         break;
                     case EPurchaseCreatorTabOption.CustomName:
-                        tabNameList.Add(cl_Settings.PurchaseCreatorTabName);
+                        tabNameList.Add(Settings.PurchaseCreatorTabName);
                         break;
                 }
 
@@ -106,22 +106,22 @@ namespace GCScript_for_Excel.Classes
 
                 foreach (var item in tabNameList)
                 {
-                    switch (cl_Settings.PurchaseCreatorTabOption)
+                    switch (Settings.PurchaseCreatorTabOption)
                     {
                         case EPurchaseCreatorTabOption.Empresa:
-                            separatePurchase = SeparatePurchase(getData.data.Where(x => x.Empresa == item).ToList(), cl_Settings.PurchaseCreatorSubtotalOption);
+                            separatePurchase = SeparatePurchase(getData.data.Where(x => x.Empresa == item).ToList(), Settings.PurchaseCreatorSubtotalOption);
                             break;
                         case EPurchaseCreatorTabOption.Uf:
-                            separatePurchase = SeparatePurchase(getData.data.Where(x => x.Uf == item).ToList(), cl_Settings.PurchaseCreatorSubtotalOption);
+                            separatePurchase = SeparatePurchase(getData.data.Where(x => x.Uf == item).ToList(), Settings.PurchaseCreatorSubtotalOption);
                             break;
                         case EPurchaseCreatorTabOption.Operadora:
-                            separatePurchase = SeparatePurchase(getData.data.Where(x => x.Operadora == item).ToList(), cl_Settings.PurchaseCreatorSubtotalOption);
+                            separatePurchase = SeparatePurchase(getData.data.Where(x => x.Operadora == item).ToList(), Settings.PurchaseCreatorSubtotalOption);
                             break;
                         case EPurchaseCreatorTabOption.CUnid:
-                            separatePurchase = SeparatePurchase(getData.data.Where(x => x.CUnid == item).ToList(), cl_Settings.PurchaseCreatorSubtotalOption);
+                            separatePurchase = SeparatePurchase(getData.data.Where(x => x.CUnid == item).ToList(), Settings.PurchaseCreatorSubtotalOption);
                             break;
                         default:
-                            separatePurchase = SeparatePurchase(getData.data, cl_Settings.PurchaseCreatorSubtotalOption);
+                            separatePurchase = SeparatePurchase(getData.data, Settings.PurchaseCreatorSubtotalOption);
                             break;
                     }
 
@@ -177,13 +177,13 @@ namespace GCScript_for_Excel.Classes
             if (data.All(x => x.Id == null))
                 emptyColumnsList.Add(rangeAddress.Id);
 
-            if (cl_Settings.PurchaseCreatorSplitPurchaseOption == EPurchaseCreatorSplitPurchaseOption.One)
+            if (Settings.PurchaseCreatorSplitPurchaseOption == EPurchaseCreatorSplitPurchaseOption.One)
             {
                 emptyColumnsList.Add(rangeAddress.Parcela1);
                 emptyColumnsList.Add(rangeAddress.Parcela2);
                 emptyColumnsList.Add(rangeAddress.Parcela3);
             }
-            else if (cl_Settings.PurchaseCreatorSplitPurchaseOption == EPurchaseCreatorSplitPurchaseOption.Two)
+            else if (Settings.PurchaseCreatorSplitPurchaseOption == EPurchaseCreatorSplitPurchaseOption.Two)
             {
                 emptyColumnsList.Add(rangeAddress.Parcela3);
             }
@@ -572,7 +572,7 @@ namespace GCScript_for_Excel.Classes
                 decimal Parcela2 = 0;
                 decimal Parcela3 = 0;
 
-                if (cl_Settings.PurchaseCreatorSplitPurchaseOption == EPurchaseCreatorSplitPurchaseOption.Two)
+                if (Settings.PurchaseCreatorSplitPurchaseOption == EPurchaseCreatorSplitPurchaseOption.Two)
                 {
                     if (CompraFinal / 2 < 10)
                     {
@@ -592,7 +592,7 @@ namespace GCScript_for_Excel.Classes
                         return (data, false);
                     }
                 }
-                else if (cl_Settings.PurchaseCreatorSplitPurchaseOption == EPurchaseCreatorSplitPurchaseOption.Three)
+                else if (Settings.PurchaseCreatorSplitPurchaseOption == EPurchaseCreatorSplitPurchaseOption.Three)
                 {
                     if (CompraFinal / 3 < 10)
                     {

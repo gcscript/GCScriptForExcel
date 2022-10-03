@@ -460,12 +460,12 @@ namespace GCScript_for_Excel.Classes
 
         public static void RemoveCF(Worksheet ws)
         {
-            if (cl_Settings.More_SelectionType == 1)
+            if (Settings.More_SelectionType == 1)
             {
                 RemoveConditionalFormatting(ws.Cells);
                 app.Goto(ws.Range["A1"], true);
             }
-            else if (cl_Settings.More_SelectionType == 2)
+            else if (Settings.More_SelectionType == 2)
             {
                 foreach (Worksheet sheet in app.ActiveWorkbook.Worksheets)
                 {
@@ -493,33 +493,33 @@ namespace GCScript_for_Excel.Classes
             var lstEmptySheets = new List<Worksheet>();
             var lstHiddenSheets = new List<Worksheet>();
 
-            if (cl_Settings.ApplyRemove_Apply_AllSheets == false)
+            if (Settings.ApplyRemove_Apply_AllSheets == false)
             {
-                if (cl_Settings.ApplyRemove_Remove_Images == true) { RemoveImages(ws); }
-                if (cl_Settings.ApplyRemove_Remove_Filter == true) { RemoveFilter(ws); }
-                if (cl_Settings.ApplyRemove_Remove_Formula == true) { RemoveFormula(rng); }
+                if (Settings.ApplyRemove_Remove_Images == true) { RemoveImages(ws); }
+                if (Settings.ApplyRemove_Remove_Filter == true) { RemoveFilter(ws); }
+                if (Settings.ApplyRemove_Remove_Formula == true) { RemoveFormula(rng); }
 
-                if (cl_Settings.ApplyRemove_Apply_Zoom == true) { PageZoom(ws, cl_Settings.ApplyRemove_Apply_ZoomValue); }
+                if (Settings.ApplyRemove_Apply_Zoom == true) { PageZoom(ws, Settings.ApplyRemove_Apply_ZoomValue); }
 
-                if (cl_Settings.ApplyRemove_Remove_ConditionalFormatting == true) { RemoveConditionalFormatting(rng); }
+                if (Settings.ApplyRemove_Remove_ConditionalFormatting == true) { RemoveConditionalFormatting(rng); }
 
-                if (cl_Settings.ApplyRemove_Apply_FontName == true) { FontName(rng, cl_Settings.ApplyRemove_Apply_FontNameText); }
-                if (cl_Settings.ApplyRemove_Apply_FontSize == true) { FontSize(rng, int.Parse(cl_Settings.ApplyRemove_Apply_FontSizeText)); }
+                if (Settings.ApplyRemove_Apply_FontName == true) { FontName(rng, Settings.ApplyRemove_Apply_FontNameText); }
+                if (Settings.ApplyRemove_Apply_FontSize == true) { FontSize(rng, int.Parse(Settings.ApplyRemove_Apply_FontSizeText)); }
 
-                if (cl_Settings.ApplyRemove_Remove_FontBold == true) { FontBold(rng, false); }
-                if (cl_Settings.ApplyRemove_Remove_FontItalic == true) { FontItalic(rng, false); }
-                if (cl_Settings.ApplyRemove_Remove_FontUnderline == true) { FontUnderline(rng, false); }
-                if (cl_Settings.ApplyRemove_Remove_Borders == true) { RemoveBorders(rng); }
-                if (cl_Settings.ApplyRemove_Remove_Fill == true) { RemoveFill(rng); }
-                if (cl_Settings.ApplyRemove_Remove_FontColor == true) { RemoveFontColor(rng); }
-                if (cl_Settings.ApplyRemove_Remove_WrapText == true) { WrapText(rng, false); }
-                if (cl_Settings.ApplyRemove_Remove_MergeCells == true) { MergeCells(rng, false); }
+                if (Settings.ApplyRemove_Remove_FontBold == true) { FontBold(rng, false); }
+                if (Settings.ApplyRemove_Remove_FontItalic == true) { FontItalic(rng, false); }
+                if (Settings.ApplyRemove_Remove_FontUnderline == true) { FontUnderline(rng, false); }
+                if (Settings.ApplyRemove_Remove_Borders == true) { RemoveBorders(rng); }
+                if (Settings.ApplyRemove_Remove_Fill == true) { RemoveFill(rng); }
+                if (Settings.ApplyRemove_Remove_FontColor == true) { RemoveFontColor(rng); }
+                if (Settings.ApplyRemove_Remove_WrapText == true) { WrapText(rng, false); }
+                if (Settings.ApplyRemove_Remove_MergeCells == true) { MergeCells(rng, false); }
 
-                if (cl_Settings.ApplyRemove_Apply_Align_Vertical == true) { VerticalAlignment(rng, cl_Settings.ApplyRemove_Apply_Align_VerticalValue); }
-                if (cl_Settings.ApplyRemove_Apply_Align_Horizontal == true) { HorizontalAlignment(rng, cl_Settings.ApplyRemove_Apply_Align_HorizontalValue); }
+                if (Settings.ApplyRemove_Apply_Align_Vertical == true) { VerticalAlignment(rng, Settings.ApplyRemove_Apply_Align_VerticalValue); }
+                if (Settings.ApplyRemove_Apply_Align_Horizontal == true) { HorizontalAlignment(rng, Settings.ApplyRemove_Apply_Align_HorizontalValue); }
 
-                if (cl_Settings.ApplyRemove_Apply_RowHeight == true) { RowHeight(rng, cl_Settings.ApplyRemove_Apply_RowHeightValue); }
-                if (cl_Settings.ApplyRemove_Apply_ColumnWidth == true) { ColumnWidth(rng, cl_Settings.ApplyRemove_Apply_ColumnWidthValue); }
+                if (Settings.ApplyRemove_Apply_RowHeight == true) { RowHeight(rng, Settings.ApplyRemove_Apply_RowHeightValue); }
+                if (Settings.ApplyRemove_Apply_ColumnWidth == true) { ColumnWidth(rng, Settings.ApplyRemove_Apply_ColumnWidthValue); }
 
                 app.Goto(ws.Range["A1"], true);
             }
@@ -533,32 +533,32 @@ namespace GCScript_for_Excel.Classes
                     sheet.Select();
                     rng = sheet.Cells;
 
-                    if (cl_Settings.ApplyRemove_Remove_Images) { RemoveImages(sheet); }
-                    if (cl_Settings.ApplyRemove_Remove_Filter) { RemoveFilter(sheet); }
+                    if (Settings.ApplyRemove_Remove_Images) { RemoveImages(sheet); }
+                    if (Settings.ApplyRemove_Remove_Filter) { RemoveFilter(sheet); }
 
-                    if (cl_Settings.ApplyRemove_Remove_Formula) { RemoveFormula(rng); }
+                    if (Settings.ApplyRemove_Remove_Formula) { RemoveFormula(rng); }
 
-                    if (cl_Settings.ApplyRemove_Apply_Zoom) { PageZoom(sheet, cl_Settings.ApplyRemove_Apply_ZoomValue); }
+                    if (Settings.ApplyRemove_Apply_Zoom) { PageZoom(sheet, Settings.ApplyRemove_Apply_ZoomValue); }
 
-                    if (cl_Settings.ApplyRemove_Remove_ConditionalFormatting) { RemoveConditionalFormatting(rng); }
+                    if (Settings.ApplyRemove_Remove_ConditionalFormatting) { RemoveConditionalFormatting(rng); }
 
-                    if (cl_Settings.ApplyRemove_Apply_FontName) { FontName(rng, cl_Settings.ApplyRemove_Apply_FontNameText); }
-                    if (cl_Settings.ApplyRemove_Apply_FontSize) { FontSize(rng, int.Parse(cl_Settings.ApplyRemove_Apply_FontSizeText)); }
+                    if (Settings.ApplyRemove_Apply_FontName) { FontName(rng, Settings.ApplyRemove_Apply_FontNameText); }
+                    if (Settings.ApplyRemove_Apply_FontSize) { FontSize(rng, int.Parse(Settings.ApplyRemove_Apply_FontSizeText)); }
 
-                    if (cl_Settings.ApplyRemove_Remove_FontBold) { FontBold(rng, false); }
-                    if (cl_Settings.ApplyRemove_Remove_FontItalic) { FontItalic(rng, false); }
-                    if (cl_Settings.ApplyRemove_Remove_FontUnderline) { FontUnderline(rng, false); }
-                    if (cl_Settings.ApplyRemove_Remove_Borders) { RemoveBorders(rng); }
-                    if (cl_Settings.ApplyRemove_Remove_Fill) { RemoveFill(rng); }
-                    if (cl_Settings.ApplyRemove_Remove_FontColor) { RemoveFontColor(rng); }
-                    if (cl_Settings.ApplyRemove_Remove_WrapText) { WrapText(rng, false); }
-                    if (cl_Settings.ApplyRemove_Remove_MergeCells) { MergeCells(rng, false); }
+                    if (Settings.ApplyRemove_Remove_FontBold) { FontBold(rng, false); }
+                    if (Settings.ApplyRemove_Remove_FontItalic) { FontItalic(rng, false); }
+                    if (Settings.ApplyRemove_Remove_FontUnderline) { FontUnderline(rng, false); }
+                    if (Settings.ApplyRemove_Remove_Borders) { RemoveBorders(rng); }
+                    if (Settings.ApplyRemove_Remove_Fill) { RemoveFill(rng); }
+                    if (Settings.ApplyRemove_Remove_FontColor) { RemoveFontColor(rng); }
+                    if (Settings.ApplyRemove_Remove_WrapText) { WrapText(rng, false); }
+                    if (Settings.ApplyRemove_Remove_MergeCells) { MergeCells(rng, false); }
 
-                    if (cl_Settings.ApplyRemove_Apply_Align_Vertical) { VerticalAlignment(rng, cl_Settings.ApplyRemove_Apply_Align_VerticalValue); }
-                    if (cl_Settings.ApplyRemove_Apply_Align_Horizontal) { HorizontalAlignment(rng, cl_Settings.ApplyRemove_Apply_Align_HorizontalValue); }
+                    if (Settings.ApplyRemove_Apply_Align_Vertical) { VerticalAlignment(rng, Settings.ApplyRemove_Apply_Align_VerticalValue); }
+                    if (Settings.ApplyRemove_Apply_Align_Horizontal) { HorizontalAlignment(rng, Settings.ApplyRemove_Apply_Align_HorizontalValue); }
 
-                    if (cl_Settings.ApplyRemove_Apply_RowHeight) { RowHeight(rng, cl_Settings.ApplyRemove_Apply_RowHeightValue); }
-                    if (cl_Settings.ApplyRemove_Apply_ColumnWidth) { ColumnWidth(rng, cl_Settings.ApplyRemove_Apply_ColumnWidthValue); }
+                    if (Settings.ApplyRemove_Apply_RowHeight) { RowHeight(rng, Settings.ApplyRemove_Apply_RowHeightValue); }
+                    if (Settings.ApplyRemove_Apply_ColumnWidth) { ColumnWidth(rng, Settings.ApplyRemove_Apply_ColumnWidthValue); }
 
 
                     app.Goto(sheet.Range["A1"], true);
@@ -567,7 +567,7 @@ namespace GCScript_for_Excel.Classes
 
             app.ActiveWorkbook.Sheets[1].Select();
 
-            if (cl_Settings.ApplyRemove_RemoveAllSheets_HiddenSheets)
+            if (Settings.ApplyRemove_RemoveAllSheets_HiddenSheets)
             {
                 foreach (var item in lstHiddenSheets)
                 {
@@ -575,7 +575,7 @@ namespace GCScript_for_Excel.Classes
                 }
             }
 
-            if (cl_Settings.ApplyRemove_RemoveAllSheets_EmptySheets)
+            if (Settings.ApplyRemove_RemoveAllSheets_EmptySheets)
             {
                 foreach (var item in lstEmptySheets)
                 {

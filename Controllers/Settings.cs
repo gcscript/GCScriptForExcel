@@ -10,7 +10,7 @@ using Appl = Microsoft.Office.Interop.Excel.Application;
 
 namespace GCScript_for_Excel.Classes
 {
-    public static partial class cl_Settings
+    public static partial class Settings
     {
         static Appl app = Globals.ThisAddIn.Application;
 

@@ -11,7 +11,7 @@ using Appl = Microsoft.Office.Interop.Excel.Application;
 
 namespace GCScript_for_Excel.Classes
 {
-    public static class cl_GenerateApportionment
+    public static class GenerateApportionment
     {
         static Appl app = Globals.ThisAddIn.Application;
         static Worksheet ws;
@@ -131,38 +131,6 @@ namespace GCScript_for_Excel.Classes
             }
         }
 
-        static void RemoveDuplicateRows()
-        {
-            int ColumnCnpjCpfOperadora_Number = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.BuscaValorDias);
-
-            Range rngInicial = ws.Cells[1048576, ColumnCnpjCpfOperadora_Number].End(XlDirection.xlUp).Offset[0, 0];
-
-            int offSetRow = 0;
-            int linha = rngInicial.Row;
-
-            while (true)
-            {
-                Range rngAtual = ws.Cells[linha, ColumnCnpjCpfOperadora_Number].Offset[offSetRow, 0];
-
-                if (rngAtual.Row < 2)
-                {
-                    break;
-                }
-                else
-                {
-                    if (rngAtual.Value == rngAtual.Offset[-1, 0].Value)
-                    {
-                        linha = rngAtual.Row;
-                        rngAtual.EntireRow.Delete();
-                        offSetRow = 0;
-                        continue;
-                    }
-                }
-
-                offSetRow--;
-            }
-        }
-
         static void SortData()
         {
             Range ColumnUF_Range = ExcelFunctions.GetRangeColumnByName(ws, ColumnsName.Uf);
@@ -209,29 +177,6 @@ namespace GCScript_for_Excel.Classes
                         break;
                     }
                 }
-            }
-        }
-
-        static void RemoveFillColumns()
-        {
-            Range ColumnTotal_Range = ExcelFunctions.GetRangeColumnByName(ws, ColumnsName.Total);
-            Range ColumnDesconto_Range = ExcelFunctions.GetRangeColumnByName(ws, ColumnsName.Desconto);
-            Range ColumnCompraFinal_Range = ExcelFunctions.GetRangeColumnByName(ws, ColumnsName.CompraFinal);
-            Range Column1Compra_Range = ExcelFunctions.GetRangeColumnByName(ws, ColumnsName.Parcela1);
-            Range Column2Compra_Range = ExcelFunctions.GetRangeColumnByName(ws, ColumnsName.Parcela2);
-
-            RemoveFill(ColumnTotal_Range);
-            RemoveFill(ColumnDesconto_Range);
-            RemoveFill(ColumnCompraFinal_Range);
-            if (Column1Compra_Range != null) { RemoveFill(Column1Compra_Range); }
-            if (Column2Compra_Range != null) { RemoveFill(Column2Compra_Range); }
-
-            void RemoveFill(Range rng)
-            {
-                Range range = ws.Columns[rng.Column];
-                range.Interior.Pattern = Constants.xlNone;
-                range.Interior.TintAndShade = 0;
-                range.Interior.PatternTintAndShade = 0;
             }
         }
 
@@ -330,95 +275,6 @@ namespace GCScript_for_Excel.Classes
                 {
                     Range rng_linha = ws.Range[ws.Cells[linha, ColumnUF_Number].Offset[offSetRow, 0], ws.Cells[linha, ColumnCompraFinal_Number].Offset[offSetRow, 0]];
                     ExcelFunctions.FontBold(rng_linha, false);
-                }
-
-                if (ws.Cells[linha, ColumnCompraFinal_Number].Offset[offSetRow, 0].Row < 2)
-                {
-                    break;
-                }
-
-                offSetRow--;
-            }
-        }
-
-        static void OrganizeSubtotal_BK()
-        {
-            int ColumnUF_Number = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Uf);
-            int ColumnOperadora_Number = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Operadora);
-            int ColumnEmpresa_Number = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Empresa);
-            int ColumnCUnid_Number = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.CUnid);
-            int ColumnCompraFinal_Number = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.CompraFinal);
-
-            Range rngInicial = ws.Cells[1048576, ColumnCompraFinal_Number].End(XlDirection.xlUp).Offset[0, 0];
-
-            int offSetRow = 0;
-            int linha = rngInicial.Row;
-
-            while (true)
-            {
-                if (ws.Cells[linha, ColumnUF_Number].Offset[offSetRow, 0].Row < 2)
-                {
-                    break;
-                }
-
-                string valorColunaUF = ws.Cells[linha, ColumnUF_Number].Offset[offSetRow, 0].Text.Trim().ToLower();
-                string valorColunaOperadora = ws.Cells[linha, ColumnOperadora_Number].Offset[offSetRow, 0].Text.Trim().ToLower();
-                string valorColunaEmpresa = ws.Cells[linha, ColumnEmpresa_Number].Offset[offSetRow, 0].Text.Trim().ToLower();
-                string valorColunaCUNID = ws.Cells[linha, ColumnCUnid_Number].Offset[offSetRow, 0].Text.Trim().ToLower();
-
-                if (valorColunaUF == "total geral")
-                {
-                    Range rng_linha = ws.Range[ws.Cells[linha, ColumnUF_Number].Offset[offSetRow, 0], ws.Cells[linha, ColumnCompraFinal_Number].Offset[offSetRow, 0]];
-                    ExcelFunctions.Styles_Emphasis_OLD(rng_linha, 5);
-                }
-                else if (valorColunaUF.Contains(" total"))
-                {
-                    Range rng_linha = ws.Range[ws.Cells[linha, ColumnUF_Number].Offset[offSetRow, 0], ws.Cells[linha, ColumnCompraFinal_Number].Offset[offSetRow, 0]];
-                    ExcelFunctions.Styles_Emphasis_OLD(rng_linha, 4);
-
-                }
-                else if (valorColunaOperadora == "total geral")
-                {
-                    ws.Cells[linha, ColumnOperadora_Number].Offset[offSetRow, 0].EntireRow.Delete();
-                    linha = (ws.Cells[linha, ColumnOperadora_Number].Offset[offSetRow, 0].Row) - 1;
-                    offSetRow = 0;
-                    continue;
-                }
-                else if (valorColunaOperadora.Contains(" total"))
-                {
-                    Range rng_linha = ws.Range[ws.Cells[linha, ColumnUF_Number].Offset[offSetRow, 0], ws.Cells[linha, ColumnCompraFinal_Number].Offset[offSetRow, 0]];
-                    ExcelFunctions.Styles_Emphasis_OLD(rng_linha, 3);
-                }
-                else if (valorColunaEmpresa == "total geral")
-                {
-                    ws.Cells[linha, ColumnEmpresa_Number].Offset[offSetRow, 0].EntireRow.Delete();
-                    linha = (ws.Cells[linha, ColumnEmpresa_Number].Offset[offSetRow, 0].Row) - 1;
-                    offSetRow = 0;
-                    continue;
-                }
-                else if (valorColunaEmpresa.Contains(" total"))
-                {
-                    Range rng_linha = ws.Range[ws.Cells[linha, ColumnUF_Number].Offset[offSetRow, 0], ws.Cells[linha, ColumnCompraFinal_Number].Offset[offSetRow, 0]];
-                    ExcelFunctions.Styles_Emphasis_OLD(rng_linha, 2);
-                }
-                else if (valorColunaCUNID == "total geral")
-                {
-                    ws.Cells[linha, ColumnCUnid_Number].Offset[offSetRow, 0].EntireRow.Delete();
-                    linha = (ws.Cells[linha, ColumnCUnid_Number].Offset[offSetRow, 0].Row) - 1;
-                    offSetRow = 0;
-                    continue;
-                }
-                else if (valorColunaCUNID.EndsWith(" total"))
-                {
-                    Range rng_linha = ws.Range[ws.Cells[linha, ColumnUF_Number].Offset[offSetRow, 0], ws.Cells[linha, ColumnCompraFinal_Number].Offset[offSetRow, 0]];
-                    ExcelFunctions.FontBold(rng_linha, false);
-                }
-                else if (valorColunaCUNID != "" && valorColunaCUNID != "total geral" && !valorColunaCUNID.EndsWith(" total"))
-                {
-                    ws.Cells[linha, ColumnCUnid_Number].Offset[offSetRow, 0].EntireRow.Delete();
-                    linha = (ws.Cells[linha, ColumnCUnid_Number].Offset[offSetRow, 0].Row) - 1;
-                    offSetRow = 0;
-                    continue;
                 }
 
                 if (ws.Cells[linha, ColumnCompraFinal_Number].Offset[offSetRow, 0].Row < 2)

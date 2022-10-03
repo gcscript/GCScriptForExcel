@@ -1,4 +1,4 @@
-﻿namespace GCScript_for_Excel
+﻿namespace GCScript_for_Excel.Views
 {
     partial class frm_Settings
     {

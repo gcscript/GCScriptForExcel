@@ -155,7 +155,7 @@ namespace GCScript_for_Excel
         {
             gcsApplication app = Globals.ThisAddIn.Application;
             ExcelFunctions.CreateBackup("Apportionment");
-            cl_GenerateApportionment.Start(app.ActiveSheet);
+            GenerateApportionment.Start(app.ActiveSheet);
         }
 
         private void Generate_btn_Purchase_Click(object sender, RibbonControlEventArgs e)
@@ -168,7 +168,7 @@ namespace GCScript_for_Excel
         {
             gcsApplication app = Globals.ThisAddIn.Application;
             ExcelFunctions.CreateBackup("Purchase");
-            cl_GeneratePurchase.Start(app.ActiveSheet);
+            GeneratePurchase.Start(app.ActiveSheet);
         }
 
         private void Generate_btn_FileToSend_Click(object sender, RibbonControlEventArgs e)
@@ -204,7 +204,7 @@ namespace GCScript_for_Excel
                     }
                 }
 
-                cl_Settings.ConverterText(ws, selection);
+                Settings.ConverterText(ws, selection);
             }
             catch (Exception erro)
             {
@@ -282,7 +282,7 @@ namespace GCScript_for_Excel
                     }
                 }
 
-                cl_Settings.ConverterCNPJ(ws, selection);
+                Settings.ConverterCNPJ(ws, selection);
             }
             catch (Exception erro)
             {
@@ -320,7 +320,7 @@ namespace GCScript_for_Excel
                     }
                 }
 
-                cl_Settings.ConverterWorkSchedule(ws, selection);
+                Settings.ConverterWorkSchedule(ws, selection);
             }
             catch (Exception erro)
             {
@@ -501,17 +501,17 @@ namespace GCScript_for_Excel
             More_btn_CheckActiveSheet.Image = GCScript_for_Excel.Properties.Resources.uncheck;
             More_btn_CheckAllSheets.Image = GCScript_for_Excel.Properties.Resources.uncheck;
 
-            if (cl_Settings.More_SelectionType == 0)
+            if (Settings.More_SelectionType == 0)
             {
                 selectiontype = "Selection";
                 More_btn_CheckSelection.Image = GCScript_for_Excel.Properties.Resources.check;
             }
-            else if (cl_Settings.More_SelectionType == 1)
+            else if (Settings.More_SelectionType == 1)
             {
                 selectiontype = "Active Sheet";
                 More_btn_CheckActiveSheet.Image = GCScript_for_Excel.Properties.Resources.check;
             }
-            else if (cl_Settings.More_SelectionType == 2)
+            else if (Settings.More_SelectionType == 2)
             {
                 selectiontype = "All Sheets";
                 More_btn_CheckAllSheets.Image = GCScript_for_Excel.Properties.Resources.check;
@@ -535,17 +535,17 @@ namespace GCScript_for_Excel
                 app.ScreenUpdating = false;
                 Range rng = app.Selection;
 
-                if (cl_Settings.More_SelectionType == 0) // Selection
+                if (Settings.More_SelectionType == 0) // Selection
                 {
                     ExcelFunctions.RemoveFormula(rng);
                 }
-                else if (cl_Settings.More_SelectionType == 1) // Active Sheet
+                else if (Settings.More_SelectionType == 1) // Active Sheet
                 {
                     rng = ws.Cells;
                     ExcelFunctions.RemoveFormula(rng);
                     app.Goto(ws.Range["A1"], true);
                 }
-                else if (cl_Settings.More_SelectionType == 2) // All Sheet
+                else if (Settings.More_SelectionType == 2) // All Sheet
                 {
                     if (MessageBox.Show("Essa função pode demorar um pouco!\nDeseja continuar?", "ATENÇÃO!", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.No)
                     {
@@ -594,17 +594,17 @@ namespace GCScript_for_Excel
                 app.ScreenUpdating = false;
                 Range rng = app.Selection;
 
-                if (cl_Settings.More_SelectionType == 0) // Selection
+                if (Settings.More_SelectionType == 0) // Selection
                 {
                     ExcelFunctions.RemoveConditionalFormatting(rng);
                 }
-                else if (cl_Settings.More_SelectionType == 1) // Active Sheet
+                else if (Settings.More_SelectionType == 1) // Active Sheet
                 {
                     rng = ws.Cells;
                     ExcelFunctions.RemoveConditionalFormatting(rng);
                     app.Goto(ws.Range["A1"], true);
                 }
-                else if (cl_Settings.More_SelectionType == 2) // All Sheet
+                else if (Settings.More_SelectionType == 2) // All Sheet
                 {
                     if (MessageBox.Show("Essa função pode demorar um pouco!\nDeseja continuar?", "ATENÇÃO!", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.No)
                     {
@@ -656,25 +656,25 @@ namespace GCScript_for_Excel
 
         private void More_SelectionType(int selectiontype)
         {
-            cl_Settings.More_SelectionType = selectiontype;
+            Settings.More_SelectionType = selectiontype;
 
             More_btn_CheckSelection.Image = GCScript_for_Excel.Properties.Resources.uncheck;
             More_btn_CheckActiveSheet.Image = GCScript_for_Excel.Properties.Resources.uncheck;
             More_btn_CheckAllSheets.Image = GCScript_for_Excel.Properties.Resources.uncheck;
 
-            if (cl_Settings.More_SelectionType == 0)
+            if (Settings.More_SelectionType == 0)
             {
                 More_btn_OnlyValues.Label = "Only Values (Selection)";
                 More_btn_RemoveConditionalFormatting.Label = "Remove Conditional Formatting (Selection)";
                 More_btn_CheckSelection.Image = GCScript_for_Excel.Properties.Resources.check;
             }
-            else if (cl_Settings.More_SelectionType == 1)
+            else if (Settings.More_SelectionType == 1)
             {
                 More_btn_OnlyValues.Label = "Only Values (Active Sheet)";
                 More_btn_RemoveConditionalFormatting.Label = "Remove Conditional Formatting (Active Sheet)";
                 More_btn_CheckActiveSheet.Image = GCScript_for_Excel.Properties.Resources.check;
             }
-            else if (cl_Settings.More_SelectionType == 2)
+            else if (Settings.More_SelectionType == 2)
             {
                 More_btn_OnlyValues.Label = "Only Values (All Sheets)";
                 More_btn_RemoveConditionalFormatting.Label = "Remove Conditional Formatting (All Sheets)";
@@ -692,7 +692,7 @@ namespace GCScript_for_Excel
             {
                 app.ScreenUpdating = false;
                 app.DisplayAlerts = false;
-                if (cl_Settings.ApplyRemove_Apply_AllSheets == true)
+                if (Settings.ApplyRemove_Apply_AllSheets == true)
                 {
                     if (MessageBox.Show("Essa função irá Aplicar/Remover configurações definidas em todas as planilhas!\nIsso pode demorar dependendo da quantidade de dados.\nDeseja continuar?", "ATENÇÃO!", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.No)
                     {

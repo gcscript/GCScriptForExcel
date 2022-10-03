@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace GCScript_for_Excel
+namespace GCScript_for_Excel.Views
 {
     public partial class frm_SetTitle : Form
     {

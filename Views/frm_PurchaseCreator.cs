@@ -24,39 +24,39 @@ namespace GCScript_for_Excel.Views
 
         private void rbtn_Subtotal_Empresa_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.PurchaseCreatorSubtotalOption = Enums.EPurchaseCreatorSubtotalOption.Empresa;
+            Settings.PurchaseCreatorSubtotalOption = Enums.EPurchaseCreatorSubtotalOption.Empresa;
         }
 
         private void rbtn_Subtotal_Uf_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.PurchaseCreatorSubtotalOption = Enums.EPurchaseCreatorSubtotalOption.Uf;
+            Settings.PurchaseCreatorSubtotalOption = Enums.EPurchaseCreatorSubtotalOption.Uf;
         }
 
         private void rbtn_Subtotal_Operadora_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.PurchaseCreatorSubtotalOption = Enums.EPurchaseCreatorSubtotalOption.Operadora;
+            Settings.PurchaseCreatorSubtotalOption = Enums.EPurchaseCreatorSubtotalOption.Operadora;
         }
 
         private void rbtn_Subtotal_CUnid_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.PurchaseCreatorSubtotalOption = Enums.EPurchaseCreatorSubtotalOption.CUnid;
+            Settings.PurchaseCreatorSubtotalOption = Enums.EPurchaseCreatorSubtotalOption.CUnid;
         }
 
         private void rbtn_Subtotal_CDepto_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.PurchaseCreatorSubtotalOption = Enums.EPurchaseCreatorSubtotalOption.CDepto;
+            Settings.PurchaseCreatorSubtotalOption = Enums.EPurchaseCreatorSubtotalOption.CDepto;
         }
 
         private void rbtn_Subtotal_Depto_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.PurchaseCreatorSubtotalOption = Enums.EPurchaseCreatorSubtotalOption.Depto;
+            Settings.PurchaseCreatorSubtotalOption = Enums.EPurchaseCreatorSubtotalOption.Depto;
         }
 
         private void btn_Start_Click(object sender, EventArgs e)
         {
             if (rbtn_Tab_CustomName.Checked)
             {
-                string sheetName = cl_Settings.PurchaseCreatorTabName;
+                string sheetName = Settings.PurchaseCreatorTabName;
                 if (ExcelFunctions.ChecksIfSheetExist(sheetName))
                 {
                     MessageBox.Show($"A aba {sheetName} já existe!", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
@@ -140,13 +140,13 @@ namespace GCScript_for_Excel.Views
                 rbtn_Subtotal_CDepto.Enabled = true;
                 rbtn_Subtotal_Depto.Enabled = true;
             }
-            txt_Tab_CustomName.Text = cl_Settings.PurchaseCreatorTabName;
+            txt_Tab_CustomName.Text = Settings.PurchaseCreatorTabName;
 
-            if (cl_Settings.PurchaseCreatorSplitPurchaseOption == Enums.EPurchaseCreatorSplitPurchaseOption.One)
+            if (Settings.PurchaseCreatorSplitPurchaseOption == Enums.EPurchaseCreatorSplitPurchaseOption.One)
             {
                 rbtn_SplitPurchase_1x.Checked = true;
             }
-            else if (cl_Settings.PurchaseCreatorSplitPurchaseOption == Enums.EPurchaseCreatorSplitPurchaseOption.Two)
+            else if (Settings.PurchaseCreatorSplitPurchaseOption == Enums.EPurchaseCreatorSplitPurchaseOption.Two)
             {
                 rbtn_SplitPurchase_2x.Checked = true;
             }
@@ -161,7 +161,7 @@ namespace GCScript_for_Excel.Views
             if (rbtn_Tab_CustomName.Checked)
             {
                 txt_Tab_CustomName.Enabled = true;
-                cl_Settings.PurchaseCreatorTabOption = Enums.EPurchaseCreatorTabOption.CustomName;
+                Settings.PurchaseCreatorTabOption = Enums.EPurchaseCreatorTabOption.CustomName;
             }
             else
             {
@@ -171,43 +171,43 @@ namespace GCScript_for_Excel.Views
 
         private void rbtn_Tab_Empresa_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.PurchaseCreatorTabOption = Enums.EPurchaseCreatorTabOption.Empresa;
+            Settings.PurchaseCreatorTabOption = Enums.EPurchaseCreatorTabOption.Empresa;
         }
 
         private void rbtn_Tab_Uf_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.PurchaseCreatorTabOption = Enums.EPurchaseCreatorTabOption.Uf;
+            Settings.PurchaseCreatorTabOption = Enums.EPurchaseCreatorTabOption.Uf;
         }
 
         private void rbtn_Tab_Operadora_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.PurchaseCreatorTabOption = Enums.EPurchaseCreatorTabOption.Operadora;
+            Settings.PurchaseCreatorTabOption = Enums.EPurchaseCreatorTabOption.Operadora;
         }
 
         private void rbtn_Tab_CUnid_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.PurchaseCreatorTabOption = Enums.EPurchaseCreatorTabOption.CUnid;
+            Settings.PurchaseCreatorTabOption = Enums.EPurchaseCreatorTabOption.CUnid;
         }
 
         private void txt_Tab_CustomName_Leave(object sender, EventArgs e)
         {
             if (txt_Tab_CustomName.Text.Length < 1) { txt_Tab_CustomName.Text = "Compra"; }
-            cl_Settings.PurchaseCreatorTabName = txt_Tab_CustomName.Text;
+            Settings.PurchaseCreatorTabName = txt_Tab_CustomName.Text;
         }
 
         private void rbtn_SplitPurchase_1x_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.PurchaseCreatorSplitPurchaseOption = Enums.EPurchaseCreatorSplitPurchaseOption.One;
+            Settings.PurchaseCreatorSplitPurchaseOption = Enums.EPurchaseCreatorSplitPurchaseOption.One;
         }
 
         private void rbtn_SplitPurchase_2x_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.PurchaseCreatorSplitPurchaseOption = Enums.EPurchaseCreatorSplitPurchaseOption.Two;
+            Settings.PurchaseCreatorSplitPurchaseOption = Enums.EPurchaseCreatorSplitPurchaseOption.Two;
         }
 
         private void rbtn_SplitPurchase_3x_CheckedChanged(object sender, EventArgs e)
         {
-            cl_Settings.PurchaseCreatorSplitPurchaseOption = Enums.EPurchaseCreatorSplitPurchaseOption.Three;
+            Settings.PurchaseCreatorSplitPurchaseOption = Enums.EPurchaseCreatorSplitPurchaseOption.Three;
         }
     }
 }
