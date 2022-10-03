@@ -43,8 +43,9 @@ namespace GCScript_for_Excel.Classes
         public static string ValorDiasSet { get; private set; } = "ValorDias [set]";
         public static string ValorDias { get; private set; } = "ValorDias";
         public static string Desconto { get; private set; } = "Desconto";
-        public static string Compra1 { get; private set; } = "1ª Compra";
-        public static string Compra2 { get; private set; } = "2ª Compra";
+        public static string Parcela1 { get; private set; } = "1ª Parcela";
+        public static string Parcela2 { get; private set; } = "2ª Parcela";
+        public static string Parcela3 { get; private set; } = "3ª Parcela";
         public static string CompraFinal { get; private set; } = "CompraFinal";
         public static string Tipo { get; private set; } = "Tipo";
         public static string BuscaValorDias { get; private set; } = "Busca ValorDias";

@@ -189,7 +189,7 @@ namespace GCScript_for_Excel.Classes
                                      ColumnsName.Mat, ColumnsName.MatSite, ColumnsName.Nome, ColumnsName.Cpf, ColumnsName.Rg,
                                      ColumnsName.DataNasc, ColumnsName.Desc, ColumnsName.Qvt, ColumnsName.Vvt, ColumnsName.Tvt,
                                      ColumnsName.VvtNovo, ColumnsName.TvtNovo, ColumnsName.RecPendSet, ColumnsName.SaldoSet, ColumnsName.Saldo,
-                                     ColumnsName.ValorDiasSet, ColumnsName.ValorDias, ColumnsName.Compra1, ColumnsName.Compra2, ColumnsName.Tipo,
+                                     ColumnsName.ValorDiasSet, ColumnsName.ValorDias, ColumnsName.Parcela1, ColumnsName.Parcela2, ColumnsName.Tipo,
                                      ColumnsName.BuscaValorDias, ColumnsName.BuscaCartao, ColumnsName.Ordem, ColumnsName.Cf10, ColumnsName.NrDoCartao,
                                      ColumnsName.Obs};
 
@@ -217,8 +217,8 @@ namespace GCScript_for_Excel.Classes
             Range ColumnTotal_Range = ExcelFunctions.GetRangeColumnByName(ws, ColumnsName.Total);
             Range ColumnDesconto_Range = ExcelFunctions.GetRangeColumnByName(ws, ColumnsName.Desconto);
             Range ColumnCompraFinal_Range = ExcelFunctions.GetRangeColumnByName(ws, ColumnsName.CompraFinal);
-            Range Column1Compra_Range = ExcelFunctions.GetRangeColumnByName(ws, ColumnsName.Compra1);
-            Range Column2Compra_Range = ExcelFunctions.GetRangeColumnByName(ws, ColumnsName.Compra2);
+            Range Column1Compra_Range = ExcelFunctions.GetRangeColumnByName(ws, ColumnsName.Parcela1);
+            Range Column2Compra_Range = ExcelFunctions.GetRangeColumnByName(ws, ColumnsName.Parcela2);
 
             RemoveFill(ColumnTotal_Range);
             RemoveFill(ColumnDesconto_Range);

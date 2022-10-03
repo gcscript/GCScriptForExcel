@@ -1,6 +1,7 @@
 ﻿using GCScript_for_Excel.Classes;
 using System;
 using System.Windows.Forms;
+using GCScript_for_Excel.Models;
 using gcsApplication = Microsoft.Office.Interop.Excel.Application;
 
 namespace GCScript_for_Excel.Views
@@ -11,7 +12,14 @@ namespace GCScript_for_Excel.Views
 
         public frm_PurchaseCreator()
         {
-            InitializeComponent();
+            if (ExcelFunctions.GetNumberColumnByName(gcsApp.ActiveSheet, ColumnsName.Empresa) == -1)
+            {
+                MessageBox.Show($"Nenhuma coluna encontrada!", "X765937", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+            }
+            else
+            {
+                InitializeComponent();
+            }
         }
 
         private void rbtn_Subtotal_Empresa_CheckedChanged(object sender, EventArgs e)
@@ -46,6 +54,16 @@ namespace GCScript_for_Excel.Views
 
         private void btn_Start_Click(object sender, EventArgs e)
         {
+            if (rbtn_Tab_CustomName.Checked)
+            {
+                string sheetName = cl_Settings.PurchaseCreatorTabName;
+                if (ExcelFunctions.ChecksIfSheetExist(sheetName))
+                {
+                    MessageBox.Show($"A aba {sheetName} já existe!", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+                    return;
+                }
+            }
+
             var purchaseCreator = new PurchaseCreator();
             purchaseCreator.Start();
             this.Close();
@@ -53,12 +71,9 @@ namespace GCScript_for_Excel.Views
 
         private void frm_PurchaseCreator_Load(object sender, EventArgs e)
         {
-            if (ExcelFunctions.GetNumberColumnByName(gcsApp.ActiveSheet, ColumnsName.Empresa) == -1)
-            {
-                MessageBox.Show($"Nenhuma coluna encontrada!", "X765937", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
-                this.Close();
-            }
-            else if (ExcelFunctions.GetNumberColumnByName(gcsApp.ActiveSheet, ColumnsName.Uf) == -1)
+
+
+            if (ExcelFunctions.GetNumberColumnByName(gcsApp.ActiveSheet, ColumnsName.Uf) == -1)
             {
                 rbtn_Tab_Empresa.Enabled = true;
 
@@ -125,8 +140,20 @@ namespace GCScript_for_Excel.Views
                 rbtn_Subtotal_CDepto.Enabled = true;
                 rbtn_Subtotal_Depto.Enabled = true;
             }
-            //var empresaColumnNumber = ExcelFunctions.GetNumberColumnByName(gcsApp.ActiveSheet, ColumnsName.Empresa);
             txt_Tab_CustomName.Text = cl_Settings.PurchaseCreatorTabName;
+
+            if (cl_Settings.PurchaseCreatorSplitPurchaseOption == Enums.EPurchaseCreatorSplitPurchaseOption.One)
+            {
+                rbtn_SplitPurchase_1x.Checked = true;
+            }
+            else if (cl_Settings.PurchaseCreatorSplitPurchaseOption == Enums.EPurchaseCreatorSplitPurchaseOption.Two)
+            {
+                rbtn_SplitPurchase_2x.Checked = true;
+            }
+            else
+            {
+                rbtn_SplitPurchase_3x.Checked = true;
+            }
         }
 
         private void rbtn_Tab_CustomName_CheckedChanged(object sender, EventArgs e)
@@ -166,6 +193,21 @@ namespace GCScript_for_Excel.Views
         {
             if (txt_Tab_CustomName.Text.Length < 1) { txt_Tab_CustomName.Text = "Compra"; }
             cl_Settings.PurchaseCreatorTabName = txt_Tab_CustomName.Text;
+        }
+
+        private void rbtn_SplitPurchase_1x_CheckedChanged(object sender, EventArgs e)
+        {
+            cl_Settings.PurchaseCreatorSplitPurchaseOption = Enums.EPurchaseCreatorSplitPurchaseOption.One;
+        }
+
+        private void rbtn_SplitPurchase_2x_CheckedChanged(object sender, EventArgs e)
+        {
+            cl_Settings.PurchaseCreatorSplitPurchaseOption = Enums.EPurchaseCreatorSplitPurchaseOption.Two;
+        }
+
+        private void rbtn_SplitPurchase_3x_CheckedChanged(object sender, EventArgs e)
+        {
+            cl_Settings.PurchaseCreatorSplitPurchaseOption = Enums.EPurchaseCreatorSplitPurchaseOption.Three;
         }
     }
 }

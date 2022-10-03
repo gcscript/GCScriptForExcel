@@ -161,13 +161,14 @@
   <ItemGroup>
     <Compile Include="Classes\AdjustDescontoAndCompraFinal.cs" />
     <Compile Include="Classes\cl_ExcelFunctions_new.cs" />
+    <Compile Include="Models\ColumnsRangeOnPurchase.cs" />
     <Compile Include="Classes\GenerateFileToSend.cs" />
     <Compile Include="Classes\cl_GeneratePurchase_new.cs" />
     <Compile Include="Classes\cl_Settings.cs" />
     <Compile Include="Classes\ExcelFunctions.cs" />
     <Compile Include="Classes\cl_GenerateApportionment.cs" />
     <Compile Include="Classes\PurchaseCreator.cs" />
-    <Compile Include="Classes\Enums.cs" />
+    <Compile Include="Models\Enums.cs" />
     <Compile Include="Classes\Tools.cs" />
     <Compile Include="Classes\cl_GeneratePurchase.cs" />
     <Compile Include="Classes\ColumnsName.cs" />

@@ -1,4 +1,4 @@
-﻿namespace GCScript_for_Excel.Classes
+﻿namespace GCScript_for_Excel.Models
 {
     public static partial class Enums
     {
@@ -18,6 +18,12 @@
             Operadora = 2,
             CUnid = 3,
             CustomName = 4,
+        }
+        public enum EPurchaseCreatorSplitPurchaseOption
+        {
+            One = 0,
+            Two = 1,
+            Three = 2,
         }
     }
 }

@@ -211,8 +211,8 @@ namespace GCScript_for_Excel.Classes
             Range ColumnTotal_Range = ExcelFunctions.GetRangeColumnByName(ws, ColumnsName.Total);
             Range ColumnDesconto_Range = ExcelFunctions.GetRangeColumnByName(ws, ColumnsName.Desconto);
             Range ColumnCompraFinal_Range = ExcelFunctions.GetRangeColumnByName(ws, ColumnsName.CompraFinal);
-            Range Column1Compra_Range = ExcelFunctions.GetRangeColumnByName(ws, ColumnsName.Compra1);
-            Range Column2Compra_Range = ExcelFunctions.GetRangeColumnByName(ws, ColumnsName.Compra2);
+            Range Column1Compra_Range = ExcelFunctions.GetRangeColumnByName(ws, ColumnsName.Parcela1);
+            Range Column2Compra_Range = ExcelFunctions.GetRangeColumnByName(ws, ColumnsName.Parcela2);
 
             RemoveFill(ColumnTotal_Range);
             RemoveFill(ColumnDesconto_Range);
@@ -232,8 +232,8 @@ namespace GCScript_for_Excel.Classes
         static bool GenerateSubtotal()
         {
             Range ColumnCompraFinal_Range = ExcelFunctions.GetRangeColumnByName(ws, ColumnsName.CompraFinal);
-            Range Column1Compra_Range = ExcelFunctions.GetRangeColumnByName(ws, ColumnsName.Compra1);
-            Range Column2Compra_Range = ExcelFunctions.GetRangeColumnByName(ws, ColumnsName.Compra2);
+            Range Column1Compra_Range = ExcelFunctions.GetRangeColumnByName(ws, ColumnsName.Parcela1);
+            Range Column2Compra_Range = ExcelFunctions.GetRangeColumnByName(ws, ColumnsName.Parcela2);
 
             int ColumnCompraFinal_Number = ColumnCompraFinal_Range.Cells.Column;
             List<int> array_ColumnsSubtotal = new List<int>();

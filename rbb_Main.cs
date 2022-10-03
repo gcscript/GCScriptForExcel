@@ -47,8 +47,7 @@ namespace GCScript_for_Excel
 
         private void btn_T1_Click(object sender, RibbonControlEventArgs e)
         {
-            frm_PurchaseCreator frm = new frm_PurchaseCreator();
-            frm.ShowDialog();
+            
             //gcsApplication app = Globals.ThisAddIn.Application;
             //Worksheet ws = app.ActiveSheet;
 
@@ -160,6 +159,12 @@ namespace GCScript_for_Excel
         }
 
         private void Generate_btn_Purchase_Click(object sender, RibbonControlEventArgs e)
+        {
+            frm_PurchaseCreator frm = new frm_PurchaseCreator();
+            frm.ShowDialog();
+        }
+
+        private void Generate_btn_Purchase_Old_Click(object sender, RibbonControlEventArgs e)
         {
             gcsApplication app = Globals.ThisAddIn.Application;
             ExcelFunctions.CreateBackup("Purchase");
@@ -1018,5 +1023,7 @@ namespace GCScript_for_Excel
             TransferData transferData = new TransferData();
             transferData.Export();
         }
+
+        
     }
 }
