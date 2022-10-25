@@ -209,5 +209,10 @@ namespace GCScript_for_Excel.Views
         {
             Settings.PurchaseCreatorSplitPurchaseOption = Enums.EPurchaseCreatorSplitPurchaseOption.Three;
         }
+
+        private void rbtn_SplitPurchase_P100_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.PurchaseCreatorSplitPurchaseOption = Enums.EPurchaseCreatorSplitPurchaseOption.Percent;
+        }
     }
 }
