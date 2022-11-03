@@ -1,14 +1,11 @@
 ﻿using Microsoft.Office.Interop.Excel;
-//using Microsoft.Office.Tools.Excel;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Data.Common;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using System.Xml.XPath;
 using gcsApplication = Microsoft.Office.Interop.Excel.Application;
 
 namespace GCScript_for_Excel.Classes

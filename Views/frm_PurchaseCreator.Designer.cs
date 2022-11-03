@@ -50,10 +50,10 @@
             this.rbtn_SplitPurchase_1x = new System.Windows.Forms.RadioButton();
             this.rbtn_SplitPurchase_2x = new System.Windows.Forms.RadioButton();
             this.rbtn_SplitPurchase_3x = new System.Windows.Forms.RadioButton();
+            this.rbtn_SplitPurchase_P100 = new System.Windows.Forms.RadioButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.nud_SplitPurchase_P100 = new System.Windows.Forms.NumericUpDown();
-            this.rbtn_SplitPurchase_P100 = new System.Windows.Forms.RadioButton();
             this.btn_Start = new System.Windows.Forms.Button();
             this.tlp_Main.SuspendLayout();
             this.flp_Tab.SuspendLayout();
@@ -65,22 +65,22 @@
             // 
             // tlp_Main
             // 
-            this.tlp_Main.ColumnCount = 1;
-            this.tlp_Main.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlp_Main.ColumnCount = 2;
+            this.tlp_Main.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tlp_Main.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tlp_Main.Controls.Add(this.flp_Tab, 0, 0);
             this.tlp_Main.Controls.Add(this.flp_Subtotal, 0, 1);
-            this.tlp_Main.Controls.Add(this.flp_SplitPurchase, 0, 2);
-            this.tlp_Main.Controls.Add(this.btn_Start, 0, 3);
+            this.tlp_Main.Controls.Add(this.flp_SplitPurchase, 1, 0);
+            this.tlp_Main.Controls.Add(this.btn_Start, 0, 2);
             this.tlp_Main.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlp_Main.Location = new System.Drawing.Point(0, 0);
             this.tlp_Main.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tlp_Main.Name = "tlp_Main";
-            this.tlp_Main.RowCount = 4;
-            this.tlp_Main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 35F));
-            this.tlp_Main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 35F));
-            this.tlp_Main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
-            this.tlp_Main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tlp_Main.Size = new System.Drawing.Size(278, 844);
+            this.tlp_Main.RowCount = 3;
+            this.tlp_Main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 280F));
+            this.tlp_Main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 280F));
+            this.tlp_Main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlp_Main.Size = new System.Drawing.Size(578, 644);
             this.tlp_Main.TabIndex = 0;
             // 
             // flp_Tab
@@ -96,7 +96,7 @@
             this.flp_Tab.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flp_Tab.Location = new System.Drawing.Point(3, 3);
             this.flp_Tab.Name = "flp_Tab";
-            this.flp_Tab.Size = new System.Drawing.Size(272, 271);
+            this.flp_Tab.Size = new System.Drawing.Size(283, 274);
             this.flp_Tab.TabIndex = 2;
             // 
             // label2
@@ -130,7 +130,7 @@
             this.txt_Tab_CustomName.Margin = new System.Windows.Forms.Padding(10, 0, 3, 3);
             this.txt_Tab_CustomName.MaxLength = 30;
             this.txt_Tab_CustomName.Name = "txt_Tab_CustomName";
-            this.txt_Tab_CustomName.Size = new System.Drawing.Size(253, 26);
+            this.txt_Tab_CustomName.Size = new System.Drawing.Size(259, 26);
             this.txt_Tab_CustomName.TabIndex = 13;
             this.txt_Tab_CustomName.Text = "Compra";
             this.txt_Tab_CustomName.Leave += new System.EventHandler(this.txt_Tab_CustomName_Leave);
@@ -198,9 +198,9 @@
             this.flp_Subtotal.Controls.Add(this.rbtn_Subtotal_Depto);
             this.flp_Subtotal.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flp_Subtotal.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flp_Subtotal.Location = new System.Drawing.Point(3, 280);
+            this.flp_Subtotal.Location = new System.Drawing.Point(3, 283);
             this.flp_Subtotal.Name = "flp_Subtotal";
-            this.flp_Subtotal.Size = new System.Drawing.Size(272, 271);
+            this.flp_Subtotal.Size = new System.Drawing.Size(283, 274);
             this.flp_Subtotal.TabIndex = 3;
             // 
             // label1
@@ -304,9 +304,10 @@
             this.flp_SplitPurchase.Controls.Add(this.panel1);
             this.flp_SplitPurchase.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flp_SplitPurchase.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flp_SplitPurchase.Location = new System.Drawing.Point(3, 557);
+            this.flp_SplitPurchase.Location = new System.Drawing.Point(292, 3);
             this.flp_SplitPurchase.Name = "flp_SplitPurchase";
-            this.flp_SplitPurchase.Size = new System.Drawing.Size(272, 232);
+            this.tlp_Main.SetRowSpan(this.flp_SplitPurchase, 2);
+            this.flp_SplitPurchase.Size = new System.Drawing.Size(283, 554);
             this.flp_SplitPurchase.TabIndex = 4;
             // 
             // label3
@@ -356,6 +357,18 @@
             this.rbtn_SplitPurchase_3x.UseVisualStyleBackColor = true;
             this.rbtn_SplitPurchase_3x.CheckedChanged += new System.EventHandler(this.rbtn_SplitPurchase_3x_CheckedChanged);
             // 
+            // rbtn_SplitPurchase_P100
+            // 
+            this.rbtn_SplitPurchase_P100.AutoSize = true;
+            this.rbtn_SplitPurchase_P100.Location = new System.Drawing.Point(10, 133);
+            this.rbtn_SplitPurchase_P100.Margin = new System.Windows.Forms.Padding(10, 3, 3, 3);
+            this.rbtn_SplitPurchase_P100.Name = "rbtn_SplitPurchase_P100";
+            this.rbtn_SplitPurchase_P100.Size = new System.Drawing.Size(97, 23);
+            this.rbtn_SplitPurchase_P100.TabIndex = 14;
+            this.rbtn_SplitPurchase_P100.Text = "Percent";
+            this.rbtn_SplitPurchase_P100.UseVisualStyleBackColor = true;
+            this.rbtn_SplitPurchase_P100.CheckedChanged += new System.EventHandler(this.rbtn_SplitPurchase_P100_CheckedChanged);
+            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.label4);
@@ -401,25 +414,14 @@
             0});
             this.nud_SplitPurchase_P100.ValueChanged += new System.EventHandler(this.nud_SplitPurchase_P100_ValueChanged);
             // 
-            // rbtn_SplitPurchase_P100
-            // 
-            this.rbtn_SplitPurchase_P100.AutoSize = true;
-            this.rbtn_SplitPurchase_P100.Location = new System.Drawing.Point(10, 133);
-            this.rbtn_SplitPurchase_P100.Margin = new System.Windows.Forms.Padding(10, 3, 3, 3);
-            this.rbtn_SplitPurchase_P100.Name = "rbtn_SplitPurchase_P100";
-            this.rbtn_SplitPurchase_P100.Size = new System.Drawing.Size(97, 23);
-            this.rbtn_SplitPurchase_P100.TabIndex = 14;
-            this.rbtn_SplitPurchase_P100.Text = "Percent";
-            this.rbtn_SplitPurchase_P100.UseVisualStyleBackColor = true;
-            this.rbtn_SplitPurchase_P100.CheckedChanged += new System.EventHandler(this.rbtn_SplitPurchase_P100_CheckedChanged);
-            // 
             // btn_Start
             // 
+            this.tlp_Main.SetColumnSpan(this.btn_Start, 2);
             this.btn_Start.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btn_Start.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_Start.Location = new System.Drawing.Point(3, 795);
+            this.btn_Start.Location = new System.Drawing.Point(3, 563);
             this.btn_Start.Name = "btn_Start";
-            this.btn_Start.Size = new System.Drawing.Size(272, 46);
+            this.btn_Start.Size = new System.Drawing.Size(572, 78);
             this.btn_Start.TabIndex = 1;
             this.btn_Start.Text = "EXECUTAR";
             this.btn_Start.UseVisualStyleBackColor = true;
@@ -429,7 +431,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(278, 844);
+            this.ClientSize = new System.Drawing.Size(578, 644);
             this.Controls.Add(this.tlp_Main);
             this.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);

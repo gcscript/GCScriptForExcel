@@ -159,18 +159,18 @@
     can be found.
   -->
   <ItemGroup>
-    <Compile Include="Controllers\AdjustDescontoAndCompraFinal.cs" />
+    <Compile Include="Classes\AdjustDescontoAndCompraFinal.cs" />
     <Compile Include="Models\ColumnsRangeOnPurchase.cs" />
-    <Compile Include="Controllers\GenerateFileToSend.cs" />
-    <Compile Include="Controllers\Settings.cs" />
-    <Compile Include="Controllers\ExcelFunctions.cs" />
-    <Compile Include="Controllers\GenerateApportionment.cs" />
-    <Compile Include="Controllers\PurchaseCreator.cs" />
+    <Compile Include="Classes\GenerateFileToSend.cs" />
+    <Compile Include="Classes\Settings.cs" />
+    <Compile Include="Classes\ExcelFunctions.cs" />
+    <Compile Include="Classes\GenerateApportionment.cs" />
+    <Compile Include="Classes\PurchaseCreator.cs" />
     <Compile Include="Models\Enums.cs" />
-    <Compile Include="Controllers\Tools.cs" />
-    <Compile Include="Controllers\GeneratePurchase.cs" />
-    <Compile Include="Controllers\ColumnsName.cs" />
-    <Compile Include="Controllers\TransferData.cs" />
+    <Compile Include="Classes\Tools.cs" />
+    <Compile Include="Classes\GeneratePurchase.cs" />
+    <Compile Include="Classes\ColumnsName.cs" />
+    <Compile Include="Classes\TransferData.cs" />
     <Compile Include="Views\frm_Settings.cs">
       <SubType>Form</SubType>
     </Compile>
