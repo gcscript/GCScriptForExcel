@@ -18,6 +18,7 @@ namespace GCScript_for_Excel.Classes
         public static EPurchaseCreatorTabOption PurchaseCreatorTabOption = EPurchaseCreatorTabOption.CustomName;
         public static string PurchaseCreatorTabName = "Compra";
         public static EPurchaseCreatorSplitPurchaseOption PurchaseCreatorSplitPurchaseOption = EPurchaseCreatorSplitPurchaseOption.One;
+        public static decimal PurchaseCreatorSplitPurchaseOptionPercent = 30;
 
         public static bool Text_Trim = true;
         public static bool Text_RemoverEspacoDuplicado = true;

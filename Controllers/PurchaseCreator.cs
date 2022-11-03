@@ -187,6 +187,10 @@ namespace GCScript_for_Excel.Classes
             {
                 emptyColumnsList.Add(rangeAddress.Parcela3);
             }
+            else if (Settings.PurchaseCreatorSplitPurchaseOption == EPurchaseCreatorSplitPurchaseOption.Percent)
+            {
+                emptyColumnsList.Add(rangeAddress.Parcela3);
+            }
 
             for (int i = emptyColumnsList.Count - 1; i >= 0; i--)
                 emptyColumnsList[i].EntireColumn.Delete();
@@ -625,6 +629,44 @@ namespace GCScript_for_Excel.Classes
                     if (Parcela1 + Parcela2 + Parcela3 != CompraFinal)
                     {
                         MessageBox.Show($"Aconteceu um erro!", "E653982", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                        return (data, false);
+                    }
+                }
+                else if (Settings.PurchaseCreatorSplitPurchaseOption == EPurchaseCreatorSplitPurchaseOption.Percent)
+                {
+                    decimal percent = Settings.PurchaseCreatorSplitPurchaseOptionPercent; // result: 70
+
+                    var finalPercent = percent / 100; // result: 0,70
+
+
+
+
+                    if (percent <= 50) // Parcela 1 é MENOR
+                    {
+
+                    }
+                    else
+                    {
+                        if (CompraFinal * finalPercent < 10)
+                        {
+                            Parcela1 = CompraFinal;
+                            Parcela2 = 0;
+                            Parcela3 = 0;
+
+                        }
+                        else
+                        {
+                            Parcela1 = Math.Round(CompraFinal * finalPercent, 2);
+                            Parcela2 = CompraFinal - Parcela1;
+                        }
+
+                    }
+
+
+
+                    if (Parcela1 + Parcela2 != CompraFinal)
+                    {
+                        MessageBox.Show($"Aconteceu um erro!", "E837028", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
                         return (data, false);
                     }
                 }

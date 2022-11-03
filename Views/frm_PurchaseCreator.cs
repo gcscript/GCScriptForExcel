@@ -150,9 +150,14 @@ namespace GCScript_for_Excel.Views
             {
                 rbtn_SplitPurchase_2x.Checked = true;
             }
-            else
+            else if (Settings.PurchaseCreatorSplitPurchaseOption == Enums.EPurchaseCreatorSplitPurchaseOption.Three)
             {
                 rbtn_SplitPurchase_3x.Checked = true;
+            }
+            else
+            {
+                rbtn_SplitPurchase_P100.Checked = true;
+                nud_SplitPurchase_P100.Value = Settings.PurchaseCreatorSplitPurchaseOptionPercent;
             }
         }
 
@@ -213,6 +218,20 @@ namespace GCScript_for_Excel.Views
         private void rbtn_SplitPurchase_P100_CheckedChanged(object sender, EventArgs e)
         {
             Settings.PurchaseCreatorSplitPurchaseOption = Enums.EPurchaseCreatorSplitPurchaseOption.Percent;
+
+            if (rbtn_SplitPurchase_P100.Checked == true)
+            {
+                panel1.Enabled = true;
+            }
+            else
+            {
+                panel1.Enabled = false;
+            }
+        }
+
+        private void nud_SplitPurchase_P100_ValueChanged(object sender, EventArgs e)
+        {
+            Settings.PurchaseCreatorSplitPurchaseOptionPercent = nud_SplitPurchase_P100.Value;
         }
     }
 }

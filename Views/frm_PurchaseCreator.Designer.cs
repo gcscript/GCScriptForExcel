@@ -50,17 +50,17 @@
             this.rbtn_SplitPurchase_1x = new System.Windows.Forms.RadioButton();
             this.rbtn_SplitPurchase_2x = new System.Windows.Forms.RadioButton();
             this.rbtn_SplitPurchase_3x = new System.Windows.Forms.RadioButton();
-            this.btn_Start = new System.Windows.Forms.Button();
-            this.rbtn_SplitPurchase_P100 = new System.Windows.Forms.RadioButton();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
+            this.nud_SplitPurchase_P100 = new System.Windows.Forms.NumericUpDown();
+            this.rbtn_SplitPurchase_P100 = new System.Windows.Forms.RadioButton();
+            this.btn_Start = new System.Windows.Forms.Button();
             this.tlp_Main.SuspendLayout();
             this.flp_Tab.SuspendLayout();
             this.flp_Subtotal.SuspendLayout();
             this.flp_SplitPurchase.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_SplitPurchase_P100)).BeginInit();
             this.SuspendLayout();
             // 
             // tlp_Main
@@ -76,11 +76,11 @@
             this.tlp_Main.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tlp_Main.Name = "tlp_Main";
             this.tlp_Main.RowCount = 4;
-            this.tlp_Main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 38F));
-            this.tlp_Main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 38F));
-            this.tlp_Main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 24F));
+            this.tlp_Main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 35F));
+            this.tlp_Main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 35F));
+            this.tlp_Main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.tlp_Main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tlp_Main.Size = new System.Drawing.Size(278, 794);
+            this.tlp_Main.Size = new System.Drawing.Size(278, 844);
             this.tlp_Main.TabIndex = 0;
             // 
             // flp_Tab
@@ -96,7 +96,7 @@
             this.flp_Tab.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flp_Tab.Location = new System.Drawing.Point(3, 3);
             this.flp_Tab.Name = "flp_Tab";
-            this.flp_Tab.Size = new System.Drawing.Size(272, 276);
+            this.flp_Tab.Size = new System.Drawing.Size(272, 271);
             this.flp_Tab.TabIndex = 2;
             // 
             // label2
@@ -198,9 +198,9 @@
             this.flp_Subtotal.Controls.Add(this.rbtn_Subtotal_Depto);
             this.flp_Subtotal.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flp_Subtotal.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flp_Subtotal.Location = new System.Drawing.Point(3, 285);
+            this.flp_Subtotal.Location = new System.Drawing.Point(3, 280);
             this.flp_Subtotal.Name = "flp_Subtotal";
-            this.flp_Subtotal.Size = new System.Drawing.Size(272, 276);
+            this.flp_Subtotal.Size = new System.Drawing.Size(272, 271);
             this.flp_Subtotal.TabIndex = 3;
             // 
             // label1
@@ -300,12 +300,13 @@
             this.flp_SplitPurchase.Controls.Add(this.rbtn_SplitPurchase_1x);
             this.flp_SplitPurchase.Controls.Add(this.rbtn_SplitPurchase_2x);
             this.flp_SplitPurchase.Controls.Add(this.rbtn_SplitPurchase_3x);
+            this.flp_SplitPurchase.Controls.Add(this.rbtn_SplitPurchase_P100);
             this.flp_SplitPurchase.Controls.Add(this.panel1);
             this.flp_SplitPurchase.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flp_SplitPurchase.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flp_SplitPurchase.Location = new System.Drawing.Point(3, 567);
+            this.flp_SplitPurchase.Location = new System.Drawing.Point(3, 557);
             this.flp_SplitPurchase.Name = "flp_SplitPurchase";
-            this.flp_SplitPurchase.Size = new System.Drawing.Size(272, 172);
+            this.flp_SplitPurchase.Size = new System.Drawing.Size(272, 232);
             this.flp_SplitPurchase.TabIndex = 4;
             // 
             // label3
@@ -355,57 +356,16 @@
             this.rbtn_SplitPurchase_3x.UseVisualStyleBackColor = true;
             this.rbtn_SplitPurchase_3x.CheckedChanged += new System.EventHandler(this.rbtn_SplitPurchase_3x_CheckedChanged);
             // 
-            // btn_Start
-            // 
-            this.btn_Start.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btn_Start.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_Start.Location = new System.Drawing.Point(3, 745);
-            this.btn_Start.Name = "btn_Start";
-            this.btn_Start.Size = new System.Drawing.Size(272, 46);
-            this.btn_Start.TabIndex = 1;
-            this.btn_Start.Text = "EXECUTAR";
-            this.btn_Start.UseVisualStyleBackColor = true;
-            this.btn_Start.Click += new System.EventHandler(this.btn_Start_Click);
-            // 
-            // rbtn_SplitPurchase_P100
-            // 
-            this.rbtn_SplitPurchase_P100.AutoSize = true;
-            this.rbtn_SplitPurchase_P100.Location = new System.Drawing.Point(0, 5);
-            this.rbtn_SplitPurchase_P100.Margin = new System.Windows.Forms.Padding(10, 3, 3, 3);
-            this.rbtn_SplitPurchase_P100.Name = "rbtn_SplitPurchase_P100";
-            this.rbtn_SplitPurchase_P100.Size = new System.Drawing.Size(21, 20);
-            this.rbtn_SplitPurchase_P100.TabIndex = 14;
-            this.rbtn_SplitPurchase_P100.UseVisualStyleBackColor = true;
-            this.rbtn_SplitPurchase_P100.CheckedChanged += new System.EventHandler(this.rbtn_SplitPurchase_P100_CheckedChanged);
-            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.numericUpDown1);
-            this.panel1.Controls.Add(this.rbtn_SplitPurchase_P100);
-            this.panel1.Location = new System.Drawing.Point(10, 133);
+            this.panel1.Controls.Add(this.nud_SplitPurchase_P100);
+            this.panel1.Enabled = false;
+            this.panel1.Location = new System.Drawing.Point(10, 162);
             this.panel1.Margin = new System.Windows.Forms.Padding(10, 3, 3, 3);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(253, 30);
             this.panel1.TabIndex = 15;
-            // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.Location = new System.Drawing.Point(27, 2);
-            this.numericUpDown1.Minimum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(70, 26);
-            this.numericUpDown1.TabIndex = 15;
-            this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.numericUpDown1.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
             // 
             // label4
             // 
@@ -417,11 +377,59 @@
             this.label4.TabIndex = 16;
             this.label4.Text = "% (1ª Parcela)";
             // 
+            // nud_SplitPurchase_P100
+            // 
+            this.nud_SplitPurchase_P100.Location = new System.Drawing.Point(3, 2);
+            this.nud_SplitPurchase_P100.Maximum = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.nud_SplitPurchase_P100.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.nud_SplitPurchase_P100.Name = "nud_SplitPurchase_P100";
+            this.nud_SplitPurchase_P100.Size = new System.Drawing.Size(94, 26);
+            this.nud_SplitPurchase_P100.TabIndex = 15;
+            this.nud_SplitPurchase_P100.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nud_SplitPurchase_P100.Value = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            this.nud_SplitPurchase_P100.ValueChanged += new System.EventHandler(this.nud_SplitPurchase_P100_ValueChanged);
+            // 
+            // rbtn_SplitPurchase_P100
+            // 
+            this.rbtn_SplitPurchase_P100.AutoSize = true;
+            this.rbtn_SplitPurchase_P100.Location = new System.Drawing.Point(10, 133);
+            this.rbtn_SplitPurchase_P100.Margin = new System.Windows.Forms.Padding(10, 3, 3, 3);
+            this.rbtn_SplitPurchase_P100.Name = "rbtn_SplitPurchase_P100";
+            this.rbtn_SplitPurchase_P100.Size = new System.Drawing.Size(97, 23);
+            this.rbtn_SplitPurchase_P100.TabIndex = 14;
+            this.rbtn_SplitPurchase_P100.Text = "Percent";
+            this.rbtn_SplitPurchase_P100.UseVisualStyleBackColor = true;
+            this.rbtn_SplitPurchase_P100.CheckedChanged += new System.EventHandler(this.rbtn_SplitPurchase_P100_CheckedChanged);
+            // 
+            // btn_Start
+            // 
+            this.btn_Start.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btn_Start.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_Start.Location = new System.Drawing.Point(3, 795);
+            this.btn_Start.Name = "btn_Start";
+            this.btn_Start.Size = new System.Drawing.Size(272, 46);
+            this.btn_Start.TabIndex = 1;
+            this.btn_Start.Text = "EXECUTAR";
+            this.btn_Start.UseVisualStyleBackColor = true;
+            this.btn_Start.Click += new System.EventHandler(this.btn_Start_Click);
+            // 
             // frm_PurchaseCreator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(278, 794);
+            this.ClientSize = new System.Drawing.Size(278, 844);
             this.Controls.Add(this.tlp_Main);
             this.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -442,7 +450,7 @@
             this.flp_SplitPurchase.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_SplitPurchase_P100)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -474,7 +482,7 @@
         private System.Windows.Forms.RadioButton rbtn_SplitPurchase_3x;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown nud_SplitPurchase_P100;
         private System.Windows.Forms.RadioButton rbtn_SplitPurchase_P100;
     }
 }
