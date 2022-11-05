@@ -159,7 +159,9 @@
     can be found.
   -->
   <ItemGroup>
+    <Compile Include="Classes\OpenWindowGetter.cs" />
     <Compile Include="Classes\AdjustDescontoAndCompraFinal.cs" />
+    <Compile Include="Classes\GetSaldos.cs" />
     <Compile Include="Models\ColumnsRangeOnPurchase.cs" />
     <Compile Include="Classes\GenerateFileToSend.cs" />
     <Compile Include="Classes\Settings.cs" />

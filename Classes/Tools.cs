@@ -325,6 +325,12 @@ namespace GCScript_for_Excel.Classes
 
             return texto;
         }
+
+        public static string ReplaceInvalidCharactersExcel(string text)
+        {
+            return text.Replace("[", "(")
+                       .Replace("]", ")");
+        }
     }
 }
 

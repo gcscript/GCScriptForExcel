@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -47,7 +48,10 @@ namespace GCScript_for_Excel
 
         private void btn_T1_Click(object sender, RibbonControlEventArgs e)
         {
-            
+
+            var beta = new GetSaldos();
+            beta.Start();
+
             //gcsApplication app = Globals.ThisAddIn.Application;
             //Worksheet ws = app.ActiveSheet;
 
@@ -1014,8 +1018,18 @@ namespace GCScript_for_Excel
 
         private void TransferData_btn_Import_Click(object sender, RibbonControlEventArgs e)
         {
-            TransferData transferData = new TransferData();
+            var transferData = new TransferData();
             transferData.Import();
+
+            var setTitle = new frm_SetTitle();
+            setTitle.ShowDialog();
+
+            if (MessageBox.Show($"Deseja Importar os Saldos?", "ATENCAO!", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+            {
+                var beta = new GetSaldos();
+                beta.Start();
+            }
+
         }
 
         private void TransferData_btn_Export_Click(object sender, RibbonControlEventArgs e)

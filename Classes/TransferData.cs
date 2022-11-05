@@ -200,7 +200,6 @@ namespace GCScript_for_Excel.Classes
                 gcsApp.ScreenUpdating = true;
                 gcsApp.DisplayAlerts = true;
             }
-
         }
 
         public void Export()
