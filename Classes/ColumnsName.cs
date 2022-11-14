@@ -54,5 +54,9 @@ namespace GCScript_for_Excel.Classes
         public static string Cf10 { get; private set; } = "CF -R$10";
         public static string NrDoCartao { get; private set; } = "Nr. do Cartao";
         public static string Obs { get; private set; } = "OBS";
+        public static string CpfDoCartao { get; private set; } = "CPF do Cartao";
+        public static string DifCpf { get; private set; } = "Dif CPF";
+        public static string ContSeCpf { get; private set; } = "Cont.Se CPF";
+        public static string ContSeNome { get; private set; } = "Cont.Se Nome";
     }
 }
