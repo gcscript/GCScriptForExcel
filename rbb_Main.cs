@@ -49,7 +49,7 @@ namespace GCScript_for_Excel
         private void btn_T1_Click(object sender, RibbonControlEventArgs e)
         {
 
-            var beta = new GetSaldos();
+            var beta = new GetMat("Saldos_20221114_204603");
             beta.Start();
 
             //gcsApplication app = Globals.ThisAddIn.Application;
@@ -1029,7 +1029,6 @@ namespace GCScript_for_Excel
                 var beta = new GetSaldos();
                 beta.Start();
             }
-
         }
 
         private void TransferData_btn_Export_Click(object sender, RibbonControlEventArgs e)
@@ -1037,7 +1036,5 @@ namespace GCScript_for_Excel
             TransferData transferData = new TransferData();
             transferData.Export();
         }
-
-        
     }
 }

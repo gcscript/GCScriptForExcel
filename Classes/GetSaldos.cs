@@ -181,7 +181,12 @@ namespace GCScript_for_Excel.Classes
                 ExcelFunctions.ColumnWidth(rngAllCells);
 
                 stopwatch.Stop();
-                MessageBox.Show($"Tempo: {stopwatch.Elapsed:hh\\:mm\\:ss\\.ff}", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+
+                if (MessageBox.Show($"Saldos Carregados com Sucesso!\nTempo: {stopwatch.Elapsed:hh\\:mm\\:ss\\.ff}\nDeseja Corrigir Matrículas?", "ATENCAO!", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
+                {
+                    var beta = new GetMat(saldoTabName);
+                    beta.Start();
+                }
             }
             catch (Exception erro)
             {
