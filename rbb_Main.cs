@@ -224,16 +224,17 @@ namespace GCScript_for_Excel
 
         private void Converter_btn_CPF_Click(object sender, RibbonControlEventArgs e)
         {
-            gcsApplication app = Globals.ThisAddIn.Application;
-            Worksheet ws = app.ActiveSheet;
+            gcsApplication gcsApp = Globals.ThisAddIn.Application;
+            Worksheet ws = gcsApp.ActiveSheet;
             ExcelFunctions.CreateBackup("ConverterCPF");
-            app.ScreenUpdating = false;
+            gcsApp.ScreenUpdating = false;
+            gcsApp.Calculation = XlCalculation.xlCalculationManual;
             try
             {
-                Range selection = app.Selection;
+                Range selection = gcsApp.Selection;
                 //Range constantsSelection = selection.SpecialCells(XlCellType.xlCellTypeConstants);
                 //Range formulasSelection = selection.SpecialCells(XlCellType.xlCellTypeFormulas);
-                //Range finalSelection = app.Union(constantsSelection, formulasSelection);
+                //Range finalSelection = gcsApp.Union(constantsSelection, formulasSelection);
 
                 if (selection.Cells.Count > 100000)
                 {
@@ -258,7 +259,8 @@ namespace GCScript_for_Excel
             }
             finally
             {
-                app.ScreenUpdating = true;
+                gcsApp.Calculation = XlCalculation.xlCalculationAutomatic;
+                gcsApp.ScreenUpdating = true;
             }
         }
 
