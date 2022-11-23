@@ -182,7 +182,8 @@
     can be found.
   -->
   <ItemGroup>
-    <Compile Include="Classes\GetMat.cs" />
+    <Compile Include="Classes\GetMatbyNome.cs" />
+    <Compile Include="Classes\GetMatbyCpf.cs" />
     <Compile Include="Classes\OpenWindowGetter.cs" />
     <Compile Include="Classes\AdjustDescontoAndCompraFinal.cs" />
     <Compile Include="Classes\GetSaldos.cs" />

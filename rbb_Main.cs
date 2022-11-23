@@ -49,7 +49,7 @@ namespace GCScript_for_Excel
         private void btn_T1_Click(object sender, RibbonControlEventArgs e)
         {
 
-            var beta = new GetMat("Saldos_20221114_204603");
+            var beta = new GetMatbyCpf("Saldos_20221114_204603");
             beta.Start();
 
             //gcsApplication app = Globals.ThisAddIn.Application;

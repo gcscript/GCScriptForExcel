@@ -9,11 +9,11 @@ using gcsApplication = Microsoft.Office.Interop.Excel.Application;
 
 namespace GCScript_for_Excel.Classes
 {
-    public class GetMat
+    public class GetMatbyNome
     {
         private readonly string _saldoTabName;
 
-        public GetMat(string saldoTabName)
+        public GetMatbyNome(string saldoTabName)
         {
             _saldoTabName = saldoTabName;
         }
@@ -38,14 +38,11 @@ namespace GCScript_for_Excel.Classes
                 var nomeColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Nome);
                 if (nomeColumnNumber == -1) { MessageBox.Show($"A coluna {ColumnsName.Nome} não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
-                var cpfColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.Cpf);
-                if (cpfColumnNumber == -1) { MessageBox.Show($"A coluna {ColumnsName.Cpf} não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
-
                 var nrDoCartaoColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.NrDoCartao);
                 if (nrDoCartaoColumnNumber == -1) { MessageBox.Show($"A coluna {ColumnsName.NrDoCartao} não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
-                var contSeCpfColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.ContSeCpf);
-                if (contSeCpfColumnNumber == -1) { MessageBox.Show($"A coluna {ColumnsName.ContSeCpf} não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+                var contSeNomeColumnNumber = ExcelFunctions.GetNumberColumnByName(ws, ColumnsName.ContSeNome);
+                if (contSeNomeColumnNumber == -1) { MessageBox.Show($"A coluna {ColumnsName.ContSeNome} não foi encontrada!", "ATENÇÃO!", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
 
                 Stopwatch stopwatch = Stopwatch.StartNew();
 
@@ -59,7 +56,7 @@ namespace GCScript_for_Excel.Classes
                     Range rngCnpj = ws.Cells[row+1, cnpjColumnNumber];
                     Range rngNome = ws.Cells[row+1, nomeColumnNumber];
                     Range rngNrDoCartao = ws.Cells[row+1, nrDoCartaoColumnNumber];
-                    Range rngContSeCpf = ws.Cells[row+1, contSeCpfColumnNumber];
+                    Range rngContSeNome = ws.Cells[row+1, contSeNomeColumnNumber];
 
                     if (rngNome.Text.Length > 2)
                     {
@@ -67,12 +64,12 @@ namespace GCScript_for_Excel.Classes
                         {
                             if (rngNrDoCartao.Text == "_CARTAO NAO ENCONTRADO")
                             {
-                                if (rngContSeCpf.Value2 == 1)
+                                if (rngContSeNome.Value2 == 1)
                                 {
-                                    string columnLetterCpf = Regex.Replace(ws.Cells[1, cpfColumnNumber].Address, @"[^a-zA-Z]", "");
+                                    string columnLetterNome = Regex.Replace(ws.Cells[1, nomeColumnNumber].Address, @"[^a-zA-Z]", "");
                                     Range rngMatSite = ws.Cells[row+1, matSiteColumnNumber];
                                     rngMatSite.NumberFormat = "General";
-                                    rngMatSite.FormulaLocal = $"=PROCX({columnLetterCpf}{row+1};{_saldoTabName}!G:G;{_saldoTabName}!E:E)";
+                                    rngMatSite.FormulaLocal = $"=PROCX({columnLetterNome}{row+1};{_saldoTabName}!F:F;{_saldoTabName}!E:E)";
                                     count++;
                                 }
                             }
@@ -82,11 +79,11 @@ namespace GCScript_for_Excel.Classes
                 }
 
                 stopwatch.Stop();
-                MessageBox.Show($"Matrículas Corrigidas: {count}\nTempo: {stopwatch.Elapsed:hh\\:mm\\:ss\\.ff}", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+                MessageBox.Show($"Matrículas Corrigidas pelo Nome: {count}\nTempo: {stopwatch.Elapsed:hh\\:mm\\:ss\\.ff}", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
             }
             catch (Exception erro)
             {
-                MessageBox.Show(erro.ToString(), "ERROR: 360425", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(erro.ToString(), "ERROR: 664363", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {

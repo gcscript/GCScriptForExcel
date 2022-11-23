@@ -157,12 +157,12 @@ namespace GCScript_for_Excel.Classes
 
                 // REC PEND SET
                 Range startRecPendSet = ws.Cells[2, recPendSetColumnNumber];
-                startRecPendSet.FormulaLocal = $"=SE({columnLetterBuscaValorDias}{startCpfDoCartao.Row}={columnLetterBuscaValorDias}{startCpfDoCartao.Row - 1};0;PROCX({columnLetterNrDoCartao}{startCpfDoCartao.Row};{saldoTabName}!$D:$D;{saldoTabName}!$I:$I;-999999;0;1))";
+                startRecPendSet.FormulaLocal = $"=SE({columnLetterBuscaValorDias}{startCpfDoCartao.Row}={columnLetterBuscaValorDias}{startCpfDoCartao.Row - 1};0;PROCX({columnLetterNrDoCartao}{startCpfDoCartao.Row};{saldoTabName}!$D:$D;{saldoTabName}!$K:$K;-999999;0;1))";
                 startRecPendSet.AutoFill(Destination: ws.Range[startRecPendSet, ws.Cells[lastUsedRowByNome, startRecPendSet.Column]]);
 
                 // SALDO SET
                 Range startSaldoSet = ws.Cells[2, saldoSetColumnNumber];
-                startSaldoSet.FormulaLocal = $"=SE({columnLetterBuscaValorDias}{startCpfDoCartao.Row}={columnLetterBuscaValorDias}{startCpfDoCartao.Row - 1};0;PROCX({columnLetterNrDoCartao}{startCpfDoCartao.Row};{saldoTabName}!$D:$D;{saldoTabName}!$K:$K;-999999;0;1))";
+                startSaldoSet.FormulaLocal = $"=SE({columnLetterBuscaValorDias}{startCpfDoCartao.Row}={columnLetterBuscaValorDias}{startCpfDoCartao.Row - 1};0;PROCX({columnLetterNrDoCartao}{startCpfDoCartao.Row};{saldoTabName}!$D:$D;{saldoTabName}!$I:$I;-999999;0;1))";
                 startSaldoSet.AutoFill(Destination: ws.Range[startSaldoSet, ws.Cells[lastUsedRowByNome, startSaldoSet.Column]]);
 
                 // CONT.SE CPF
@@ -184,8 +184,10 @@ namespace GCScript_for_Excel.Classes
 
                 if (MessageBox.Show($"Saldos Carregados com Sucesso!\nTempo: {stopwatch.Elapsed:hh\\:mm\\:ss\\.ff}\nDeseja Corrigir Matrículas?", "ATENCAO!", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1) == DialogResult.Yes)
                 {
-                    var beta = new GetMat(saldoTabName);
-                    beta.Start();
+                    var getMatbyCpf = new GetMatbyCpf(saldoTabName);
+                    getMatbyCpf.Start();
+                    var getMatbyNome = new GetMatbyNome(saldoTabName);
+                    getMatbyNome.Start();
                 }
             }
             catch (Exception erro)
