@@ -47,6 +47,7 @@
             this.Generate_btn_AdjustDescontoAndCompraFinal = this.Factory.CreateRibbonButton();
             this.Generate_btn_Apportionment = this.Factory.CreateRibbonButton();
             this.Generate_btn_Purchase = this.Factory.CreateRibbonButton();
+            this.Generate_btn_Purchase_Old = this.Factory.CreateRibbonButton();
             this.Generate_btn_FileToSend = this.Factory.CreateRibbonButton();
             this.Generate_btn_Separator1 = this.Factory.CreateRibbonButton();
             this.Generate_btn_RandomCPF = this.Factory.CreateRibbonButton();
@@ -131,7 +132,6 @@
             this.btn_T6 = this.Factory.CreateRibbonButton();
             this.grp_Beta = this.Factory.CreateRibbonGroup();
             this.btn_RemoverFC = this.Factory.CreateRibbonButton();
-            this.Generate_btn_Purchase_Old = this.Factory.CreateRibbonButton();
             this.rbt_Main.SuspendLayout();
             this.grp_Tools.SuspendLayout();
             this.grp_Styles.SuspendLayout();
@@ -273,6 +273,15 @@
             this.Generate_btn_Purchase.ScreenTip = "Purchase";
             this.Generate_btn_Purchase.ShowImage = true;
             this.Generate_btn_Purchase.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.Generate_btn_Purchase_Click);
+            // 
+            // Generate_btn_Purchase_Old
+            // 
+            this.Generate_btn_Purchase_Old.Image = global::GCScript_for_Excel.Properties.Resources.purchase;
+            this.Generate_btn_Purchase_Old.Label = "Purchase [OLD]";
+            this.Generate_btn_Purchase_Old.Name = "Generate_btn_Purchase_Old";
+            this.Generate_btn_Purchase_Old.ScreenTip = "Purchase [OLD]";
+            this.Generate_btn_Purchase_Old.ShowImage = true;
+            this.Generate_btn_Purchase_Old.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.Generate_btn_Purchase_Old_Click);
             // 
             // Generate_btn_FileToSend
             // 
@@ -1069,15 +1078,6 @@
             this.btn_RemoverFC.Name = "btn_RemoverFC";
             this.btn_RemoverFC.ScreenTip = "Remove todas as formatações condicional da página";
             this.btn_RemoverFC.ShowImage = true;
-            // 
-            // Generate_btn_Purchase_Old
-            // 
-            this.Generate_btn_Purchase_Old.Image = global::GCScript_for_Excel.Properties.Resources.purchase;
-            this.Generate_btn_Purchase_Old.Label = "Purchase [OLD]";
-            this.Generate_btn_Purchase_Old.Name = "Generate_btn_Purchase_Old";
-            this.Generate_btn_Purchase_Old.ScreenTip = "Purchase [OLD]";
-            this.Generate_btn_Purchase_Old.ShowImage = true;
-            this.Generate_btn_Purchase_Old.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.Generate_btn_Purchase_Old_Click);
             // 
             // rbb_Main
             // 

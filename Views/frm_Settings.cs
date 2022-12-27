@@ -59,11 +59,18 @@ namespace GCScript_for_Excel.Views
                     Converter_rdo_Text_Default.Checked = true;
                     break;
                 case 4:
-                    Converter_rdo_Texto_Substituir.Checked = true;
+                    Converter_rdo_Text_OnlyLetters.Checked = true;
                     break;
                 case 5:
+                    Converter_rdo_Text_OnlyLettersAndNumbers.Checked = true;
+                    break;
+                case 6:
+                    Converter_rdo_Texto_Substituir.Checked = true;
+                    break;
+                case 7:
                     Converter_rdo_Texto_Alinhamento.Checked = true;
                     break;
+
             }
 
             switch (Settings.converter_Text_Opcao_Alinhamento)
@@ -204,9 +211,19 @@ namespace GCScript_for_Excel.Views
             Settings.Text_Option = 3;
         }
 
-        private void Converter_rdo_Texto_Substituir_CheckedChanged(object sender, EventArgs e)
+        private void Converter_rdo_Text_OnlyLetters_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Text_Option = 4;
+        }
+
+        private void Converter_rdo_Text_OnlyLettersAndNumbers_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.Text_Option = 5;
+        }
+
+        private void Converter_rdo_Texto_Substituir_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.Text_Option = 6;
 
             if (Converter_rdo_Texto_Substituir.Checked)
             {
@@ -220,7 +237,7 @@ namespace GCScript_for_Excel.Views
 
         private void Converter_rdo_Texto_Alinhamento_CheckedChanged(object sender, EventArgs e)
         {
-            Settings.Text_Option = 5;
+            Settings.Text_Option = 7;
 
             if (Converter_rdo_Texto_Alinhamento.Checked)
             {
@@ -512,5 +529,7 @@ namespace GCScript_for_Excel.Views
         {
             Settings.ApplyRemove_RemoveAllSheets_HiddenSheets = ApplyRemove_chk_RemoveAllSheets_HiddenSheets.Checked;
         }
+
+        
     }
 }

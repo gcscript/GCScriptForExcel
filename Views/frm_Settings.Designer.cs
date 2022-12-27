@@ -62,6 +62,10 @@
             this.tbp_Geral = new System.Windows.Forms.TabPage();
             this.tbp_Converter = new System.Windows.Forms.TabPage();
             this.tbp_ApplyRemove = new System.Windows.Forms.TabPage();
+            this.ApplyRemove_grp_AddAllSheets = new System.Windows.Forms.GroupBox();
+            this.ApplyRemove_grp_RemoveAllSheets = new System.Windows.Forms.GroupBox();
+            this.ApplyRemove_chk_RemoveAllSheets_HiddenSheets = new System.Windows.Forms.CheckBox();
+            this.ApplyRemove_chk_RemoveAllSheets_EmptySheets = new System.Windows.Forms.CheckBox();
             this.ApplyRemove_grp_Apply = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.ApplyRemove_nud_Apply_Zoom = new System.Windows.Forms.NumericUpDown();
@@ -98,10 +102,8 @@
             this.ApplyRemove_chk_Remove_FontItalic = new System.Windows.Forms.CheckBox();
             this.ApplyRemove_chk_Remove_Fill = new System.Windows.Forms.CheckBox();
             this.ApplyRemove_chk_Remove_Borders = new System.Windows.Forms.CheckBox();
-            this.ApplyRemove_chk_RemoveAllSheets_EmptySheets = new System.Windows.Forms.CheckBox();
-            this.ApplyRemove_grp_RemoveAllSheets = new System.Windows.Forms.GroupBox();
-            this.ApplyRemove_chk_RemoveAllSheets_HiddenSheets = new System.Windows.Forms.CheckBox();
-            this.ApplyRemove_grp_AddAllSheets = new System.Windows.Forms.GroupBox();
+            this.Converter_rdo_Text_OnlyLetters = new System.Windows.Forms.RadioButton();
+            this.Converter_rdo_Text_OnlyLettersAndNumbers = new System.Windows.Forms.RadioButton();
             this.Converter_grp_ConverterTexto.SuspendLayout();
             this.Converter_pnl_Texto_Alinhamento.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Converter_nud_Texto_Alinhamento_Comprimento)).BeginInit();
@@ -111,6 +113,7 @@
             this.tbc_Main.SuspendLayout();
             this.tbp_Converter.SuspendLayout();
             this.tbp_ApplyRemove.SuspendLayout();
+            this.ApplyRemove_grp_RemoveAllSheets.SuspendLayout();
             this.ApplyRemove_grp_Apply.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ApplyRemove_nud_Apply_Zoom)).BeginInit();
@@ -121,11 +124,12 @@
             this.ApplyRemove_grp_Apply_RowHeight.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ApplyRemove_nud_Apply_RowHeight)).BeginInit();
             this.ApplyRemove_grp_Remove.SuspendLayout();
-            this.ApplyRemove_grp_RemoveAllSheets.SuspendLayout();
             this.SuspendLayout();
             // 
             // Converter_grp_ConverterTexto
             // 
+            this.Converter_grp_ConverterTexto.Controls.Add(this.Converter_rdo_Text_OnlyLettersAndNumbers);
+            this.Converter_grp_ConverterTexto.Controls.Add(this.Converter_rdo_Text_OnlyLetters);
             this.Converter_grp_ConverterTexto.Controls.Add(this.Converter_pnl_Texto_Alinhamento);
             this.Converter_grp_ConverterTexto.Controls.Add(this.Converter_pnl_Texto_Substituir);
             this.Converter_grp_ConverterTexto.Controls.Add(this.Converter_rdo_Texto_Alinhamento);
@@ -516,7 +520,7 @@
             this.tbp_Geral.Location = new System.Drawing.Point(4, 28);
             this.tbp_Geral.Name = "tbp_Geral";
             this.tbp_Geral.Padding = new System.Windows.Forms.Padding(3);
-            this.tbp_Geral.Size = new System.Drawing.Size(870, 492);
+            this.tbp_Geral.Size = new System.Drawing.Size(870, 677);
             this.tbp_Geral.TabIndex = 0;
             this.tbp_Geral.Text = "Geral";
             this.tbp_Geral.UseVisualStyleBackColor = true;
@@ -530,7 +534,7 @@
             this.tbp_Converter.Location = new System.Drawing.Point(4, 28);
             this.tbp_Converter.Name = "tbp_Converter";
             this.tbp_Converter.Padding = new System.Windows.Forms.Padding(3);
-            this.tbp_Converter.Size = new System.Drawing.Size(870, 492);
+            this.tbp_Converter.Size = new System.Drawing.Size(870, 677);
             this.tbp_Converter.TabIndex = 1;
             this.tbp_Converter.Text = "Converter";
             this.tbp_Converter.UseVisualStyleBackColor = true;
@@ -548,6 +552,50 @@
             this.tbp_ApplyRemove.TabIndex = 3;
             this.tbp_ApplyRemove.Text = "Apply & Remove";
             this.tbp_ApplyRemove.UseVisualStyleBackColor = true;
+            // 
+            // ApplyRemove_grp_AddAllSheets
+            // 
+            this.ApplyRemove_grp_AddAllSheets.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ApplyRemove_grp_AddAllSheets.Location = new System.Drawing.Point(10, 516);
+            this.ApplyRemove_grp_AddAllSheets.Name = "ApplyRemove_grp_AddAllSheets";
+            this.ApplyRemove_grp_AddAllSheets.Size = new System.Drawing.Size(420, 150);
+            this.ApplyRemove_grp_AddAllSheets.TabIndex = 15;
+            this.ApplyRemove_grp_AddAllSheets.TabStop = false;
+            this.ApplyRemove_grp_AddAllSheets.Text = "Add (All Sheets)";
+            // 
+            // ApplyRemove_grp_RemoveAllSheets
+            // 
+            this.ApplyRemove_grp_RemoveAllSheets.Controls.Add(this.ApplyRemove_chk_RemoveAllSheets_HiddenSheets);
+            this.ApplyRemove_grp_RemoveAllSheets.Controls.Add(this.ApplyRemove_chk_RemoveAllSheets_EmptySheets);
+            this.ApplyRemove_grp_RemoveAllSheets.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ApplyRemove_grp_RemoveAllSheets.Location = new System.Drawing.Point(436, 516);
+            this.ApplyRemove_grp_RemoveAllSheets.Name = "ApplyRemove_grp_RemoveAllSheets";
+            this.ApplyRemove_grp_RemoveAllSheets.Size = new System.Drawing.Size(424, 150);
+            this.ApplyRemove_grp_RemoveAllSheets.TabIndex = 14;
+            this.ApplyRemove_grp_RemoveAllSheets.TabStop = false;
+            this.ApplyRemove_grp_RemoveAllSheets.Text = "Remove (All Sheets)";
+            // 
+            // ApplyRemove_chk_RemoveAllSheets_HiddenSheets
+            // 
+            this.ApplyRemove_chk_RemoveAllSheets_HiddenSheets.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ApplyRemove_chk_RemoveAllSheets_HiddenSheets.Location = new System.Drawing.Point(10, 60);
+            this.ApplyRemove_chk_RemoveAllSheets_HiddenSheets.Name = "ApplyRemove_chk_RemoveAllSheets_HiddenSheets";
+            this.ApplyRemove_chk_RemoveAllSheets_HiddenSheets.Size = new System.Drawing.Size(408, 24);
+            this.ApplyRemove_chk_RemoveAllSheets_HiddenSheets.TabIndex = 16;
+            this.ApplyRemove_chk_RemoveAllSheets_HiddenSheets.Text = "Hidden Sheets";
+            this.ApplyRemove_chk_RemoveAllSheets_HiddenSheets.UseVisualStyleBackColor = true;
+            this.ApplyRemove_chk_RemoveAllSheets_HiddenSheets.CheckedChanged += new System.EventHandler(this.ApplyRemove_chk_RemoveAllSheets_HiddenSheets_CheckedChanged);
+            // 
+            // ApplyRemove_chk_RemoveAllSheets_EmptySheets
+            // 
+            this.ApplyRemove_chk_RemoveAllSheets_EmptySheets.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ApplyRemove_chk_RemoveAllSheets_EmptySheets.Location = new System.Drawing.Point(10, 30);
+            this.ApplyRemove_chk_RemoveAllSheets_EmptySheets.Name = "ApplyRemove_chk_RemoveAllSheets_EmptySheets";
+            this.ApplyRemove_chk_RemoveAllSheets_EmptySheets.Size = new System.Drawing.Size(408, 24);
+            this.ApplyRemove_chk_RemoveAllSheets_EmptySheets.TabIndex = 15;
+            this.ApplyRemove_chk_RemoveAllSheets_EmptySheets.Text = "Empty Sheets";
+            this.ApplyRemove_chk_RemoveAllSheets_EmptySheets.UseVisualStyleBackColor = true;
+            this.ApplyRemove_chk_RemoveAllSheets_EmptySheets.CheckedChanged += new System.EventHandler(this.ApplyRemove_chk_RemoveAllSheets_EmptySheets_CheckedChanged);
             // 
             // ApplyRemove_grp_Apply
             // 
@@ -1035,49 +1083,29 @@
             this.ApplyRemove_chk_Remove_Borders.UseVisualStyleBackColor = true;
             this.ApplyRemove_chk_Remove_Borders.CheckedChanged += new System.EventHandler(this.ApplyRemove_chk_Remove_Borders_CheckedChanged);
             // 
-            // ApplyRemove_chk_RemoveAllSheets_EmptySheets
+            // Converter_rdo_Text_OnlyLetters
             // 
-            this.ApplyRemove_chk_RemoveAllSheets_EmptySheets.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ApplyRemove_chk_RemoveAllSheets_EmptySheets.Location = new System.Drawing.Point(10, 30);
-            this.ApplyRemove_chk_RemoveAllSheets_EmptySheets.Name = "ApplyRemove_chk_RemoveAllSheets_EmptySheets";
-            this.ApplyRemove_chk_RemoveAllSheets_EmptySheets.Size = new System.Drawing.Size(408, 24);
-            this.ApplyRemove_chk_RemoveAllSheets_EmptySheets.TabIndex = 15;
-            this.ApplyRemove_chk_RemoveAllSheets_EmptySheets.Text = "Empty Sheets";
-            this.ApplyRemove_chk_RemoveAllSheets_EmptySheets.UseVisualStyleBackColor = true;
-            this.ApplyRemove_chk_RemoveAllSheets_EmptySheets.CheckedChanged += new System.EventHandler(this.ApplyRemove_chk_RemoveAllSheets_EmptySheets_CheckedChanged);
+            this.Converter_rdo_Text_OnlyLetters.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Converter_rdo_Text_OnlyLetters.Location = new System.Drawing.Point(217, 142);
+            this.Converter_rdo_Text_OnlyLetters.Name = "Converter_rdo_Text_OnlyLetters";
+            this.Converter_rdo_Text_OnlyLetters.Size = new System.Drawing.Size(200, 24);
+            this.Converter_rdo_Text_OnlyLetters.TabIndex = 10;
+            this.Converter_rdo_Text_OnlyLetters.TabStop = true;
+            this.Converter_rdo_Text_OnlyLetters.Text = "Somente Letras";
+            this.Converter_rdo_Text_OnlyLetters.UseVisualStyleBackColor = true;
+            this.Converter_rdo_Text_OnlyLetters.CheckedChanged += new System.EventHandler(this.Converter_rdo_Text_OnlyLetters_CheckedChanged);
             // 
-            // ApplyRemove_grp_RemoveAllSheets
+            // Converter_rdo_Text_OnlyLettersAndNumbers
             // 
-            this.ApplyRemove_grp_RemoveAllSheets.Controls.Add(this.ApplyRemove_chk_RemoveAllSheets_HiddenSheets);
-            this.ApplyRemove_grp_RemoveAllSheets.Controls.Add(this.ApplyRemove_chk_RemoveAllSheets_EmptySheets);
-            this.ApplyRemove_grp_RemoveAllSheets.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ApplyRemove_grp_RemoveAllSheets.Location = new System.Drawing.Point(436, 516);
-            this.ApplyRemove_grp_RemoveAllSheets.Name = "ApplyRemove_grp_RemoveAllSheets";
-            this.ApplyRemove_grp_RemoveAllSheets.Size = new System.Drawing.Size(424, 150);
-            this.ApplyRemove_grp_RemoveAllSheets.TabIndex = 14;
-            this.ApplyRemove_grp_RemoveAllSheets.TabStop = false;
-            this.ApplyRemove_grp_RemoveAllSheets.Text = "Remove (All Sheets)";
-            // 
-            // ApplyRemove_chk_RemoveAllSheets_HiddenSheets
-            // 
-            this.ApplyRemove_chk_RemoveAllSheets_HiddenSheets.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ApplyRemove_chk_RemoveAllSheets_HiddenSheets.Location = new System.Drawing.Point(10, 60);
-            this.ApplyRemove_chk_RemoveAllSheets_HiddenSheets.Name = "ApplyRemove_chk_RemoveAllSheets_HiddenSheets";
-            this.ApplyRemove_chk_RemoveAllSheets_HiddenSheets.Size = new System.Drawing.Size(408, 24);
-            this.ApplyRemove_chk_RemoveAllSheets_HiddenSheets.TabIndex = 16;
-            this.ApplyRemove_chk_RemoveAllSheets_HiddenSheets.Text = "Hidden Sheets";
-            this.ApplyRemove_chk_RemoveAllSheets_HiddenSheets.UseVisualStyleBackColor = true;
-            this.ApplyRemove_chk_RemoveAllSheets_HiddenSheets.CheckedChanged += new System.EventHandler(this.ApplyRemove_chk_RemoveAllSheets_HiddenSheets_CheckedChanged);
-            // 
-            // ApplyRemove_grp_AddAllSheets
-            // 
-            this.ApplyRemove_grp_AddAllSheets.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ApplyRemove_grp_AddAllSheets.Location = new System.Drawing.Point(10, 516);
-            this.ApplyRemove_grp_AddAllSheets.Name = "ApplyRemove_grp_AddAllSheets";
-            this.ApplyRemove_grp_AddAllSheets.Size = new System.Drawing.Size(420, 150);
-            this.ApplyRemove_grp_AddAllSheets.TabIndex = 15;
-            this.ApplyRemove_grp_AddAllSheets.TabStop = false;
-            this.ApplyRemove_grp_AddAllSheets.Text = "Add (All Sheets)";
+            this.Converter_rdo_Text_OnlyLettersAndNumbers.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Converter_rdo_Text_OnlyLettersAndNumbers.Location = new System.Drawing.Point(217, 172);
+            this.Converter_rdo_Text_OnlyLettersAndNumbers.Name = "Converter_rdo_Text_OnlyLettersAndNumbers";
+            this.Converter_rdo_Text_OnlyLettersAndNumbers.Size = new System.Drawing.Size(250, 24);
+            this.Converter_rdo_Text_OnlyLettersAndNumbers.TabIndex = 11;
+            this.Converter_rdo_Text_OnlyLettersAndNumbers.TabStop = true;
+            this.Converter_rdo_Text_OnlyLettersAndNumbers.Text = "Somente Letras e Números";
+            this.Converter_rdo_Text_OnlyLettersAndNumbers.UseVisualStyleBackColor = true;
+            this.Converter_rdo_Text_OnlyLettersAndNumbers.CheckedChanged += new System.EventHandler(this.Converter_rdo_Text_OnlyLettersAndNumbers_CheckedChanged);
             // 
             // frm_Settings
             // 
@@ -1104,6 +1132,7 @@
             this.tbc_Main.ResumeLayout(false);
             this.tbp_Converter.ResumeLayout(false);
             this.tbp_ApplyRemove.ResumeLayout(false);
+            this.ApplyRemove_grp_RemoveAllSheets.ResumeLayout(false);
             this.ApplyRemove_grp_Apply.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -1119,7 +1148,6 @@
             this.ApplyRemove_grp_Apply_RowHeight.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ApplyRemove_nud_Apply_RowHeight)).EndInit();
             this.ApplyRemove_grp_Remove.ResumeLayout(false);
-            this.ApplyRemove_grp_RemoveAllSheets.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1200,5 +1228,7 @@
         private System.Windows.Forms.GroupBox ApplyRemove_grp_RemoveAllSheets;
         private System.Windows.Forms.CheckBox ApplyRemove_chk_RemoveAllSheets_HiddenSheets;
         private System.Windows.Forms.CheckBox ApplyRemove_chk_RemoveAllSheets_EmptySheets;
+        private System.Windows.Forms.RadioButton Converter_rdo_Text_OnlyLettersAndNumbers;
+        private System.Windows.Forms.RadioButton Converter_rdo_Text_OnlyLetters;
     }
 }
