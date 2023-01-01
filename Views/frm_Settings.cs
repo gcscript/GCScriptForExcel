@@ -65,9 +65,12 @@ namespace GCScript_for_Excel.Views
                     Converter_rdo_Text_OnlyLettersAndNumbers.Checked = true;
                     break;
                 case 6:
-                    Converter_rdo_Texto_Substituir.Checked = true;
+                    Converter_rdo_Text_Slug.Checked = true;
                     break;
                 case 7:
+                    Converter_rdo_Texto_Substituir.Checked = true;
+                    break;
+                case 8:
                     Converter_rdo_Texto_Alinhamento.Checked = true;
                     break;
 
@@ -221,9 +224,14 @@ namespace GCScript_for_Excel.Views
             Settings.Text_Option = 5;
         }
 
-        private void Converter_rdo_Texto_Substituir_CheckedChanged(object sender, EventArgs e)
+        private void Converter_rdo_Text_Slug_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Text_Option = 6;
+        }
+
+        private void Converter_rdo_Texto_Substituir_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.Text_Option = 7;
 
             if (Converter_rdo_Texto_Substituir.Checked)
             {
@@ -237,7 +245,7 @@ namespace GCScript_for_Excel.Views
 
         private void Converter_rdo_Texto_Alinhamento_CheckedChanged(object sender, EventArgs e)
         {
-            Settings.Text_Option = 7;
+            Settings.Text_Option = 8;
 
             if (Converter_rdo_Texto_Alinhamento.Checked)
             {
@@ -530,6 +538,5 @@ namespace GCScript_for_Excel.Views
             Settings.ApplyRemove_RemoveAllSheets_HiddenSheets = ApplyRemove_chk_RemoveAllSheets_HiddenSheets.Checked;
         }
 
-        
     }
 }

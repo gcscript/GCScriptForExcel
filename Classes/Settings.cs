@@ -2,9 +2,7 @@
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using GCScript_for_Excel;
 using Microsoft.Office.Interop.Excel;
-using Microsoft.Office.Tools.Ribbon;
 using static System.Net.Mime.MediaTypeNames;
 using static GCScript_for_Excel.Models.Enums;
 using Appl = Microsoft.Office.Interop.Excel.Application;
@@ -31,8 +29,9 @@ namespace GCScript_for_Excel.Classes
         // Option 3 = Original
         // Option 4 = Somente Letras
         // Option 5 = Somente Letras e Números
-        // Option 6 = Substituir
-        // Option 7 = Alinhamento
+        // Option 6 = Slug
+        // Option 7 = Substituir
+        // Option 8 = Alinhamento
 
         public static int converter_Text_Opcao_Alinhamento = 0;
         // Option 0 = Esquerda
@@ -146,23 +145,30 @@ namespace GCScript_for_Excel.Classes
                     }
                     else if (Text_Option == 4) // Somente Letras
                     {
-                        texto = texto.ToLower();
+                        texto = texto.ToLower().Trim();
                         texto = Regex.Replace(texto, @"[^a-zA-Z]", "");
 
                     }
                     else if (Text_Option == 5) // Somente Letras e Números
                     {
-                        texto = texto.ToLower();
+                        texto = texto.ToLower().Trim();
                         texto = Regex.Replace(texto, @"[^a-zA-Z0-9]", "");
                     }
-                    else if (Text_Option == 6) // Substituir
+                    else if (Text_Option == 6) // Slug
+                    {
+                        texto = texto.ToLower().Trim();
+                        texto = Regex.Replace(texto.Trim(), @"\s", "-");
+                        texto = Regex.Replace(texto.Trim(), @"[^a-zA-Z0-9-]", "");
+                        texto = Regex.Replace(texto.Trim(), @"-{2,}", "-");
+                    }
+                    else if (Text_Option == 7) // Substituir
                     {
                         string origem = converter_Text_Substituir_Origem;
                         string destino = converter_Text_Substituir_Destino;
 
                         texto = texto.Replace(origem, destino);
                     }
-                    else if (Text_Option == 7) // Alinhamento
+                    else if (Text_Option == 8) // Alinhamento
                     {
                         if (converter_Text_Opcao_Alinhamento == 0) // Esquerda
                         {

@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.Converter_grp_ConverterTexto = new System.Windows.Forms.GroupBox();
+            this.Converter_rdo_Text_OnlyLettersAndNumbers = new System.Windows.Forms.RadioButton();
+            this.Converter_rdo_Text_OnlyLetters = new System.Windows.Forms.RadioButton();
             this.Converter_pnl_Texto_Alinhamento = new System.Windows.Forms.Panel();
             this.Converter_rdo_Texto_Alinhamento_Direita = new System.Windows.Forms.RadioButton();
             this.Converter_rdo_Texto_Alinhamento_Centralizado = new System.Windows.Forms.RadioButton();
@@ -102,8 +104,7 @@
             this.ApplyRemove_chk_Remove_FontItalic = new System.Windows.Forms.CheckBox();
             this.ApplyRemove_chk_Remove_Fill = new System.Windows.Forms.CheckBox();
             this.ApplyRemove_chk_Remove_Borders = new System.Windows.Forms.CheckBox();
-            this.Converter_rdo_Text_OnlyLetters = new System.Windows.Forms.RadioButton();
-            this.Converter_rdo_Text_OnlyLettersAndNumbers = new System.Windows.Forms.RadioButton();
+            this.Converter_rdo_Text_Slug = new System.Windows.Forms.RadioButton();
             this.Converter_grp_ConverterTexto.SuspendLayout();
             this.Converter_pnl_Texto_Alinhamento.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Converter_nud_Texto_Alinhamento_Comprimento)).BeginInit();
@@ -128,6 +129,7 @@
             // 
             // Converter_grp_ConverterTexto
             // 
+            this.Converter_grp_ConverterTexto.Controls.Add(this.Converter_rdo_Text_Slug);
             this.Converter_grp_ConverterTexto.Controls.Add(this.Converter_rdo_Text_OnlyLettersAndNumbers);
             this.Converter_grp_ConverterTexto.Controls.Add(this.Converter_rdo_Text_OnlyLetters);
             this.Converter_grp_ConverterTexto.Controls.Add(this.Converter_pnl_Texto_Alinhamento);
@@ -148,6 +150,30 @@
             this.Converter_grp_ConverterTexto.TabIndex = 0;
             this.Converter_grp_ConverterTexto.TabStop = false;
             this.Converter_grp_ConverterTexto.Text = "Texto";
+            // 
+            // Converter_rdo_Text_OnlyLettersAndNumbers
+            // 
+            this.Converter_rdo_Text_OnlyLettersAndNumbers.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Converter_rdo_Text_OnlyLettersAndNumbers.Location = new System.Drawing.Point(217, 172);
+            this.Converter_rdo_Text_OnlyLettersAndNumbers.Name = "Converter_rdo_Text_OnlyLettersAndNumbers";
+            this.Converter_rdo_Text_OnlyLettersAndNumbers.Size = new System.Drawing.Size(250, 24);
+            this.Converter_rdo_Text_OnlyLettersAndNumbers.TabIndex = 11;
+            this.Converter_rdo_Text_OnlyLettersAndNumbers.TabStop = true;
+            this.Converter_rdo_Text_OnlyLettersAndNumbers.Text = "Somente Letras e Números";
+            this.Converter_rdo_Text_OnlyLettersAndNumbers.UseVisualStyleBackColor = true;
+            this.Converter_rdo_Text_OnlyLettersAndNumbers.CheckedChanged += new System.EventHandler(this.Converter_rdo_Text_OnlyLettersAndNumbers_CheckedChanged);
+            // 
+            // Converter_rdo_Text_OnlyLetters
+            // 
+            this.Converter_rdo_Text_OnlyLetters.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Converter_rdo_Text_OnlyLetters.Location = new System.Drawing.Point(217, 142);
+            this.Converter_rdo_Text_OnlyLetters.Name = "Converter_rdo_Text_OnlyLetters";
+            this.Converter_rdo_Text_OnlyLetters.Size = new System.Drawing.Size(200, 24);
+            this.Converter_rdo_Text_OnlyLetters.TabIndex = 10;
+            this.Converter_rdo_Text_OnlyLetters.TabStop = true;
+            this.Converter_rdo_Text_OnlyLetters.Text = "Somente Letras";
+            this.Converter_rdo_Text_OnlyLetters.UseVisualStyleBackColor = true;
+            this.Converter_rdo_Text_OnlyLetters.CheckedChanged += new System.EventHandler(this.Converter_rdo_Text_OnlyLetters_CheckedChanged);
             // 
             // Converter_pnl_Texto_Alinhamento
             // 
@@ -1083,29 +1109,17 @@
             this.ApplyRemove_chk_Remove_Borders.UseVisualStyleBackColor = true;
             this.ApplyRemove_chk_Remove_Borders.CheckedChanged += new System.EventHandler(this.ApplyRemove_chk_Remove_Borders_CheckedChanged);
             // 
-            // Converter_rdo_Text_OnlyLetters
+            // Converter_rdo_Text_Slug
             // 
-            this.Converter_rdo_Text_OnlyLetters.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Converter_rdo_Text_OnlyLetters.Location = new System.Drawing.Point(217, 142);
-            this.Converter_rdo_Text_OnlyLetters.Name = "Converter_rdo_Text_OnlyLetters";
-            this.Converter_rdo_Text_OnlyLetters.Size = new System.Drawing.Size(200, 24);
-            this.Converter_rdo_Text_OnlyLetters.TabIndex = 10;
-            this.Converter_rdo_Text_OnlyLetters.TabStop = true;
-            this.Converter_rdo_Text_OnlyLetters.Text = "Somente Letras";
-            this.Converter_rdo_Text_OnlyLetters.UseVisualStyleBackColor = true;
-            this.Converter_rdo_Text_OnlyLetters.CheckedChanged += new System.EventHandler(this.Converter_rdo_Text_OnlyLetters_CheckedChanged);
-            // 
-            // Converter_rdo_Text_OnlyLettersAndNumbers
-            // 
-            this.Converter_rdo_Text_OnlyLettersAndNumbers.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Converter_rdo_Text_OnlyLettersAndNumbers.Location = new System.Drawing.Point(217, 172);
-            this.Converter_rdo_Text_OnlyLettersAndNumbers.Name = "Converter_rdo_Text_OnlyLettersAndNumbers";
-            this.Converter_rdo_Text_OnlyLettersAndNumbers.Size = new System.Drawing.Size(250, 24);
-            this.Converter_rdo_Text_OnlyLettersAndNumbers.TabIndex = 11;
-            this.Converter_rdo_Text_OnlyLettersAndNumbers.TabStop = true;
-            this.Converter_rdo_Text_OnlyLettersAndNumbers.Text = "Somente Letras e Números";
-            this.Converter_rdo_Text_OnlyLettersAndNumbers.UseVisualStyleBackColor = true;
-            this.Converter_rdo_Text_OnlyLettersAndNumbers.CheckedChanged += new System.EventHandler(this.Converter_rdo_Text_OnlyLettersAndNumbers_CheckedChanged);
+            this.Converter_rdo_Text_Slug.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Converter_rdo_Text_Slug.Location = new System.Drawing.Point(217, 202);
+            this.Converter_rdo_Text_Slug.Name = "Converter_rdo_Text_Slug";
+            this.Converter_rdo_Text_Slug.Size = new System.Drawing.Size(200, 24);
+            this.Converter_rdo_Text_Slug.TabIndex = 12;
+            this.Converter_rdo_Text_Slug.TabStop = true;
+            this.Converter_rdo_Text_Slug.Text = "Slug";
+            this.Converter_rdo_Text_Slug.UseVisualStyleBackColor = true;
+            this.Converter_rdo_Text_Slug.CheckedChanged += new System.EventHandler(this.Converter_rdo_Text_Slug_CheckedChanged);
             // 
             // frm_Settings
             // 
@@ -1230,5 +1244,6 @@
         private System.Windows.Forms.CheckBox ApplyRemove_chk_RemoveAllSheets_EmptySheets;
         private System.Windows.Forms.RadioButton Converter_rdo_Text_OnlyLettersAndNumbers;
         private System.Windows.Forms.RadioButton Converter_rdo_Text_OnlyLetters;
+        private System.Windows.Forms.RadioButton Converter_rdo_Text_Slug;
     }
 }
